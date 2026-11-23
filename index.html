@@ -31,7 +31,7 @@
       <button id="btn-mis-compras" class="hidden" onclick="cambiarVista('compras')">MIS BOLETAS</button>
       <button id="btn-inventario" class="admin-only hidden" onclick="cambiarVista('inventario')">INVENTARIO</button>
       <button id="btn-ventas" class="admin-only hidden" onclick="cambiarVista('ventas')">VENTAS</button>
-      <button id="btn-config-pagos" class="admin-only hidden" onclick="cambiarVista('config-pagos')">CONFIG. PAGOS / QR</button>
+      <button id="btn-usuarios" class="admin-only hidden" onclick="cambiarVista('usuarios')">USUARIOS</button><button id="btn-config-pagos" class="admin-only hidden" onclick="cambiarVista('config-pagos')">CONFIG. PAGOS / QR</button>
       <button class="cart-btn" onclick="toggleCarrito()">CARRITO (<span id="cart-count">0</span>)</button>
       <div id="auth-zone" class="auth-zone"></div>
     </nav>
@@ -306,6 +306,29 @@
     </div>
   </main>
 
+    <!-- VISTA 6: GESTIÓN DE USUARIOS Y PERMISOS (SOLO ADMINISTRADOR) -->
+  <main id="vista-usuarios" class="container hidden">
+    <div class="inv-header">
+      <div>
+        <h2>CONTROL DE USUARIOS Y PERMISOS DE ADMINISTRADOR</h2>
+        <p class="sub">Otorga o revoca privilegios de administrador a cualquier cuenta registrada en la plataforma.</p>
+      </div>
+    </div>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>USUARIO / NOMBRE</th>
+            <th>CORREO ELECTRÓNICO</th>
+            <th>ROL ACTUAL</th>
+            <th>ASIGNACIÓN DE PERMISOS</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-usuarios-admin"></tbody>
+      </table>
+    </div>
+  </main>
+
   <!-- MODAL FICHA TÉCNICA -->
   <div id="modal-ficha" class="modal-overlay hidden" onclick="cerrarModal(event, 'modal-ficha')">
     <div class="modal-card" id="ficha-contenido"></div>
@@ -499,7 +522,7 @@
     </div>
   </aside>
 
-  <script src="app.js?v=4"></script>
+  <script src="app.js?v=5"></script>
   <!-- BARRA DE NAVEGACIÓN INFERIOR EXCLUSIVA PARA CELULARES (< 768px) -->
   <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
     <button onclick="cambiarVista('tienda')" id="mob-btn-tienda" class="active">
@@ -517,5 +540,6 @@
   </nav>
 </body>
 </html>
+
 
 

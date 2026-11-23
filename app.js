@@ -997,3 +997,65 @@ actualizarUIUsuario = function() {
 
 actualizarUIUsuario();
 actualizarCarritoUI();
+
+// ================= GESTIÓN DE USUARIOS Y ROLES (EXCLUSIVO ADMIN) =================
+const _origActualizarUIUsuario2 = actualizarUIUsuario;
+actualizarUIUsuario = function() {
+  _origActualizarUIUsuario2();
+  const btnUsr = document.getElementById("btn-usuarios");
+  if (btnUsr) {
+    btnUsr.classList.toggle("hidden", sesionActual?.rol !== "admin");
+  }
+};
+
+const _origCambiarVista2 = cambiarVista;
+cambiarVista = function(vista) {
+  if (vista === "usuarios" && sesionActual?.rol !== "admin") {
+    return alert("Acceso restringido: Solo cuentas de Administrador.");
+  }
+  const secUsr = document.getElementById("vista-usuarios");
+  if (secUsr) secUsr.classList.toggle("hidden", vista !== "usuarios");
+  _origCambiarVista2(vista);
+  if (vista === "usuarios") {
+    if (secUsr) secUsr.classList.remove("hidden");
+    const btnUsr = document.getElementById("btn-usuarios");
+    if (btnUsr) btnUsr.classList.add("active");
+    renderUsuariosAdmin();
+  }
+};
+
+function renderUsuariosAdmin() {
+  const tbody = document.getElementById("tabla-usuarios-admin");
+  if (!tbody) return;
+  tbody.innerHTML = usuarios.map(u => {
+    const esPrincipal = u.email === "cristhian.flores.q@tecsup.edu.pe";
+    const esAdmin = u.rol === "admin";
+    return `
+      <tr>
+        <td><strong>${u.nombre}</strong></td>
+        <td>${u.email}</td>
+        <td><span class="role-badge ${esAdmin ? '' : 'client'}">${esAdmin ? 'ADMINISTRADOR' : 'CLIENTE'}</span></td>
+        <td>
+          ${esPrincipal
+            ? '<span style="color:#a1a1aa;font-size:0.78rem;">Administrador Principal (Protegido)</span>'
+            : `<button class="btn-stock" onclick="cambiarRolUsuario('${u.email}')">
+                 ${esAdmin ? 'Quitar Permiso Admin (Volver Cliente)' : 'Dar Permiso de Administrador'}
+               </button>`
+          }
+        </td>
+      </tr>
+    `;
+  }).join("");
+}
+
+function cambiarRolUsuario(email) {
+  if (email === "cristhian.flores.q@tecsup.edu.pe") return;
+  const user = usuarios.find(u => u.email === email);
+  if (!user) return;
+  user.rol = user.rol === "admin" ? "cliente" : "admin";
+  guardarTodoDB();
+  renderUsuariosAdmin();
+  alert(`Permisos actualizados: ${user.nombre} (${user.email}) ahora tiene rol de ${user.rol.toUpperCase()}.`);
+}
+
+actualizarUIUsuario();
