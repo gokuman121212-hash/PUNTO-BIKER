@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PUNTO BIKER | Concesionario Oficial Multimarca</title>
+  <title>PUNTO BIKER | Plataforma Automotriz Multimarca</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
@@ -11,14 +11,14 @@
 </head>
 <body>
   <header class="navbar">
-    <div class="logo-box">
-      <svg width="42" height="46" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div class="logo-box" onclick="cambiarVista('tienda')" style="cursor:pointer;">
+      <svg width="40" height="44" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M12 16 L49 10 L49 54 L28 58 L28 92 L12 84 Z M28 27 L28 43 L37 41 L37 25 Z" fill="#FFFFFF"/>
         <path fill-rule="evenodd" clip-rule="evenodd" d="M53 10 L86 17 L86 46 L73 53 L88 61 L88 86 L50 104 L34 96 L34 64 L53 60 L53 84 L71 76 L71 63 L53 66 L53 51 L70 48 L70 31 L53 28 Z" fill="#B91C1C"/>
       </svg>
       <div class="brand-text">
         <span class="brand-top">PUNTO</span>
-        <span class="brand-bottom">BIKER</span>
+        <span class="brand-bottom">BIKER <small class="sys-tag">OS v2.6</small></span>
       </div>
     </div>
 
@@ -27,17 +27,20 @@
     </div>
 
     <nav class="nav-actions">
-      <button id="btn-tienda" class="active" onclick="cambiarVista('tienda')">CATÁLOGO (<span id="total-modelos-nav">318</span>)</button>
-      <button id="btn-inventario" onclick="cambiarVista('inventario')">INVENTARIO</button>
-      <button class="cart-btn" onclick="toggleCarrito()">COTIZACIÓN (<span id="cart-count">0</span>)</button>
+      <button id="btn-tienda" class="active" onclick="cambiarVista('tienda')">CATÁLOGO (<span id="total-modelos-nav">0</span>)</button>
+      <button id="btn-mis-compras" class="hidden" onclick="cambiarVista('compras')">MIS BOLETAS</button>
+      <button id="btn-inventario" class="admin-only hidden" onclick="cambiarVista('inventario')">INVENTARIO</button>
+      <button id="btn-ventas" class="admin-only hidden" onclick="cambiarVista('ventas')">VENTAS</button>
+      <button class="cart-btn" onclick="toggleCarrito()">CARRITO (<span id="cart-count">0</span>)</button>
+      <div id="auth-zone" class="auth-zone"></div>
     </nav>
   </header>
 
+  <!-- VISTA 1: CATÁLOGO CON FILTROS -->
   <main id="vista-tienda" class="container-layout">
-    <!-- BARRA LATERAL DE FILTROS SOBRIA (GRIS RATA / NEGRO / BLANCO) -->
     <aside class="sidebar-filtros">
       <div class="sidebar-header">
-        <span>FILTROS DE BÚSQUEDA</span>
+        <span><i class="led-dot"></i> FILTROS TÉCNICOS</span>
         <button class="btn-limpiar-todo" onclick="limpiarFiltros()">Limpiar todo</button>
       </div>
 
@@ -65,7 +68,7 @@
 
       <details class="filtro-acordeon">
         <summary>MOTOR</summary>
-        <div class="filtro-contenido" id="filtro-motor-lista">
+        <div class="filtro-contenido">
           <label><input type="radio" name="motor" value="Todos" checked onchange="resetPaginaYRender()"> Todos los motores</label>
           <label><input type="radio" name="motor" value="baja" onchange="resetPaginaYRender()"> Baja Cilindrada (110cc - 250cc)</label>
           <label><input type="radio" name="motor" value="media" onchange="resetPaginaYRender()"> Media Cilindrada (251cc - 750cc)</label>
@@ -142,7 +145,6 @@
       </details>
     </aside>
 
-    <!-- ZONA PRINCIPAL DE RESULTADOS -->
     <section class="zona-catalogo">
       <div class="catalogo-topbar">
         <div id="resultados-info">Cargando catálogo...</div>
@@ -159,16 +161,28 @@
     </section>
   </main>
 
-  <!-- VISTA INVENTARIO -->
+  <!-- VISTA 2: MIS BOLETAS / COMPRAS DEL CLIENTE -->
+  <main id="vista-compras" class="container hidden">
+    <div class="inv-header">
+      <div>
+        <h2>HISTORIAL DE COMPRAS Y BOLETAS ELECTRÓNICAS</h2>
+        <p class="sub" id="compras-usuario-sub">Comprobantes digitales asociados a tu cuenta.</p>
+      </div>
+    </div>
+    <div id="lista-boletas-cliente" class="boletas-grid"></div>
+  </main>
+
+  <!-- VISTA 3: INVENTARIO CRUD (SOLO ADMINISTRADOR) -->
   <main id="vista-inventario" class="container hidden">
     <div class="inv-header">
       <div>
-        <h2>CONTROL DE INVENTARIOS (<span id="total-modelos-inv">318</span> MODELOS)</h2>
-        <p class="sub">Gestión centralizada de stock y auditoría visual en almacén.</p>
+        <h2>GESTIÓN DE INVENTARIO EN TIEMPO REAL (<span id="total-modelos-inv">0</span> UNIDADES)</h2>
+        <p class="sub">Control exclusivo de administrador: alta de nuevos modelos, edición de ficha, precios, stock e imágenes.</p>
       </div>
       <div class="inv-tools">
-        <input type="text" id="buscador-inv" placeholder="Filtrar por marca o modelo..." oninput="renderInventario()" />
-        <button class="btn-reset" onclick="resetearDatos()">Restaurar Stock</button>
+        <input type="text" id="buscador-inv" placeholder="Filtrar modelo o marca..." oninput="renderInventario()" />
+        <button class="btn-add" onclick="abrirModalProducto()">+ NUEVA MOTOCICLETA</button>
+        <button class="btn-reset" onclick="resetearDatos()">Restaurar Base</button>
       </div>
     </div>
     <div class="tabla-wrap">
@@ -176,13 +190,14 @@
         <thead>
           <tr>
             <th>ID</th>
+            <th>FOTO</th>
             <th>MARCA</th>
             <th>CATEGORÍA</th>
             <th>MODELO</th>
-            <th>ESPECIFICACIONES</th>
+            <th>MOTOR / HP</th>
             <th>PRECIO (USD)</th>
             <th>STOCK</th>
-            <th>ACCIONES</th>
+            <th>GESTIÓN CRUD</th>
           </tr>
         </thead>
         <tbody id="tabla-inventario"></tbody>
@@ -190,24 +205,221 @@
     </div>
   </main>
 
-  <!-- MODAL FICHA TÉCNICA COMPLETA -->
-  <div id="modal-ficha" class="modal-overlay hidden" onclick="cerrarFicha(event)">
+  <!-- VISTA 4: REPORTE GLOBAL DE VENTAS (SOLO ADMINISTRADOR) -->
+  <main id="vista-ventas" class="container hidden">
+    <div class="inv-header">
+      <div>
+        <h2>REGISTRO GLOBAL DE VENTAS Y OPERACIONES</h2>
+        <p class="sub">Auditoría financiera en tiempo real de todas las transacciones completadas en la plataforma.</p>
+      </div>
+      <div class="kpi-box">
+        <div><span>OPERACIONES</span><strong id="kpi-ventas-count">0</strong></div>
+        <div><span>INGRESOS TOTALES</span><strong id="kpi-ventas-total">$0 USD</strong></div>
+      </div>
+    </div>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>BOLETA / CIP</th>
+            <th>FECHA Y HORA</th>
+            <th>CLIENTE</th>
+            <th>DETALLE DE UNIDADES</th>
+            <th>MÉTODO DE PAGO</th>
+            <th>TOTAL PAGADO</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-ventas-admin"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- MODAL FICHA TÉCNICA -->
+  <div id="modal-ficha" class="modal-overlay hidden" onclick="cerrarModal(event, 'modal-ficha')">
     <div class="modal-card" id="ficha-contenido"></div>
   </div>
 
-  <!-- CARRITO / COTIZACIÓN -->
+  <!-- MODAL LOGIN / REGISTRO -->
+  <div id="modal-auth" class="modal-overlay hidden" onclick="cerrarModal(event, 'modal-auth')">
+    <div class="modal-card modal-sm">
+      <div class="modal-info">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <h2 id="auth-titulo">ACCESO AL SISTEMA</h2>
+          <button onclick="document.getElementById('modal-auth').classList.add('hidden')" class="btn-close-x">✕</button>
+        </div>
+        <div class="auth-tabs">
+          <button id="tab-login" class="active" onclick="switchAuthTab('login')">INICIAR SESIÓN</button>
+          <button id="tab-register" onclick="switchAuthTab('register')">REGISTRARSE</button>
+        </div>
+        <form id="form-auth" onsubmit="procesarAuth(event)" class="tech-form">
+          <div id="campo-nombre-wrap" class="hidden">
+            <label>Nombre Completo / Razón Social</label>
+            <input type="text" id="auth-nombre" placeholder="Ej. Carlos Mendoza" />
+          </div>
+          <div>
+            <label>Correo Electrónico</label>
+            <input type="email" id="auth-email" required placeholder="cliente@gmail.com o admin@puntobiker.com" />
+          </div>
+          <div>
+            <label>Contraseña</label>
+            <input type="password" id="auth-pass" required placeholder="••••••••" />
+          </div>
+          <p class="auth-hint">Acceso Demo Admin: <strong>admin@puntobiker.com</strong> / Clave: <strong>admin123</strong><br/>Cualquier correo <strong>@puntobiker.com</strong> obtiene permisos de Administrador.</p>
+          <button type="submit" class="btn-comprar" id="btn-auth-submit">INGRESAR A LA PLATAFORMA</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL AGREGAR / EDITAR MOTO (ADMIN) -->
+  <div id="modal-producto" class="modal-overlay hidden" onclick="cerrarModal(event, 'modal-producto')">
+    <div class="modal-card modal-sm">
+      <div class="modal-info">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <h2 id="prod-modal-titulo">AGREGAR NUEVA MOTOCICLETA</h2>
+          <button onclick="document.getElementById('modal-producto').classList.add('hidden')" class="btn-close-x">✕</button>
+        </div>
+        <form id="form-producto" onsubmit="guardarProductoAdmin(event)" class="tech-form">
+          <input type="hidden" id="prod-id" />
+          <div class="form-row-2">
+            <div>
+              <label>Marca</label>
+              <input type="text" id="prod-marca" required placeholder="Ej. Ducati, Yamaha, ZXMoto" />
+            </div>
+            <div>
+              <label>Categoría</label>
+              <select id="prod-categoria">
+                <option value="Superdeportivas">Superdeportivas</option>
+                <option value="Deportivas">Deportivas</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Doble Propósito">Doble Propósito</option>
+                <option value="Naked">Naked</option>
+                <option value="Scooters">Scooters</option>
+                <option value="Custom">Custom</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label>Modelo Exacto</label>
+            <input type="text" id="prod-modelo" required placeholder="Ej. Panigale V4 R" />
+          </div>
+          <div class="form-row-3">
+            <div>
+              <label>Cilindrada (cc)</label>
+              <input type="number" id="prod-cc" required min="0" value="600" />
+            </div>
+            <div>
+              <label>Potencia (HP)</label>
+              <input type="number" id="prod-hp" required min="1" value="95" />
+            </div>
+            <div>
+              <label>Stock Inicial</label>
+              <input type="number" id="prod-stock" required min="0" value="5" />
+            </div>
+          </div>
+          <div>
+            <label>Precio de Lista (USD)</label>
+            <input type="number" id="prod-precio" required min="100" value="12500" />
+          </div>
+          <div>
+            <label>URL de Fotografía (Opcional - Si lo dejas vacío busca foto automática)</label>
+            <input type="url" id="prod-img" placeholder="https://..." />
+          </div>
+          <button type="submit" class="btn-comprar">GUARDAR EN BASE DE DATOS</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL PASARELA DE PAGOS VIRTUALES Y PAGOEFECTIVO -->
+  <div id="modal-pasarela" class="modal-overlay hidden" onclick="cerrarModal(event, 'modal-pasarela')">
+    <div class="modal-card modal-pasarela-box">
+      <div class="modal-info">
+        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:14px;">
+          <div>
+            <span class="marca-tag">CHECKOUT SEGURO SSL</span>
+            <h2 style="margin-top:4px;">PASARELA DE PAGOS PUNTO BIKER</h2>
+          </div>
+          <button onclick="document.getElementById('modal-pasarela').classList.add('hidden')" class="btn-close-x">✕</button>
+        </div>
+
+        <div class="pasarela-resumen">
+          <span>Total a pagar:</span>
+          <strong id="pasarela-monto-total">$0 USD</strong>
+        </div>
+
+        <div class="metodos-tabs">
+          <button type="button" class="active" onclick="seleccionarMetodoPago('tarjeta', this)">TARJETA CRÉDITO / DÉBITO</button>
+          <button type="button" onclick="seleccionarMetodoPago('yape', this)">QR YAPE / PLIN</button>
+          <button type="button" onclick="seleccionarMetodoPago('pagoefectivo', this)">PAGOEFECTIVO (CIP)</button>
+          <button type="button" onclick="seleccionarMetodoPago('transferencia', this)">TRANSFERENCIA CCI</button>
+        </div>
+
+        <div id="panel-pago-tarjeta" class="panel-metodo">
+          <div class="tech-form">
+            <div>
+              <label>Número de Tarjeta (Visa / Mastercard / Amex)</label>
+              <input type="text" id="card-num" maxlength="19" placeholder="4557 •••• •••• 8842" />
+            </div>
+            <div class="form-row-2">
+              <div>
+                <label>Vencimiento (MM/AA)</label>
+                <input type="text" id="card-exp" maxlength="5" placeholder="09/29" />
+              </div>
+              <div>
+                <label>Código CVV</label>
+                <input type="password" id="card-cvv" maxlength="4" placeholder="•••" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="panel-pago-yape" class="panel-metodo hidden">
+          <div class="qr-box">
+            <img id="qr-yape-img" alt="QR Yape Plin" />
+            <div>
+              <p><strong>Escanea el código QR desde tu app Yape o Plin</strong></p>
+              <p class="sub">Titular: PUNTO BIKER MOTORSPORT S.A.C.</p>
+              <p class="sub">Código de referencia: <strong id="ref-yape">PB-9921</strong></p>
+            </div>
+          </div>
+        </div>
+
+        <div id="panel-pago-pagoefectivo" class="panel-metodo hidden">
+          <div class="cip-box">
+            <span class="marca-tag" style="background:#eab308;color:#000;border:none;">PAGOEFECTIVO - DEPÓSITO EN EFECTIVO O BANCA MÓVIL</span>
+            <p class="sub" style="margin-top:8px;">Código de Pago CIP generado automáticamente:</p>
+            <div class="cip-code" id="codigo-cip-generado">914820553</div>
+            <p class="sub">Válido para pagar en BCP, BBVA, Interbank, Scotiabank, Agentes KasNet y Western Union.</p>
+          </div>
+        </div>
+
+        <div id="panel-pago-transferencia" class="panel-metodo hidden">
+          <div class="cip-box">
+            <p><strong>Transferencia Interbancaria Inmediata (CCI)</strong></p>
+            <p class="sub" style="margin-top:6px;">Banco de Crédito del Perú (BCP) Dólares: <strong>193-98472610-1-44</strong></p>
+            <p class="sub">Código Interbancario (CCI): <strong>002-193-198472610144-18</strong></p>
+          </div>
+        </div>
+
+        <button class="btn-comprar" style="margin-top:16px;" onclick="confirmarPagoFinal()">CONFIRMAR PAGO Y GENERAR BOLETA ELECTRÓNICA</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARRITO DRAWER -->
   <aside id="modal-carrito" class="carrito-drawer hidden">
     <div class="carrito-header">
-      <h3>RESUMEN DE COTIZACIÓN</h3>
+      <h3>ORDEN DE COMPRA</h3>
       <button onclick="toggleCarrito()">✕</button>
     </div>
     <div id="carrito-items" class="carrito-body"></div>
     <div class="carrito-footer">
       <div class="total-row">
-        <span>TOTAL ESTIMADO:</span>
+        <span>TOTAL:</span>
         <strong id="carrito-total">$0</strong>
       </div>
-      <button class="btn-comprar" onclick="finalizarCompra()">CONFIRMAR COMPRA Y DESCONTAR STOCK</button>
+      <button class="btn-comprar" onclick="iniciarCheckout()">CONTINUAR A PASARELA DE PAGO</button>
     </div>
   </aside>
 
