@@ -382,13 +382,65 @@ function construirCatalogoCompleto() {
 }
 
 const DATOS_INICIALES = construirCatalogoCompleto();
-let productos = JSON.parse(localStorage.getItem("punto_biker_v7")) || DATOS_INICIALES;
+let productos = JSON.parse(localStorage.getItem("punto_biker_v8")) || DATOS_INICIALES;
 let carrito = [];
 let moneda = "USD";
 const TASA_PEN = 3.75;
 let paginaActual = 1;
 const POR_PAGINA = 21;
 const cacheFotos = JSON.parse(localStorage.getItem("punto_biker_fotos_v3") || "{}");
+
+function guardarDB() {
+  localStorage.setItem("punto_biker_v8", JSON.stringify(productos));
+}
+
+function formatearPrecio(usd) {
+  if (moneda === "USD") return `$${usd.toLocaleString()} USD`;
+  return `S/ ${Math.round(usd * TASA_PEN).toLocaleString()}`;
+}
+
+function cambiarMoneda(m) {
+  moneda = m;
+  document.getElementById("btn-usd").classList.toggle("active", m === "USD");
+  document.getElementById("btn-pen").classList.toggle("active", m === "PEN");
+  actualizarPrecioFiltro();
+}
+
+function actualizarPrecioFiltro() {
+  const val = Number(document.getElementById("filtro-precio").value);
+  document.getElementById("precio-max-label").innerText = formatearPrecio(val);
+  resetPaginaYRender();
+}
+
+function inicializarSidebar() {
+  document.getElementById("total-modelos-nav").innerText = productos.length;
+  document.getElementById("total-modelos-inv").innerText = productos.length;
+
+  const marcas = [...new Set(productos.map(p => p.marca))].sort();
+  document.getElementById("filtro-marca-lista").innerHTML = marcas.map(m =>
+    `<label><input type="checkbox" class="chk-marca" value="${m}" onchange="resetPaginaYRender()"> ${m}</label>`
+  ).join("");
+
+  const tipos = [...new Set(productos.map(p => p.categoria))];
+  document.getElementById("filtro-tipo-lista").innerHTML = tipos.map(t =>
+    `<label><input type="checkbox" class="chk-tipo" value="${t}" onchange="resetPaginaYRender()"> ${t}</label>`
+  ).join("");
+}
+
+function limpiarFiltros() {
+  document.getElementById("buscador").value = "";
+  document.querySelectorAll(".chk-marca, .chk-tipo").forEach(c => c.checked = false);
+  document.querySelectorAll("input[type='radio'][value='Todos']").forEach(r => r.checked = true);
+  document.getElementById("filtro-stock").checked = false;
+  document.getElementById("filtro-tft").checked = false;
+  document.getElementById("filtro-precio").value = 180000;
+  actualizarPrecioFiltro();
+}
+
+function resetPaginaYRender() {
+  paginaActual = 1;
+  renderCatalogo();
+}
 
 async function buscarEnWikipedia(lang, termino) {
   const url = `https://${lang}.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(termino)}&gsrlimit=2&prop=pageimages&pithumbsize=600&format=json&origin=*`;
@@ -509,7 +561,7 @@ function renderCatalogo() {
         <div class="card-img-wrap" onclick="verFicha(${p.id})" style="border-bottom: 3px solid ${colorMarca};">
           <img id="img-moto-${p.id}" src="${cacheFotos[p.nombre] || p.img}" alt="${p.nombre}" />
           <span id="badge-foto-${p.id}" style="position:absolute;bottom:6px;right:6px;background:rgba(7,11,20,0.82);color:#cbd5e1;font-size:0.68rem;padding:2px 7px;border-radius:4px;">
-            ${tieneFotoReal ? "✓ Foto Oficial" : p.categoria}
+            ${tieneFotoReal ? "✓ Foto Real" : p.categoria}
           </span>
         </div>
         <div class="card-body">
@@ -711,4 +763,3 @@ inicializarSidebar();
 renderCatalogo();
 renderInventario();
 actualizarCarritoUI();
-
