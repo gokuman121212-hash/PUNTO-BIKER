@@ -535,3 +535,39 @@ th { background: #050507; color: var(--muted); font-size: 0.82rem; }
     font-size: 0.74rem;
   }
 }
+
+/* FORZAR 2 COLUMNAS EN MÓVIL (< 768px) */
+@media screen and (max-width: 767px) {
+  #catalogo-grid.grid-productos {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+  #catalogo-grid .card-img-wrap {
+    height: 115px !important;
+  }
+  #catalogo-grid .card-body {
+    padding: 8px !important;
+  }
+  #catalogo-grid .card h3 {
+    font-size: 0.9rem !important;
+    line-height: 1.2 !important;
+  }
+  #catalogo-grid .specs {
+    font-size: 0.65rem !important;
+    padding: 4px 6px !important;
+  }
+  #catalogo-grid .precio {
+    font-size: 1rem !important;
+  }
+  #catalogo-grid .card-actions {
+    grid-template-columns: 1fr !important;
+    gap: 4px !important;
+  }
+  #catalogo-grid .btn-ficha,
+  #catalogo-grid .btn-add {
+    min-height: 34px !important;
+    padding: 5px !important;
+    font-size: 0.72rem !important;
+  }
+}
