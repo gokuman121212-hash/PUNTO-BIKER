@@ -42,7 +42,7 @@
     <aside class="sidebar-filtros">
       <div class="sidebar-header">
         <span><i class="led-dot"></i> FILTROS TÉCNICOS</span>
-        <button class="btn-limpiar-todo" onclick="limpiarFiltros()">Limpiar todo</button>
+        <div style="display:flex;gap:6px;"><button class="btn-limpiar-todo" onclick="limpiarFiltros()">Limpiar</button><button class="btn-cerrar-filtros-movil" onclick="toggleFiltrosMovil()">✕ Cerrar</button></div>
       </div>
 
       <details class="filtro-acordeon" open>
@@ -148,7 +148,7 @@
 
     <section class="zona-catalogo">
       <div class="catalogo-topbar">
-        <div id="resultados-info">Cargando catálogo...</div>
+        <div style="display:flex;align-items:center;gap:10px;"><button class="btn-abrir-filtros-movil" onclick="toggleFiltrosMovil()">☰ FILTROS</button><div id="resultados-info">Cargando catálogo...</div></div>
         <select id="ordenar-por" onchange="renderCatalogo()">
           <option value="relevancia">Ordenar por: Destacados</option>
           <option value="precio-asc">Precio: Menor a Mayor</option>
@@ -500,5 +500,21 @@
   </aside>
 
   <script src="app.js"></script>
+  <!-- BARRA DE NAVEGACIÓN INFERIOR EXCLUSIVA PARA CELULARES (< 768px) -->
+  <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+    <button onclick="cambiarVista('tienda')" id="mob-btn-tienda" class="active">
+      <span>CATÁLOGO</span>
+    </button>
+    <button onclick="toggleFiltrosMovil()" id="mob-btn-filtros">
+      <span>FILTROS</span>
+    </button>
+    <button onclick="toggleCarrito()" id="mob-btn-carrito">
+      <span>CARRITO (<span id="mob-cart-count">0</span>)</span>
+    </button>
+    <button onclick="accionCuentaMovil()" id="mob-btn-cuenta">
+      <span id="mob-cuenta-label">CUENTA</span>
+    </button>
+  </nav>
 </body>
 </html>
+

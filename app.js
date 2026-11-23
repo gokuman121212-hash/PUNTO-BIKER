@@ -964,3 +964,36 @@ actualizarUIUsuario();
 inicializarSidebar();
 renderCatalogo();
 actualizarCarritoUI();
+
+// ================= FUNCIONES DE INTERFAZ MÓVIL Y TABLET =================
+function toggleFiltrosMovil() {
+  const sidebar = document.querySelector(".sidebar-filtros");
+  if (sidebar) sidebar.classList.toggle("abierto-movil");
+}
+
+function accionCuentaMovil() {
+  if (!sesionActual) {
+    abrirModalAuth("login");
+  } else {
+    cambiarVista("compras");
+  }
+}
+
+const _origActualizarCarritoUI = actualizarCarritoUI;
+actualizarCarritoUI = function() {
+  _origActualizarCarritoUI();
+  const mobCount = document.getElementById("mob-cart-count");
+  if (mobCount) mobCount.innerText = carrito.reduce((acc, i) => acc + i.cantidad, 0);
+};
+
+const _origActualizarUIUsuario = actualizarUIUsuario;
+actualizarUIUsuario = function() {
+  _origActualizarUIUsuario();
+  const mobLabel = document.getElementById("mob-cuenta-label");
+  if (mobLabel) {
+    mobLabel.innerText = sesionActual ? "BOLETAS" : "INGRESAR";
+  }
+};
+
+actualizarUIUsuario();
+actualizarCarritoUI();

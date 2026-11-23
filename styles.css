@@ -262,3 +262,219 @@ th { background: #050507; color: var(--muted); font-size: 0.82rem; }
 .total-row { display: flex; justify-content: space-between; font-size: 1.15rem; margin-bottom: 1rem; }
 .btn-comprar { width: 100%; padding: 11px; background: #ffffff; color: #09090b; border: none; border-radius: 4px; font-weight: 700; cursor: pointer; letter-spacing: 0.5px; }
 .btn-comprar:hover { background: var(--primary); color: #ffffff; }
+
+/* ==========================================================================
+   ARQUITECTURA RESPONSIVE DIFERENCIAL (PC > 1024px | TABLET | CELULAR < 768px)
+   ========================================================================== */
+.btn-abrir-filtros-movil,
+.btn-cerrar-filtros-movil,
+.mobile-bottom-nav {
+  display: none;
+}
+
+/* 1. PARÁMETROS PARA MONITORES GRANDES Y PC DE ESCRITORIO (> 1024px) */
+@media (min-width: 1025px) {
+  .container-layout {
+    grid-template-columns: 290px 1fr;
+    gap: 2rem;
+    padding: 1.8rem 4%;
+  }
+  .sidebar-filtros {
+    position: sticky;
+    top: 76px;
+    max-height: calc(100vh - 95px);
+    overflow-y: auto;
+  }
+  .grid-productos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1440px) {
+  .grid-productos {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* 2. PARÁMETROS PARA TABLETS Y LAPTOPS COMPACTAS (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .navbar {
+    padding: 0.8rem 3%;
+  }
+  .top-search {
+    order: 3;
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+  .container-layout {
+    grid-template-columns: 1fr;
+    padding: 1.2rem 3%;
+  }
+  .sidebar-filtros {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    align-items: start;
+  }
+  .sidebar-header {
+    grid-column: 1 / -1;
+  }
+  .filtro-acordeon {
+    margin-bottom: 0;
+  }
+  .grid-productos {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+/* 3. PARÁMETROS PARA TELÉFONOS CELULARES (< 768px) - DISEÑO TIPO APP MÓVIL NATIVA */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: 68px; /* Espacio para la barra inferior fija */
+  }
+  .navbar {
+    padding: 0.75rem 4%;
+    gap: 0.7rem;
+  }
+  .brand-top, .brand-bottom {
+    font-size: 1.25rem;
+  }
+  .top-search {
+    order: 3;
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+  .top-search input {
+    padding: 11px 14px;
+    font-size: 0.92rem;
+  }
+  /* Ocultar botones redundantes arriba; se mueven a la barra inferior táctil */
+  #btn-tienda, .cart-btn {
+    display: none !important;
+  }
+  .nav-actions {
+    gap: 6px;
+  }
+  .auth-zone {
+    border-left: none;
+    padding-left: 0;
+  }
+
+  /* Layout de 1 columna y cajón de filtros a pantalla completa */
+  .container-layout {
+    grid-template-columns: 1fr;
+    padding: 1rem 4%;
+    gap: 1rem;
+  }
+  .btn-abrir-filtros-movil {
+    display: inline-flex;
+    align-items: center;
+    background: #ffffff;
+    color: #09090b;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.78rem;
+    cursor: pointer;
+  }
+  .btn-cerrar-filtros-movil {
+    display: inline-block;
+    background: var(--primary);
+    color: #ffffff;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .sidebar-filtros {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 250;
+    border-radius: 0;
+    overflow-y: auto;
+    padding: 1.2rem;
+    background: #09090b;
+  }
+  .sidebar-filtros.abierto-movil {
+    display: block;
+  }
+
+  /* Tarjetas optimizadas para pantalla vertical de celular */
+  .catalogo-topbar {
+    padding: 10px 12px;
+    font-size: 0.8rem;
+  }
+  .catalogo-topbar select {
+    width: 100%;
+  }
+  .grid-productos {
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+  .card-img-wrap {
+    height: 210px;
+  }
+  .btn-ficha, .btn-add, .btn-comprar {
+    min-height: 44px; /* Estándar táctil Apple/Android */
+    font-size: 0.86rem;
+  }
+
+  /* Modales, carrito y tablas en celular */
+  .carrito-drawer {
+    width: 100vw;
+    max-width: 100vw;
+  }
+  .modal-card {
+    max-height: 95vh;
+  }
+  .ficha-grid, .form-row-2, .form-row-3, .metodos-tabs {
+    grid-template-columns: 1fr;
+  }
+  .qr-box {
+    flex-direction: column;
+    text-align: center;
+  }
+  .kpi-box {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Barra inferior fija tipo App */
+  .mobile-bottom-nav {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #050507;
+    border-top: 1px solid var(--border-light);
+    z-index: 120;
+  }
+  .mobile-bottom-nav button {
+    background: transparent;
+    border: none;
+    border-top: 2px solid transparent;
+    color: var(--muted);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .mobile-bottom-nav button.active {
+    color: #ffffff;
+    border-top-color: var(--primary);
+    background: #121215;
+  }
+}
