@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Punto Biker | E-Commerce de Motocicletas</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo-box">
+      <!-- Isotipo Escudo PB (Blanco y Rojo Deportivo) -->
+            <svg width="46" height="50" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Parte izquierda: P cerrada y definida en blanco -->
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 16 L49 10 L49 54 L28 58 L28 92 L12 84 Z M28 27 L28 43 L37 41 L37 25 Z" fill="#FFFFFF"/>
+        <!-- Parte derecha: B en escudo rojo deportivo -->
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M53 10 L86 17 L86 46 L73 53 L88 61 L88 86 L50 104 L34 96 L34 64 L53 60 L53 84 L71 76 L71 63 L53 66 L53 51 L70 48 L70 31 L53 28 Z" fill="#DC2626"/>
+      </svg>
+      <div class="brand-text">
+        <span class="brand-top">PUNTO</span>
+        <span class="brand-bottom">BIKER</span>
+      </div>
+    </div>
+    <nav class="nav-actions">
+      <button id="btn-tienda" class="active" onclick="cambiarVista('tienda')">Catálogo</button>
+      <button id="btn-inventario" onclick="cambiarVista('inventario')">Gestión de Inventario</button>
+      <button class="cart-btn" onclick="toggleCarrito()">🛒 Carrito (<span id="cart-count">0</span>)</button>
+    </nav>
+  </header>
+
+  <main id="vista-tienda" class="container">
+    <section class="hero">
+      <h2>Encuentra tu próxima motocicleta</h2>
+      <p>Modelos 2026 con entrega inmediata y control de stock en tiempo real.</p>
+    </section>
+
+    <div class="filtros" id="categorias-bar"></div>
+    <div class="grid-productos" id="catalogo-grid"></div>
+  </main>
+
+  <main id="vista-inventario" class="container hidden">
+    <h2>Panel de Gestión de Inventarios</h2>
+    <p class="sub">Modifica el stock disponible en tiempo real (guardado automático).</p>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Categoría</th>
+            <th>Modelo</th>
+            <th>Precio (USD)</th>
+            <th>Stock Actual</th>
+            <th>Acciones de Stock</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-inventario"></tbody>
+      </table>
+    </div>
+    <button class="btn-reset" onclick="resetearDatos()">Restaurar Inventario Inicial</button>
+  </main>
+
+  <aside id="modal-carrito" class="carrito-drawer hidden">
+    <div class="carrito-header">
+      <h3>Tu Carrito de Compras</h3>
+      <button onclick="toggleCarrito()">✕</button>
+    </div>
+    <div id="carrito-items" class="carrito-body"></div>
+    <div class="carrito-footer">
+      <div class="total-row">
+        <span>Total:</span>
+        <strong id="carrito-total">$0</strong>
+      </div>
+      <button class="btn-comprar" onclick="finalizarCompra()">Confirmar Compra y Descontar Stock</button>
+    </div>
+  </aside>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
