@@ -18,7 +18,7 @@
       </svg>
       <div class="brand-text">
         <span class="brand-top">PUNTO</span>
-        <span class="brand-bottom">BIKER <small class="sys-tag">OS v2.6</small></span>
+        <span class="brand-bottom">BIKER <small class="sys-tag">OS v3.0</small></span>
       </div>
     </div>
 
@@ -31,6 +31,7 @@
       <button id="btn-mis-compras" class="hidden" onclick="cambiarVista('compras')">MIS BOLETAS</button>
       <button id="btn-inventario" class="admin-only hidden" onclick="cambiarVista('inventario')">INVENTARIO</button>
       <button id="btn-ventas" class="admin-only hidden" onclick="cambiarVista('ventas')">VENTAS</button>
+      <button id="btn-config-pagos" class="admin-only hidden" onclick="cambiarVista('config-pagos')">CONFIG. PAGOS / QR</button>
       <button class="cart-btn" onclick="toggleCarrito()">CARRITO (<span id="cart-count">0</span>)</button>
       <div id="auth-zone" class="auth-zone"></div>
     </nav>
@@ -234,6 +235,77 @@
     </div>
   </main>
 
+  <!-- VISTA 5: CONFIGURACIÓN DE PASARELA DE PAGOS Y QR (SOLO ADMINISTRADOR) -->
+  <main id="vista-config-pagos" class="container hidden">
+    <div class="inv-header">
+      <div>
+        <h2>CONFIGURACIÓN DE PASARELA DE PAGOS Y CÓDIGOS QR</h2>
+        <p class="sub">Administra los datos bancarios, el código QR de Yape/Plin y las cuentas receptoras que verán tus clientes al pagar.</p>
+      </div>
+    </div>
+
+    <div class="config-grid">
+      <form id="form-config-pagos" onsubmit="guardarConfigPagos(event)" class="tech-form config-card">
+        <h3>1. BILLETERA DIGITAL (YAPE / PLIN)</h3>
+        <div>
+          <label>Titular de la Cuenta Receptor</label>
+          <input type="text" id="cfg-titular" placeholder="Ej. Cristhian Flores Q. / Punto Biker S.A.C." />
+        </div>
+        <div>
+          <label>Número de Celular Yape / Plin</label>
+          <input type="text" id="cfg-telefono" placeholder="Ej. 987 654 321" />
+        </div>
+        <div>
+          <label>Subir Imagen de tu QR desde tu PC</label>
+          <input type="file" id="cfg-qr-file" accept="image/*" onchange="procesarImagenQR(event)" />
+        </div>
+        <div>
+          <label>O pegar URL directa de tu imagen QR</label>
+          <input type="url" id="cfg-qr-url" placeholder="https://... (deja vacío si subiste archivo arriba)" oninput="actualizarPreviewQR()" />
+        </div>
+
+        <h3 style="margin-top:10px;">2. TRANSFERENCIA BANCARIA Y PAGOEFECTIVO</h3>
+        <div class="form-row-2">
+          <div>
+            <label>Banco Principal</label>
+            <input type="text" id="cfg-banco" placeholder="Ej. BCP / Interbank / BBVA" />
+          </div>
+          <div>
+            <label>Número de Cuenta</label>
+            <input type="text" id="cfg-cuenta" placeholder="Ej. 193-98472610-1-44" />
+          </div>
+        </div>
+        <div>
+          <label>Código de Cuenta Interbancario (CCI)</label>
+          <input type="text" id="cfg-cci" placeholder="Ej. 002-193-198472610144-18" />
+        </div>
+        <div>
+          <label>Entidad / Servicio PagoEfectivo</label>
+          <input type="text" id="cfg-cip-entidad" placeholder="Ej. PUNTO BIKER MOTORSPORT - RECAUDACIÓN CIP" />
+        </div>
+
+        <button type="submit" class="btn-comprar" style="margin-top:8px;">GUARDAR CONFIGURACIÓN DE PAGOS</button>
+      </form>
+
+      <div class="config-card">
+        <h3>VISTA PREVIA EN TIEMPO REAL (LO QUE VE EL CLIENTE)</h3>
+        <p class="sub" style="margin-bottom:14px;">Así aparecerá tu espacio de QR y cuentas en el checkout cuando un cliente realice una compra:</p>
+        <div class="qr-preview-panel">
+          <div id="preview-qr-container" class="qr-placeholder-box">
+            <span>ESPACIO RESERVADO PARA TU QR</span>
+          </div>
+          <div style="margin-top:12px;font-size:0.86rem;line-height:1.6;">
+            <div><strong>Titular:</strong> <span id="prev-titular">Sin configurar</span></div>
+            <div><strong>Yape / Plin:</strong> <span id="prev-telefono">Sin configurar</span></div>
+            <div><strong>Banco:</strong> <span id="prev-banco">Sin configurar</span></div>
+            <div><strong>Cuenta:</strong> <span id="prev-cuenta">Sin configurar</span></div>
+            <div><strong>CCI:</strong> <span id="prev-cci">Sin configurar</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
   <!-- MODAL FICHA TÉCNICA -->
   <div id="modal-ficha" class="modal-overlay hidden" onclick="cerrarModal(event, 'modal-ficha')">
     <div class="modal-card" id="ficha-contenido"></div>
@@ -258,13 +330,13 @@
           </div>
           <div>
             <label>Correo Electrónico</label>
-            <input type="email" id="auth-email" required placeholder="cliente@gmail.com o admin@puntobiker.com" />
+            <input type="email" id="auth-email" required placeholder="cliente@gmail.com o cristhian.flores.q@tecsup.edu.pe" />
           </div>
           <div>
             <label>Contraseña</label>
             <input type="password" id="auth-pass" required placeholder="••••••••" />
           </div>
-          <p class="auth-hint">Acceso Demo Admin: <strong>admin@puntobiker.com</strong> / Clave: <strong>admin123</strong><br/>Cualquier correo <strong>@puntobiker.com</strong> obtiene permisos de Administrador.</p>
+          <p class="auth-hint">Regístrate como <strong>Cliente</strong> con cualquier correo personal para guardar tus boletas. Las cuentas institucionales autorizadas acceden al panel de <strong>Administrador</strong>.</p>
           <button type="submit" class="btn-comprar" id="btn-auth-submit">INGRESAR A LA PLATAFORMA</button>
         </form>
       </div>
@@ -376,18 +448,21 @@
 
         <div id="panel-pago-yape" class="panel-metodo hidden">
           <div class="qr-box">
-            <img id="qr-yape-img" alt="QR Yape Plin" />
+            <div id="checkout-qr-slot" class="qr-slot-checkout">
+              <span>QR NO CONFIGURADO</span>
+            </div>
             <div>
               <p><strong>Escanea el código QR desde tu app Yape o Plin</strong></p>
-              <p class="sub">Titular: PUNTO BIKER MOTORSPORT S.A.C.</p>
-              <p class="sub">Código de referencia: <strong id="ref-yape">PB-9921</strong></p>
+              <p class="sub">Titular: <strong id="chk-titular">Configurar en Panel Admin</strong></p>
+              <p class="sub">Celular: <strong id="chk-telefono">--</strong></p>
+              <p class="sub">Código de operación: <strong id="ref-yape">PB-9921</strong></p>
             </div>
           </div>
         </div>
 
         <div id="panel-pago-pagoefectivo" class="panel-metodo hidden">
           <div class="cip-box">
-            <span class="marca-tag" style="background:#eab308;color:#000;border:none;">PAGOEFECTIVO - DEPÓSITO EN EFECTIVO O BANCA MÓVIL</span>
+            <span class="marca-tag" style="background:#eab308;color:#000;border:none;" id="chk-cip-entidad">PAGOEFECTIVO - DEPÓSITO EN EFECTIVO O BANCA MÓVIL</span>
             <p class="sub" style="margin-top:8px;">Código de Pago CIP generado automáticamente:</p>
             <div class="cip-code" id="codigo-cip-generado">914820553</div>
             <p class="sub">Válido para pagar en BCP, BBVA, Interbank, Scotiabank, Agentes KasNet y Western Union.</p>
@@ -397,8 +472,9 @@
         <div id="panel-pago-transferencia" class="panel-metodo hidden">
           <div class="cip-box">
             <p><strong>Transferencia Interbancaria Inmediata (CCI)</strong></p>
-            <p class="sub" style="margin-top:6px;">Banco de Crédito del Perú (BCP) Dólares: <strong>193-98472610-1-44</strong></p>
-            <p class="sub">Código Interbancario (CCI): <strong>002-193-198472610144-18</strong></p>
+            <p class="sub" style="margin-top:6px;">Banco: <strong id="chk-banco">Por configurar</strong> | Cuenta: <strong id="chk-cuenta">--</strong></p>
+            <p class="sub">Código Interbancario (CCI): <strong id="chk-cci">--</strong></p>
+            <p class="sub">Titular: <strong id="chk-titular-banco">--</strong></p>
           </div>
         </div>
 

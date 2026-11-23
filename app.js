@@ -180,15 +180,8 @@ function crearObjetoMoto(id, marca, categoria, modelo, cc, hp, precio, stock, cu
   const pool = BANCO_FOTOS[categoria] || BANCO_FOTOS.Deportivas;
 
   return {
-    id,
-    marca,
-    categoria,
-    modeloCorto: modelo,
-    nombre: `${marca} ${modelo}`,
-    cc,
-    hp,
-    precio,
-    stock,
+    id, marca, categoria, modeloCorto: modelo, nombre: `${marca} ${modelo}`,
+    cc, hp, precio, stock,
     transmision: esScooter || esElectrica ? "Automática CVT" : cc >= 250 ? "Mecánica 6 Vel." : "Mecánica 5 Vel.",
     frenos: hp >= 120 ? "Brembo Radial" : cc >= 250 ? "ABS Doble Canal" : "CBS / Tambor",
     aros: esOffroad ? "Rayos 21''/18''" : esScooter ? "Urbano 12''-14''" : "Aleación 17''",
@@ -212,15 +205,32 @@ function construirCatalogoCompleto() {
   return lista;
 }
 
-// ESTADO GLOBAL PERSISTENTE EN BASE DE DATOS LOCAL
-let productos = JSON.parse(localStorage.getItem("pb_db_productos")) || construirCatalogoCompleto();
-let usuarios = JSON.parse(localStorage.getItem("pb_db_usuarios")) || [
-  { nombre: "Administrador General", email: "admin@puntobiker.com", pass: "admin123", rol: "admin" }
-];
-let sesionActual = JSON.parse(localStorage.getItem("pb_db_sesion")) || null;
-let ventas = JSON.parse(localStorage.getItem("pb_db_ventas")) || [];
-const cacheFotos = JSON.parse(localStorage.getItem("punto_biker_fotos_v3") || "{}");
+// ================= BASE DE DATOS PERSISTENTE (LOCALSTORAGE) =================
+const CORREOS_ADMIN_PERMITIDOS = ["cristhian.flores.q@tecsup.edu.pe"];
+const DOMINIOS_ADMIN = ["@puntobiker.com", "@tecsup.edu.pe"];
 
+let productos = JSON.parse(localStorage.getItem("pb_db_productos_v3")) || construirCatalogoCompleto();
+let usuarios = JSON.parse(localStorage.getItem("pb_db_usuarios_v3")) || [
+  { nombre: "Cristhian Flores Q.", email: "cristhian.flores.q@tecsup.edu.pe", pass: "aL566TEC5244", rol: "admin" }
+];
+// Garantizar que la cuenta principal del administrador siempre exista
+if (!usuarios.some(u => u.email === "cristhian.flores.q@tecsup.edu.pe")) {
+  usuarios.unshift({ nombre: "Cristhian Flores Q.", email: "cristhian.flores.q@tecsup.edu.pe", pass: "aL566TEC5244", rol: "admin" });
+}
+
+let sesionActual = JSON.parse(localStorage.getItem("pb_db_sesion_v3")) || null;
+let ventas = JSON.parse(localStorage.getItem("pb_db_ventas_v3")) || [];
+let configPagos = JSON.parse(localStorage.getItem("pb_db_config_pagos")) || {
+  titular: "",
+  telefono: "",
+  qrDataUrl: "",
+  banco: "",
+  cuenta: "",
+  cci: "",
+  cipEntidad: "PAGOEFECTIVO - RECAUDACIÓN PUNTO BIKER"
+};
+
+const cacheFotos = JSON.parse(localStorage.getItem("punto_biker_fotos_v3") || "{}");
 let carrito = [];
 let moneda = "USD";
 const TASA_PEN = 3.75;
@@ -229,12 +239,18 @@ const POR_PAGINA = 21;
 let modoAuth = "login";
 let metodoPagoSeleccionado = "TARJETA CRÉDITO / DÉBITO";
 let codigoCipActual = "";
+let qrTemporalBase64 = "";
 
 function guardarTodoDB() {
-  localStorage.setItem("pb_db_productos", JSON.stringify(productos));
-  localStorage.setItem("pb_db_usuarios", JSON.stringify(usuarios));
-  localStorage.setItem("pb_db_sesion", JSON.stringify(sesionActual));
-  localStorage.setItem("pb_db_ventas", JSON.stringify(ventas));
+  localStorage.setItem("pb_db_productos_v3", JSON.stringify(productos));
+  localStorage.setItem("pb_db_usuarios_v3", JSON.stringify(usuarios));
+  localStorage.setItem("pb_db_sesion_v3", JSON.stringify(sesionActual));
+  localStorage.setItem("pb_db_ventas_v3", JSON.stringify(ventas));
+  localStorage.setItem("pb_db_config_pagos", JSON.stringify(configPagos));
+}
+
+function esCorreoAdmin(email) {
+  return CORREOS_ADMIN_PERMITIDOS.includes(email) || DOMINIOS_ADMIN.some(d => email.endsWith(d));
 }
 
 function formatearPrecio(usd) {
@@ -242,16 +258,18 @@ function formatearPrecio(usd) {
   return `S/ ${Math.round(usd * TASA_PEN).toLocaleString()}`;
 }
 
-// ================= SISTEMA DE CUENTAS Y ROLES (ADMIN VS CLIENTE) =================
+// ================= SISTEMA DE CUENTAS Y ROLES =================
 function actualizarUIUsuario() {
   const authZone = document.getElementById("auth-zone");
   const btnInv = document.getElementById("btn-inventario");
   const btnVentas = document.getElementById("btn-ventas");
+  const btnCfg = document.getElementById("btn-config-pagos");
   const btnMisCompras = document.getElementById("btn-mis-compras");
 
   if (!sesionActual) {
     btnInv.classList.add("hidden");
     btnVentas.classList.add("hidden");
+    btnCfg.classList.add("hidden");
     btnMisCompras.classList.add("hidden");
     authZone.innerHTML = `<button class="btn-login-nav" onclick="abrirModalAuth('login')">INICIAR SESIÓN / REGISTRO</button>`;
     return;
@@ -260,6 +278,7 @@ function actualizarUIUsuario() {
   const esAdmin = sesionActual.rol === "admin";
   btnInv.classList.toggle("hidden", !esAdmin);
   btnVentas.classList.toggle("hidden", !esAdmin);
+  btnCfg.classList.toggle("hidden", !esAdmin);
   btnMisCompras.classList.remove("hidden");
 
   authZone.innerHTML = `
@@ -295,7 +314,7 @@ function procesarAuth(e) {
     if (usuarios.some(u => u.email === email)) {
       return alert("Este correo ya se encuentra registrado. Inicia sesión.");
     }
-    const rol = email.endsWith("@puntobiker.com") ? "admin" : "cliente";
+    const rol = esCorreoAdmin(email) ? "admin" : "cliente";
     const nuevoUsuario = { nombre: nombre || email.split("@")[0], email, pass, rol };
     usuarios.push(nuevoUsuario);
     sesionActual = nuevoUsuario;
@@ -306,7 +325,7 @@ function procesarAuth(e) {
   } else {
     const user = usuarios.find(u => u.email === email && u.pass === pass);
     if (!user) {
-      return alert("Credenciales incorrectas. Si aún no tienes cuenta, selecciona 'REGISTRARSE'.");
+      return alert("Credenciales incorrectas. Verifica tu correo y contraseña o regístrate como cliente.");
     }
     sesionActual = user;
     guardarTodoDB();
@@ -324,15 +343,15 @@ function cerrarSesion() {
 
 // ================= NAVEGACIÓN SPA =================
 function cambiarVista(vista) {
-  if ((vista === "inventario" || vista === "ventas") && sesionActual?.rol !== "admin") {
+  if (["inventario", "ventas", "config-pagos"].includes(vista) && sesionActual?.rol !== "admin") {
     return alert("Acceso restringido: Solo cuentas de Administrador.");
   }
-  document.getElementById("vista-tienda").classList.toggle("hidden", vista !== "tienda");
-  document.getElementById("vista-compras").classList.toggle("hidden", vista !== "compras");
-  document.getElementById("vista-inventario").classList.toggle("hidden", vista !== "inventario");
-  document.getElementById("vista-ventas").classList.toggle("hidden", vista !== "ventas");
+  ["tienda", "compras", "inventario", "ventas", "config-pagos"].forEach(v => {
+    const sec = document.getElementById(`vista-${v}`);
+    if (sec) sec.classList.toggle("hidden", v !== vista);
+  });
 
-  ["tienda", "mis-compras", "inventario", "ventas"].forEach(id => {
+  ["tienda", "mis-compras", "inventario", "ventas", "config-pagos"].forEach(id => {
     const el = document.getElementById(`btn-${id}`);
     if (el) el.classList.remove("active");
   });
@@ -342,6 +361,64 @@ function cambiarVista(vista) {
   if (vista === "compras") renderBoletasCliente();
   if (vista === "inventario") renderInventario();
   if (vista === "ventas") renderVentasAdmin();
+  if (vista === "config-pagos") cargarFormularioConfigPagos();
+}
+
+// ================= CONFIGURACIÓN DE QR Y PAGOS (ADMIN) =================
+function cargarFormularioConfigPagos() {
+  document.getElementById("cfg-titular").value = configPagos.titular || "";
+  document.getElementById("cfg-telefono").value = configPagos.telefono || "";
+  document.getElementById("cfg-qr-url").value = configPagos.qrDataUrl && !configPagos.qrDataUrl.startsWith("data:") ? configPagos.qrDataUrl : "";
+  document.getElementById("cfg-banco").value = configPagos.banco || "";
+  document.getElementById("cfg-cuenta").value = configPagos.cuenta || "";
+  document.getElementById("cfg-cci").value = configPagos.cci || "";
+  document.getElementById("cfg-cip-entidad").value = configPagos.cipEntidad || "";
+  qrTemporalBase64 = configPagos.qrDataUrl || "";
+  actualizarPreviewQR();
+}
+
+function procesarImagenQR(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(evt) {
+    qrTemporalBase64 = evt.target.result;
+    actualizarPreviewQR();
+  };
+  reader.readAsDataURL(file);
+}
+
+function actualizarPreviewQR() {
+  const urlInput = document.getElementById("cfg-qr-url").value.trim();
+  const srcFinal = urlInput || qrTemporalBase64;
+  const box = document.getElementById("preview-qr-container");
+  if (srcFinal) {
+    box.innerHTML = `<img src="${srcFinal}" alt="QR Configurado" />`;
+  } else {
+    box.innerHTML = `<span>ESPACIO RESERVADO PARA TU QR</span>`;
+  }
+  document.getElementById("prev-titular").innerText = document.getElementById("cfg-titular").value || "Sin configurar";
+  document.getElementById("prev-telefono").innerText = document.getElementById("cfg-telefono").value || "Sin configurar";
+  document.getElementById("prev-banco").innerText = document.getElementById("cfg-banco").value || "Sin configurar";
+  document.getElementById("prev-cuenta").innerText = document.getElementById("cfg-cuenta").value || "Sin configurar";
+  document.getElementById("prev-cci").innerText = document.getElementById("cfg-cci").value || "Sin configurar";
+}
+
+function guardarConfigPagos(e) {
+  e.preventDefault();
+  const urlInput = document.getElementById("cfg-qr-url").value.trim();
+  configPagos = {
+    titular: document.getElementById("cfg-titular").value.trim(),
+    telefono: document.getElementById("cfg-telefono").value.trim(),
+    qrDataUrl: urlInput || qrTemporalBase64,
+    banco: document.getElementById("cfg-banco").value.trim(),
+    cuenta: document.getElementById("cfg-cuenta").value.trim(),
+    cci: document.getElementById("cfg-cci").value.trim(),
+    cipEntidad: document.getElementById("cfg-cip-entidad").value.trim() || "PAGOEFECTIVO - RECAUDACIÓN PUNTO BIKER"
+  };
+  guardarTodoDB();
+  actualizarPreviewQR();
+  alert("¡Datos de cobro y código QR guardados correctamente! Los clientes ya los verán en la pasarela.");
 }
 
 // ================= CATÁLOGO Y FILTROS =================
@@ -637,12 +714,25 @@ function iniciarCheckout() {
   const totalUsd = carrito.reduce((acc, i) => acc + i.precio * i.cantidad, 0);
   document.getElementById("pasarela-monto-total").innerText = `${formatearPrecio(totalUsd)} (S/ ${Math.round(totalUsd * TASA_PEN).toLocaleString()})`;
 
-  // Generar CIP PagoEfectivo y QR dinámico
   codigoCipActual = Math.floor(100000000 + Math.random() * 900000000).toString();
   document.getElementById("codigo-cip-generado").innerText = codigoCipActual;
   const ref = `PB-${Math.floor(1000 + Math.random() * 9000)}`;
   document.getElementById("ref-yape").innerText = ref;
-  document.getElementById("qr-yape-img").src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PUNTOBIKER-${ref}-USD${totalUsd}`;
+
+  // Cargar datos de QR y cuentas configuradas por el Administrador
+  const qrSlot = document.getElementById("checkout-qr-slot");
+  if (configPagos.qrDataUrl) {
+    qrSlot.innerHTML = `<img src="${configPagos.qrDataUrl}" alt="QR Oficial" />`;
+  } else {
+    qrSlot.innerHTML = `<span>ESPACIO PARA QR<br/>(Configurar en Admin)</span>`;
+  }
+  document.getElementById("chk-titular").innerText = configPagos.titular || "Por configurar en Admin";
+  document.getElementById("chk-telefono").innerText = configPagos.telefono || "--";
+  document.getElementById("chk-cip-entidad").innerText = configPagos.cipEntidad || "PAGOEFECTIVO - DEPÓSITO EN EFECTIVO O BANCA MÓVIL";
+  document.getElementById("chk-banco").innerText = configPagos.banco || "Por configurar en Admin";
+  document.getElementById("chk-cuenta").innerText = configPagos.cuenta || "--";
+  document.getElementById("chk-cci").innerText = configPagos.cci || "--";
+  document.getElementById("chk-titular-banco").innerText = configPagos.titular || "--";
 
   toggleCarrito();
   document.getElementById("modal-pasarela").classList.remove("hidden");
@@ -663,13 +753,11 @@ function confirmarPagoFinal() {
   const totalUsd = carrito.reduce((acc, i) => acc + i.precio * i.cantidad, 0);
   const nroBoleta = `B001-${String(ventas.length + 1).padStart(6, "0")}`;
 
-  // Descontar stock en base de datos
   carrito.forEach(item => {
     const prod = productos.find(p => p.id === item.id);
     if (prod) prod.stock = Math.max(0, prod.stock - item.cantidad);
   });
 
-  // Registrar venta y boleta
   const nuevaVenta = {
     boleta: nroBoleta,
     cip: codigoCipActual,
