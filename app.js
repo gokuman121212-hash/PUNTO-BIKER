@@ -1,4 +1,4 @@
-﻿const IMGS = {
+﻿const FALLBACK_IMGS = {
   Superdeportivas: "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=600&q=80",
   Deportivas: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600&q=80",
   Adventure: "https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=600&q=80",
@@ -10,368 +10,296 @@
 
 const CATALOGO_BASE = {
   Ducati: [
-    ["Superdeportivas", "Panigale V4 R", "998cc • 218 HP", 44900],
-    ["Superdeportivas", "Panigale V4 S", "1103cc • 215 HP", 32500],
-    ["Superdeportivas", "Panigale V4", "1103cc • 215 HP", 26500],
-    ["Superdeportivas", "Superleggera V4", "998cc • 224 HP", 98000],
-    ["Deportivas", "Panigale V2", "955cc • 155 HP", 18900],
-    ["Deportivas", "Panigale V2 Bayliss", "955cc • 155 HP", 21400],
-    ["Deportivas", "SuperSport 950", "937cc • 110 HP", 15600],
-    ["Deportivas", "SuperSport 950 S", "937cc • 110 HP", 17800],
-    ["Adventure", "Multistrada V4 Rally", "1158cc • 170 HP", 29900],
-    ["Adventure", "Multistrada V4 Pikes Peak", "1158cc • 170 HP", 31500],
-    ["Adventure", "Multistrada V4 S", "1158cc • 170 HP", 26800],
-    ["Adventure", "Multistrada V2 S", "937cc • 113 HP", 18400],
-    ["Doble Propósito", "DesertX", "937cc • 110 HP", 17900],
-    ["Doble Propósito", "DesertX Rally", "937cc • 110 HP", 22900],
-    ["Doble Propósito", "Hypermotard 950 SP", "937cc • 114 HP", 18500],
-    ["Doble Propósito", "Hypermotard 698 Mono", "659cc • 77.5 HP", 13900],
-    ["Naked", "Streetfighter V4 S", "1103cc • 208 HP", 27800],
-    ["Naked", "Streetfighter V4 SP2", "1103cc • 208 HP", 35500],
-    ["Naked", "Streetfighter V2", "955cc • 153 HP", 18200],
-    ["Naked", "Monster SP", "937cc • 111 HP", 15900],
-    ["Naked", "Monster 937 Plus", "937cc • 111 HP", 13400],
-    ["Naked", "Scrambler Icon 800", "803cc • 73 HP", 11200],
-    ["Naked", "Scrambler Full Throttle", "803cc • 73 HP", 12600],
-    ["Custom", "Diavel V4", "1158cc • 168 HP", 26900],
-    ["Custom", "XDiavel Nera", "1262cc • 160 HP", 29400],
-    ["Custom", "Scrambler Nightshift", "803cc • 73 HP", 12800]
+    ["Superdeportivas", "Panigale V4 R", 998, 218, 44900],
+    ["Superdeportivas", "Panigale V4 S", 1103, 215, 32500],
+    ["Superdeportivas", "Panigale V4", 1103, 215, 26500],
+    ["Superdeportivas", "Superleggera V4", 998, 224, 98000],
+    ["Deportivas", "Panigale V2", 955, 155, 18900],
+    ["Deportivas", "Panigale V2 Bayliss", 955, 155, 21400],
+    ["Deportivas", "SuperSport 950", 937, 110, 15600],
+    ["Deportivas", "SuperSport 950 S", 937, 110, 17800],
+    ["Adventure", "Multistrada V4 Rally", 1158, 170, 29900],
+    ["Adventure", "Multistrada V4 Pikes Peak", 1158, 170, 31500],
+    ["Adventure", "Multistrada V4 S", 1158, 170, 26800],
+    ["Adventure", "Multistrada V2 S", 937, 113, 18400],
+    ["Doble Propósito", "DesertX", 937, 110, 17900],
+    ["Doble Propósito", "DesertX Rally", 937, 110, 22900],
+    ["Doble Propósito", "Hypermotard 950 SP", 937, 114, 18500],
+    ["Doble Propósito", "Hypermotard 698 Mono", 659, 77, 13900],
+    ["Naked", "Streetfighter V4 S", 1103, 208, 27800],
+    ["Naked", "Streetfighter V4 SP2", 1103, 208, 35500],
+    ["Naked", "Streetfighter V2", 955, 153, 18200],
+    ["Naked", "Monster SP", 937, 111, 15900],
+    ["Naked", "Monster 937", 937, 111, 13400],
+    ["Naked", "Scrambler Icon", 803, 73, 11200],
+    ["Naked", "Scrambler Full Throttle", 803, 73, 12600],
+    ["Custom", "Diavel V4", 1158, 168, 26900],
+    ["Custom", "XDiavel Nera", 1262, 160, 29400],
+    ["Custom", "Scrambler Nightshift", 803, 73, 12800]
   ],
   BMW: [
-    ["Superdeportivas", "M 1000 RR", "999cc • 212 HP", 36900],
-    ["Superdeportivas", "S 1000 RR", "999cc • 210 HP", 22400],
-    ["Superdeportivas", "S 1000 RR M-Package", "999cc • 210 HP", 26800],
-    ["Superdeportivas", "HP4 Race", "999cc • 215 HP", 78000],
-    ["Deportivas", "F 900 XR", "895cc • 105 HP", 13200],
-    ["Deportivas", "S 1000 XR", "999cc • 170 HP", 19800],
-    ["Deportivas", "M 1000 XR", "999cc • 201 HP", 28900],
-    ["Deportivas", "G 310 RR", "313cc • 34 HP", 5900],
-    ["Adventure", "R 1300 GS", "1300cc • 145 HP", 21900],
-    ["Adventure", "R 1300 GS Trophy", "1300cc • 145 HP", 24500],
-    ["Adventure", "R 1300 GS Adventure", "1300cc • 145 HP", 26400],
-    ["Adventure", "F 900 GS Adventure", "895cc • 105 HP", 15900],
-    ["Adventure", "F 800 GS", "895cc • 87 HP", 12400],
-    ["Doble Propósito", "F 900 GS Enduro Pro", "895cc • 105 HP", 14800],
-    ["Doble Propósito", "G 310 GS", "313cc • 34 HP", 6400],
-    ["Doble Propósito", "R nineT Urban G/S", "1170cc • 109 HP", 15400],
-    ["Naked", "M 1000 R", "999cc • 210 HP", 25900],
-    ["Naked", "S 1000 R", "999cc • 165 HP", 17400],
-    ["Naked", "F 900 R", "895cc • 105 HP", 10800],
-    ["Naked", "G 310 R", "313cc • 34 HP", 5400],
-    ["Naked", "R 12 nineT", "1170cc • 109 HP", 17200],
-    ["Scooters", "C 400 GT", "350cc • 34 HP", 8900],
-    ["Scooters", "C 400 X", "350cc • 34 HP", 7900],
-    ["Scooters", "CE 04 Electric", "Eléctrico • 42 HP", 12900],
-    ["Custom", "R 18 Transcontinental", "1802cc • 91 HP", 25400],
-    ["Custom", "R 18 Bagger", "1802cc • 91 HP", 22900]
+    ["Superdeportivas", "M 1000 RR", 999, 212, 36900],
+    ["Superdeportivas", "S 1000 RR", 999, 210, 22400],
+    ["Superdeportivas", "S 1000 RR M-Package", 999, 210, 26800],
+    ["Superdeportivas", "HP4 Race", 999, 215, 78000],
+    ["Deportivas", "F 900 XR", 895, 105, 13200],
+    ["Deportivas", "S 1000 XR", 999, 170, 19800],
+    ["Deportivas", "M 1000 XR", 999, 201, 28900],
+    ["Deportivas", "G 310 RR", 313, 34, 5900],
+    ["Adventure", "R 1300 GS", 1300, 145, 21900],
+    ["Adventure", "R 1300 GS Trophy", 1300, 145, 24500],
+    ["Adventure", "R 1300 GS Adventure", 1300, 145, 26400],
+    ["Adventure", "F 900 GS Adventure", 895, 105, 15900],
+    ["Adventure", "F 800 GS", 895, 87, 12400],
+    ["Doble Propósito", "F 900 GS", 895, 105, 14800],
+    ["Doble Propósito", "G 310 GS", 313, 34, 6400],
+    ["Doble Propósito", "R nineT Urban G/S", 1170, 109, 15400],
+    ["Naked", "M 1000 R", 999, 210, 25900],
+    ["Naked", "S 1000 R", 999, 165, 17400],
+    ["Naked", "F 900 R", 895, 105, 10800],
+    ["Naked", "G 310 R", 313, 34, 5400],
+    ["Naked", "R 12 nineT", 1170, 109, 17200],
+    ["Scooters", "C 400 GT", 350, 34, 8900],
+    ["Scooters", "C 400 X", 350, 34, 7900],
+    ["Scooters", "CE 04", 0, 42, 12900],
+    ["Custom", "R 18 Transcontinental", 1802, 91, 25400],
+    ["Custom", "R 18 Bagger", 1802, 91, 22900]
   ],
   KTM: [
-    ["Superdeportivas", "RC 8C Track", "889cc • 135 HP", 38900],
-    ["Superdeportivas", "1190 RC8 R", "1195cc • 175 HP", 19500],
-    ["Deportivas", "RC 390", "373cc • 44 HP", 6300],
-    ["Deportivas", "RC 390 GP", "373cc • 44 HP", 6600],
-    ["Deportivas", "RC 200", "199cc • 25 HP", 4400],
-    ["Deportivas", "RC 125", "124cc • 15 HP", 4900],
-    ["Adventure", "1290 Super Adventure R", "1301cc • 160 HP", 21800],
-    ["Adventure", "1290 Super Adventure S", "1301cc • 160 HP", 21200],
-    ["Adventure", "890 Adventure R", "889cc • 105 HP", 15600],
-    ["Adventure", "890 Adventure", "889cc • 105 HP", 14200],
-    ["Adventure", "790 Adventure", "799cc • 95 HP", 11900],
-    ["Adventure", "390 Adventure SW", "373cc • 44 HP", 7600],
-    ["Adventure", "250 Adventure", "248cc • 30 HP", 5600],
-    ["Doble Propósito", "690 Enduro R", "693cc • 74 HP", 12900],
-    ["Doble Propósito", "500 EXC-F Six Days", "510cc • 64 HP", 12800],
-    ["Doble Propósito", "350 EXC-F", "349cc • 52 HP", 11600],
-    ["Doble Propósito", "450 Rally Replica", "449cc • 68 HP", 29500],
-    ["Doble Propósito", "690 SMC R Supermoto", "693cc • 74 HP", 12900],
-    ["Naked", "1390 Super Duke R Evo", "1350cc • 190 HP", 21500],
-    ["Naked", "1390 Super Duke R", "1350cc • 190 HP", 19800],
-    ["Naked", "1290 Super Duke GT", "1301cc • 175 HP", 20900],
-    ["Naked", "990 Duke", "947cc • 123 HP", 14900],
-    ["Naked", "890 Duke GP", "889cc • 115 HP", 12800],
-    ["Naked", "790 Duke", "799cc • 105 HP", 10400],
-    ["Naked", "390 Duke Gen-3", "398cc • 45 HP", 6200],
-    ["Naked", "250 Duke", "249cc • 31 HP", 4600]
+    ["Superdeportivas", "RC 8C", 889, 135, 38900],
+    ["Superdeportivas", "1190 RC8 R", 1195, 175, 19500],
+    ["Deportivas", "RC 390", 373, 44, 6300],
+    ["Deportivas", "RC 390 GP", 373, 44, 6600],
+    ["Deportivas", "RC 200", 199, 25, 4400],
+    ["Deportivas", "RC 125", 124, 15, 4900],
+    ["Adventure", "1290 Super Adventure R", 1301, 160, 21800],
+    ["Adventure", "1290 Super Adventure S", 1301, 160, 21200],
+    ["Adventure", "890 Adventure R", 889, 105, 15600],
+    ["Adventure", "890 Adventure", 889, 105, 14200],
+    ["Adventure", "790 Adventure", 799, 95, 11900],
+    ["Adventure", "390 Adventure", 373, 44, 7600],
+    ["Adventure", "250 Adventure", 248, 30, 5600],
+    ["Doble Propósito", "690 Enduro R", 693, 74, 12900],
+    ["Doble Propósito", "500 EXC-F", 510, 64, 12800],
+    ["Doble Propósito", "350 EXC-F", 349, 52, 11600],
+    ["Doble Propósito", "450 Rally", 449, 68, 29500],
+    ["Doble Propósito", "690 SMC R", 693, 74, 12900],
+    ["Naked", "1390 Super Duke R Evo", 1350, 190, 21500],
+    ["Naked", "1390 Super Duke R", 1350, 190, 19800],
+    ["Naked", "1290 Super Duke GT", 1301, 175, 20900],
+    ["Naked", "990 Duke", 947, 123, 14900],
+    ["Naked", "890 Duke R", 889, 115, 12800],
+    ["Naked", "790 Duke", 799, 105, 10400],
+    ["Naked", "390 Duke", 398, 45, 6200],
+    ["Naked", "250 Duke", 249, 31, 4600]
   ],
   Yamaha: [
-    ["Superdeportivas", "YZF-R1M", "998cc • 200 HP", 27400],
-    ["Superdeportivas", "YZF-R1", "998cc • 200 HP", 19200],
-    ["Superdeportivas", "YZF-R6 Race", "599cc • 118 HP", 14500],
-    ["Deportivas", "YZF-R7", "689cc • 73 HP", 9800],
-    ["Deportivas", "YZF-R3", "321cc • 42 HP", 6100],
-    ["Deportivas", "YZF-R15 V4", "155cc • 18.4 HP", 4300],
-    ["Deportivas", "YZF-R15M", "155cc • 18.4 HP", 4650],
-    ["Adventure", "Super Ténéré 1200 ES", "1199cc • 112 HP", 16900],
-    ["Adventure", "Tracer 9 GT+", "890cc • 119 HP", 16400],
-    ["Adventure", "Tracer 7 GT", "689cc • 73 HP", 10600],
-    ["Doble Propósito", "Ténéré 700 World Raid", "689cc • 73 HP", 12400],
-    ["Doble Propósito", "Ténéré 700 Extreme", "689cc • 73 HP", 11800],
-    ["Doble Propósito", "WR450F Enduro", "450cc • 58 HP", 10200],
-    ["Doble Propósito", "WR250F", "250cc • 41 HP", 8900],
-    ["Doble Propósito", "XTZ 250 Lander", "249cc • 20.7 HP", 4500],
-    ["Doble Propósito", "XTZ 150", "149cc • 12.3 HP", 3100],
-    ["Naked", "MT-10 SP", "998cc • 166 HP", 17400],
-    ["Naked", "MT-10", "998cc • 166 HP", 14600],
-    ["Naked", "MT-09 SP", "890cc • 119 HP", 12200],
-    ["Naked", "MT-09", "890cc • 119 HP", 10800],
-    ["Naked", "MT-07", "689cc • 73 HP", 8400],
-    ["Naked", "MT-03", "321cc • 42 HP", 5500],
-    ["Naked", "XSR900 GP", "890cc • 119 HP", 13200],
-    ["Scooters", "TMAX 560 Tech Max", "562cc • 47 HP", 14200],
-    ["Scooters", "XMAX 300", "292cc • 28 HP", 6600],
-    ["Scooters", "NMAX 155 Connected", "155cc • 15 HP", 4100]
+    ["Superdeportivas", "YZF-R1M", 998, 200, 27400],
+    ["Superdeportivas", "YZF-R1", 998, 200, 19200],
+    ["Superdeportivas", "YZF-R6", 599, 118, 14500],
+    ["Deportivas", "YZF-R7", 689, 73, 9800],
+    ["Deportivas", "YZF-R3", 321, 42, 6100],
+    ["Deportivas", "YZF-R15", 155, 18, 4300],
+    ["Deportivas", "YZF-R15M", 155, 18, 4650],
+    ["Adventure", "XT1200Z Super Ténéré", 1199, 112, 16900],
+    ["Adventure", "Tracer 9 GT", 890, 119, 16400],
+    ["Adventure", "Tracer 700", 689, 73, 10600],
+    ["Doble Propósito", "Ténéré 700", 689, 73, 12400],
+    ["Doble Propósito", "Ténéré 700 World Raid", 689, 73, 13400],
+    ["Doble Propósito", "WR450F", 450, 58, 10200],
+    ["Doble Propósito", "WR250F", 250, 41, 8900],
+    ["Doble Propósito", "XTZ 250", 249, 21, 4500],
+    ["Doble Propósito", "XTZ 150", 149, 12, 3100],
+    ["Naked", "MT-10 SP", 998, 166, 17400],
+    ["Naked", "MT-10", 998, 166, 14600],
+    ["Naked", "MT-09 SP", 890, 119, 12200],
+    ["Naked", "MT-09", 890, 119, 10800],
+    ["Naked", "MT-07", 689, 73, 8400],
+    ["Naked", "MT-03", 321, 42, 5500],
+    ["Naked", "XSR900", 890, 119, 13200],
+    ["Scooters", "TMAX 560", 562, 47, 14200],
+    ["Scooters", "XMAX 300", 292, 28, 6600],
+    ["Scooters", "NMAX 155", 155, 15, 4100]
   ],
   Kawasaki: [
-    ["Superdeportivas", "Ninja H2R", "998cc • 310 HP", 57500],
-    ["Superdeportivas", "Ninja H2 Carbon", "998cc • 231 HP", 34500],
-    ["Superdeportivas", "Ninja ZX-10RR", "998cc • 204 HP", 29800],
-    ["Superdeportivas", "Ninja ZX-10R KRT", "998cc • 203 HP", 19800],
-    ["Deportivas", "Ninja ZX-6R", "636cc • 124 HP", 12400],
-    ["Deportivas", "Ninja ZX-4RR", "399cc • 77 HP", 9900],
-    ["Deportivas", "Ninja 650 KRT", "649cc • 68 HP", 8600],
-    ["Deportivas", "Ninja 500 SE", "451cc • 45 HP", 6400],
-    ["Adventure", "Versys 1000 SE LT+", "1043cc • 120 HP", 18900],
-    ["Adventure", "Versys 650 LT", "649cc • 67 HP", 9900],
-    ["Adventure", "Versys-X 300 ABS", "296cc • 39 HP", 6200],
-    ["Doble Propósito", "KLR 650 Adventure", "652cc • 40 HP", 7900],
-    ["Doble Propósito", "KLX 300", "292cc • 29 HP", 6100],
-    ["Doble Propósito", "KLX 300SM Supermoto", "292cc • 29 HP", 6400],
-    ["Doble Propósito", "KLX 230 S", "233cc • 19 HP", 4900],
-    ["Naked", "Z H2 SE Supercharged", "998cc • 200 HP", 21400],
-    ["Naked", "Z900 SE", "948cc • 125 HP", 11400],
-    ["Naked", "Z900RS Café", "948cc • 111 HP", 12800],
-    ["Naked", "Z650", "649cc • 68 HP", 7900],
-    ["Naked", "Z500", "451cc • 45 HP", 5900],
-    ["Naked", "Z400", "399cc • 45 HP", 5500],
-    ["Custom", "Vulcan 1700 Vaquero", "1700cc • 82 HP", 18600],
-    ["Custom", "Vulcan 900 Custom", "903cc • 50 HP", 9800],
-    ["Custom", "Vulcan S 650", "649cc • 61 HP", 8400],
-    ["Custom", "Eliminator 450", "451cc • 45 HP", 6600],
-    ["Custom", "W800 Classic", "773cc • 48 HP", 10200]
+    ["Superdeportivas", "Ninja H2R", 998, 310, 57500],
+    ["Superdeportivas", "Ninja H2", 998, 231, 34500],
+    ["Superdeportivas", "Ninja ZX-10RR", 998, 204, 29800],
+    ["Superdeportivas", "Ninja ZX-10R", 998, 203, 19800],
+    ["Deportivas", "Ninja ZX-6R", 636, 124, 12400],
+    ["Deportivas", "Ninja ZX-4RR", 399, 77, 9900],
+    ["Deportivas", "Ninja 650", 649, 68, 8600],
+    ["Deportivas", "Ninja 400", 399, 45, 6400],
+    ["Adventure", "Versys 1000", 1043, 120, 18900],
+    ["Adventure", "Versys 650", 649, 67, 9900],
+    ["Adventure", "Versys-X 300", 296, 39, 6200],
+    ["Doble Propósito", "KLR 650", 652, 40, 7900],
+    ["Doble Propósito", "KLX 300", 292, 29, 6100],
+    ["Doble Propósito", "KLX 250", 249, 22, 5400],
+    ["Doble Propósito", "KLX 230", 233, 19, 4900],
+    ["Naked", "Z H2", 998, 200, 21400],
+    ["Naked", "Z900", 948, 125, 11400],
+    ["Naked", "Z900RS", 948, 111, 12800],
+    ["Naked", "Z650", 649, 68, 7900],
+    ["Naked", "Z500", 451, 45, 5900],
+    ["Naked", "Z400", 399, 45, 5500],
+    ["Custom", "Vulcan 1700", 1700, 82, 18600],
+    ["Custom", "Vulcan 900", 903, 50, 9800],
+    ["Custom", "Vulcan S", 649, 61, 8400],
+    ["Custom", "Eliminator 450", 451, 45, 6600],
+    ["Custom", "W800", 773, 48, 10200]
   ],
   Honda: [
-    ["Superdeportivas", "CBR1000RR-R Fireblade SP", "1000cc • 215 HP", 28500],
-    ["Superdeportivas", "CBR1000RR-R Fireblade", "1000cc • 215 HP", 24200],
-    ["Superdeportivas", "RC213V-S Street", "999cc • 215 HP", 180000],
-    ["Deportivas", "CBR600RR", "599cc • 121 HP", 12900],
-    ["Deportivas", "CBR650R E-Clutch", "649cc • 95 HP", 9900],
-    ["Deportivas", "CBR500R", "471cc • 47 HP", 7400],
-    ["Deportivas", "CBR250RR", "249cc • 41 HP", 6200],
-    ["Adventure", "CRF1100L Africa Twin Adventure Sports", "1084cc • 101 HP", 19400],
-    ["Adventure", "CRF1100L Africa Twin", "1084cc • 101 HP", 16200],
-    ["Adventure", "XL750 Transalp", "755cc • 91 HP", 10900],
-    ["Adventure", "NT1100 Touring", "1084cc • 101 HP", 15400],
-    ["Adventure", "NX500", "471cc • 47 HP", 7600],
-    ["Doble Propósito", "CRF450RL", "449cc • 45 HP", 10200],
-    ["Doble Propósito", "CRF300L Rally", "286cc • 27 HP", 6400],
-    ["Doble Propósito", "CRF300L", "286cc • 27 HP", 5600],
-    ["Doble Propósito", "XR190L", "184cc • 15.6 HP", 3300],
-    ["Naked", "CB1000 Hornet SP", "999cc • 155 HP", 12800],
-    ["Naked", "CB1000R Black Edition", "998cc • 145 HP", 13600],
-    ["Naked", "CB750 Hornet", "755cc • 91 HP", 8500],
-    ["Naked", "CB650R E-Clutch", "649cc • 95 HP", 9400],
-    ["Naked", "CB300R Neo Sports", "286cc • 31 HP", 5200],
-    ["Scooters", "X-ADV 750", "745cc • 58 HP", 13800],
-    ["Scooters", "Forza 750", "745cc • 58 HP", 12900],
-    ["Scooters", "ADV 350", "330cc • 29 HP", 6800],
-    ["Scooters", "PCX 160", "157cc • 15.8 HP", 3900],
-    ["Custom", "Rebel 1100T DCT", "1084cc • 87 HP", 11800]
+    ["Superdeportivas", "CBR1000RR-R Fireblade SP", 1000, 215, 28500],
+    ["Superdeportivas", "CBR1000RR-R Fireblade", 1000, 215, 24200],
+    ["Superdeportivas", "RC213V-S", 999, 215, 180000],
+    ["Deportivas", "CBR600RR", 599, 121, 12900],
+    ["Deportivas", "CBR650R", 649, 95, 9900],
+    ["Deportivas", "CBR500R", 471, 47, 7400],
+    ["Deportivas", "CBR250RR", 249, 41, 6200],
+    ["Adventure", "CRF1100L Africa Twin", 1084, 101, 19400],
+    ["Adventure", "CRF1000L Africa Twin", 998, 94, 16200],
+    ["Adventure", "XL750 Transalp", 755, 91, 10900],
+    ["Adventure", "NT1100", 1084, 101, 15400],
+    ["Adventure", "CB500X", 471, 47, 7600],
+    ["Doble Propósito", "CRF450L", 449, 45, 10200],
+    ["Doble Propósito", "CRF300L Rally", 286, 27, 6400],
+    ["Doble Propósito", "CRF300L", 286, 27, 5600],
+    ["Doble Propósito", "XR190L", 184, 16, 3300],
+    ["Naked", "CB1000 Hornet", 999, 155, 12800],
+    ["Naked", "CB1000R", 998, 145, 13600],
+    ["Naked", "CB750 Hornet", 755, 91, 8500],
+    ["Naked", "CB650R", 649, 95, 9400],
+    ["Naked", "CB300R", 286, 31, 5200],
+    ["Scooters", "X-ADV", 745, 58, 13800],
+    ["Scooters", "Forza 750", 745, 58, 12900],
+    ["Scooters", "ADV 350", 330, 29, 6800],
+    ["Scooters", "PCX 160", 157, 16, 3900],
+    ["Custom", "Rebel 1100", 1084, 87, 11800]
   ],
   Suzuki: [
-    ["Superdeportivas", "Hayabusa GSX1300R", "1340cc • 190 HP", 19400],
-    ["Superdeportivas", "GSX-R1000R", "999cc • 202 HP", 18600],
-    ["Superdeportivas", "GSX-R1000", "999cc • 202 HP", 16400],
-    ["Deportivas", "GSX-R750", "750cc • 148 HP", 13200],
-    ["Deportivas", "GSX-R600", "599cc • 125 HP", 11900],
-    ["Deportivas", "GSX-8R", "776cc • 83 HP", 9600],
-    ["Deportivas", "Gixxer SF 250", "249cc • 26.5 HP", 3950],
-    ["Adventure", "V-Strom 1050DE", "1037cc • 107 HP", 16200],
-    ["Adventure", "V-Strom 1050", "1037cc • 107 HP", 15200],
-    ["Adventure", "V-Strom 800DE", "776cc • 84 HP", 11500],
-    ["Adventure", "V-Strom 800 Touring", "776cc • 84 HP", 10400],
-    ["Adventure", "V-Strom 650XT", "645cc • 70 HP", 9600],
-    ["Adventure", "V-Strom 250SX", "249cc • 26.5 HP", 4300],
-    ["Doble Propósito", "DR650S", "644cc • 43 HP", 7200],
-    ["Doble Propósito", "DR-Z400S", "398cc • 39 HP", 7100],
-    ["Doble Propósito", "DR-Z400SM", "398cc • 39 HP", 7800],
-    ["Naked", "GSX-S1000GX+", "999cc • 152 HP", 18400],
-    ["Naked", "GSX-S1000", "999cc • 152 HP", 11900],
-    ["Naked", "Katana 1000", "999cc • 152 HP", 13600],
-    ["Naked", "GSX-8S", "776cc • 83 HP", 8900],
-    ["Naked", "SV650 ABS", "645cc • 75 HP", 7800],
-    ["Naked", "Gixxer 250 Naked", "249cc • 26.5 HP", 3650],
-    ["Scooters", "Burgman 400", "400cc • 29 HP", 8600],
-    ["Scooters", "Burgman Street 125EX", "124cc • 8.6 HP", 2500],
-    ["Custom", "Boulevard M109R B.O.S.S.", "1783cc • 128 HP", 15800],
-    ["Custom", "Boulevard C50", "805cc • 53 HP", 8900]
+    ["Superdeportivas", "Hayabusa", 1340, 190, 19400],
+    ["Superdeportivas", "GSX-R1000R", 999, 202, 18600],
+    ["Superdeportivas", "GSX-R1000", 999, 202, 16400],
+    ["Deportivas", "GSX-R750", 750, 148, 13200],
+    ["Deportivas", "GSX-R600", 599, 125, 11900],
+    ["Deportivas", "GSX-8R", 776, 83, 9600],
+    ["Deportivas", "Gixxer SF 250", 249, 26, 3950],
+    ["Adventure", "V-Strom 1050DE", 1037, 107, 16200],
+    ["Adventure", "V-Strom 1050", 1037, 107, 15200],
+    ["Adventure", "V-Strom 800DE", 776, 84, 11500],
+    ["Adventure", "V-Strom 650XT", 645, 70, 9600],
+    ["Adventure", "V-Strom 250SX", 249, 26, 4300],
+    ["Doble Propósito", "DR650S", 644, 43, 7200],
+    ["Doble Propósito", "DR-Z400S", 398, 39, 7100],
+    ["Doble Propósito", "DR-Z400SM", 398, 39, 7800],
+    ["Naked", "GSX-S1000", 999, 152, 11900],
+    ["Naked", "Katana", 999, 152, 13600],
+    ["Naked", "GSX-8S", 776, 83, 8900],
+    ["Naked", "SV650", 645, 75, 7800],
+    ["Naked", "Gixxer 250", 249, 26, 3650],
+    ["Scooters", "Burgman 400", 400, 29, 8600],
+    ["Scooters", "Burgman 125", 124, 9, 2500],
+    ["Custom", "Boulevard M109R", 1783, 128, 15800],
+    ["Custom", "Boulevard C50", 805, 53, 8900]
   ],
   Aprilia: [
-    ["Superdeportivas", "RSV4 Factory 1100", "1099cc • 217 HP", 25900],
-    ["Superdeportivas", "RSV4 1100", "1099cc • 217 HP", 19400],
-    ["Superdeportivas", "RSV4 XTrenta Track", "1099cc • 230 HP", 52000],
-    ["Deportivas", "RS 660 Extrema", "659cc • 100 HP", 13400],
-    ["Deportivas", "RS 660", "659cc • 100 HP", 11600],
-    ["Deportivas", "RS 457", "457cc • 47.6 HP", 6900],
-    ["Deportivas", "RS 125 GP Replica", "124cc • 15 HP", 5400],
-    ["Adventure", "Tuareg 660", "659cc • 80 HP", 12200],
-    ["Adventure", "Tuareg 660 Dakar Podium", "659cc • 80 HP", 13100],
-    ["Adventure", "Caponord 1200 Rally", "1197cc • 125 HP", 15800],
-    ["Doble Propósito", "RX 125 Enduro", "124cc • 15 HP", 4200],
-    ["Doble Propósito", "SX 125 Supermoto", "124cc • 15 HP", 4300],
-    ["Doble Propósito", "Dorsoduro 900", "896cc • 95 HP", 11400],
-    ["Naked", "Tuono V4 Factory", "1077cc • 175 HP", 19800],
-    ["Naked", "Tuono V4 1100", "1077cc • 175 HP", 16400],
-    ["Naked", "Tuono 660 Factory", "659cc • 100 HP", 11200],
-    ["Naked", "Tuono 660", "659cc • 95 HP", 10400],
-    ["Naked", "Shiver 900", "896cc • 95 HP", 9800],
-    ["Naked", "Tuono 125", "124cc • 15 HP", 4900],
-    ["Scooters", "SR GT 200", "174cc • 17.4 HP", 4600],
-    ["Scooters", "SR GT 200 Sport", "174cc • 17.4 HP", 4800],
-    ["Scooters", "SR GT 125", "124cc • 14.7 HP", 4100],
-    ["Scooters", "SXR 160", "160cc • 11 HP", 2900],
-    ["Custom", "Moto Guzzi V7 Stone (Grupo Piaggio)", "853cc • 65 HP", 9400],
-    ["Custom", "Moto Guzzi V9 Bobber", "853cc • 65 HP", 10600],
-    ["Custom", "Moto Guzzi Audace 1400", "1380cc • 96 HP", 16200]
+    ["Superdeportivas", "RSV4 Factory", 1099, 217, 25900],
+    ["Superdeportivas", "RSV4", 1099, 217, 19400],
+    ["Deportivas", "RS 660", 659, 100, 11600],
+    ["Deportivas", "RS 457", 457, 48, 6900],
+    ["Deportivas", "RS 125", 124, 15, 5400],
+    ["Adventure", "Tuareg 660", 659, 80, 12200],
+    ["Adventure", "Caponord 1200", 1197, 125, 15800],
+    ["Doble Propósito", "RX 125", 124, 15, 4200],
+    ["Doble Propósito", "SX 125", 124, 15, 4300],
+    ["Doble Propósito", "Dorsoduro 900", 896, 95, 11400],
+    ["Naked", "Tuono V4", 1077, 175, 16400],
+    ["Naked", "Tuono 660", 659, 95, 10400],
+    ["Naked", "Shiver 900", 896, 95, 9800],
+    ["Scooters", "SR GT 200", 174, 17, 4600],
+    ["Scooters", "SR GT 125", 124, 15, 4100]
   ],
   CFMoto: [
-    ["Superdeportivas", "675SR-R Tricilíndrica", "675cc • 95 HP", 8900],
-    ["Superdeportivas", "500SR Voom 4-Cilindros", "499cc • 78 HP", 7600],
-    ["Deportivas", "450SR-S", "449cc • 50 HP", 6500],
-    ["Deportivas", "450SR", "449cc • 47 HP", 5900],
-    ["Deportivas", "300SR", "292cc • 29 HP", 4400],
-    ["Deportivas", "250SR Fun", "249cc • 27.5 HP", 3800],
-    ["Adventure", "800MT Explore", "799cc • 91 HP", 10600],
-    ["Adventure", "800MT Touring", "799cc • 91 HP", 9900],
-    ["Adventure", "800MT Sport", "799cc • 91 HP", 8900],
-    ["Adventure", "700MT", "693cc • 67 HP", 7400],
-    ["Adventure", "650MT", "649cc • 60 HP", 6600],
-    ["Doble Propósito", "450MT Rally", "449cc • 44 HP", 6400],
-    ["Doble Propósito", "800MT-X Rally", "799cc • 95 HP", 10200],
-    ["Naked", "800NK Advanced", "799cc • 95 HP", 8700],
-    ["Naked", "800NK Sport", "799cc • 95 HP", 7900],
-    ["Naked", "675NK", "675cc • 95 HP", 7800],
-    ["Naked", "450NK", "449cc • 47 HP", 5400],
-    ["Naked", "300NK", "292cc • 28 HP", 3900],
-    ["Naked", "250NK", "249cc • 27 HP", 3400],
-    ["Naked", "700CL-X Sport", "693cc • 70 HP", 7500],
-    ["Naked", "700CL-X Heritage", "693cc • 70 HP", 7100],
-    ["Naked", "125NK", "124cc • 14.5 HP", 2900],
-    ["Scooters", "Zeeho AE8 S+ Electric", "Eléctrico • 17 HP", 4500],
-    ["Scooters", "150SC Sport Scooter", "149cc • 14.3 HP", 2800],
-    ["Custom", "450CL-C Bobber", "449cc • 40 HP", 6400],
-    ["Custom", "450CL-C Cruiser", "449cc • 40 HP", 6600]
+    ["Superdeportivas", "675SR-R", 675, 95, 8900],
+    ["Superdeportivas", "500SR Voom", 499, 78, 7600],
+    ["Deportivas", "450SR-S", 449, 50, 6500],
+    ["Deportivas", "450SR", 449, 47, 5900],
+    ["Deportivas", "300SR", 292, 29, 4400],
+    ["Deportivas", "250SR", 249, 27, 3800],
+    ["Adventure", "800MT Explore", 799, 91, 10600],
+    ["Adventure", "800MT Touring", 799, 91, 9900],
+    ["Adventure", "700MT", 693, 67, 7400],
+    ["Adventure", "650MT", 649, 60, 6600],
+    ["Doble Propósito", "450MT", 449, 44, 6400],
+    ["Doble Propósito", "800MT-X", 799, 95, 10200],
+    ["Naked", "800NK", 799, 95, 8700],
+    ["Naked", "675NK", 675, 95, 7800],
+    ["Naked", "450NK", 449, 47, 5400],
+    ["Naked", "300NK", 292, 28, 3900],
+    ["Naked", "700CL-X", 693, 70, 7500],
+    ["Scooters", "150SC", 149, 14, 2800],
+    ["Custom", "450CL-C", 449, 40, 6400]
   ],
   Kove: [
-    ["Superdeportivas", "450RR 4-Cilindros", "443cc • 70 HP", 6900],
-    ["Superdeportivas", "450RR Pro", "443cc • 70 HP", 7500],
-    ["Deportivas", "321RR-S Monobrazo", "322cc • 41.5 HP", 5200],
-    ["Deportivas", "321RR", "322cc • 41.5 HP", 4800],
-    ["Deportivas", "250RR", "249cc • 32 HP", 4100],
-    ["Adventure", "800X Pro Adventure", "799cc • 95 HP", 9800],
-    ["Adventure", "800X Rally", "799cc • 95 HP", 10400],
-    ["Adventure", "800X Standard", "799cc • 95 HP", 8900],
-    ["Adventure", "510X Adventure", "498cc • 47.6 HP", 6800],
-    ["Adventure", "500X Classic", "471cc • 47 HP", 6200],
-    ["Doble Propósito", "450 Rally Factory Edition", "449cc • 51 HP", 12900],
-    ["Doble Propósito", "450 Rally Regular", "449cc • 51 HP", 9200],
-    ["Doble Propósito", "MX250 Motocross", "249cc • 37 HP", 6400],
-    ["Doble Propósito", "MX450", "449cc • 62 HP", 7600],
-    ["Doble Propósito", "510F Scrambler", "498cc • 47.6 HP", 6500],
-    ["Naked", "321R Naked", "322cc • 41.5 HP", 4500],
-    ["Naked", "Cobra 321R", "322cc • 41.5 HP", 4600],
-    ["Naked", "NK 125R", "124cc • 15 HP", 3200],
-    ["Naked", "500F", "471cc • 47 HP", 5900],
-    ["Custom", "Lancer 400 Bobber", "398cc • 38 HP", 5300]
+    ["Superdeportivas", "450RR", 443, 70, 6900],
+    ["Deportivas", "321RR", 322, 41, 4800],
+    ["Deportivas", "250RR", 249, 32, 4100],
+    ["Adventure", "800X Pro", 799, 95, 9800],
+    ["Adventure", "800X Rally", 799, 95, 10400],
+    ["Adventure", "510X", 498, 47, 6800],
+    ["Doble Propósito", "450 Rally", 449, 51, 9200],
+    ["Doble Propósito", "MX250", 249, 37, 6400],
+    ["Naked", "321R", 322, 41, 4500],
+    ["Naked", "500F", 471, 47, 5900]
   ],
   Morbidelli: [
-    ["Superdeportivas", "F352 RR", "349cc • 41.5 HP", 5100],
-    ["Deportivas", "F250 Sport", "249cc • 28 HP", 3900],
-    ["Deportivas", "F125 Sport", "124cc • 14.5 HP", 3200],
-    ["Adventure", "T1002VX V-Twin", "997cc • 88 HP", 9900],
-    ["Adventure", "T1002V", "997cc • 88 HP", 9400],
-    ["Adventure", "T502X Trail", "486cc • 47 HP", 6400],
-    ["Adventure", "T352X", "349cc • 41 HP", 5300],
-    ["Doble Propósito", "T250X Dual", "249cc • 24 HP", 3600],
-    ["Doble Propósito", "T125X", "124cc • 14.2 HP", 2950],
-    ["Naked", "M502N", "486cc • 47 HP", 5600],
-    ["Naked", "N300", "298cc • 29.5 HP", 4100],
-    ["Naked", "N125V", "124cc • 14.5 HP", 2850],
-    ["Naked", "NR352", "349cc • 41 HP", 4700],
-    ["Scooters", "SC300GT", "278cc • 26 HP", 4400],
-    ["Scooters", "SC150RE", "149cc • 14 HP", 2700],
-    ["Scooters", "SC125LX", "124cc • 11 HP", 2400],
-    ["Custom", "C1002V Cruiser", "997cc • 88 HP", 9600],
-    ["Custom", "C652V", "649cc • 56 HP", 7200],
-    ["Custom", "C252V V-Twin", "249cc • 26 HP", 4200],
-    ["Custom", "C125V", "124cc • 14 HP", 3100]
+    ["Superdeportivas", "F352", 349, 41, 5100],
+    ["Deportivas", "F250", 249, 28, 3900],
+    ["Adventure", "T1002VX", 997, 88, 9900],
+    ["Adventure", "T502X", 486, 47, 6400],
+    ["Doble Propósito", "T250X", 249, 24, 3600],
+    ["Naked", "M502N", 486, 47, 5600],
+    ["Naked", "N300", 298, 29, 4100],
+    ["Scooters", "SC300", 278, 26, 4400],
+    ["Custom", "C1002V", 997, 88, 9600]
   ],
   Hero: [
-    ["Deportivas", "Karizma XMR 210", "210cc • 25.5 HP", 3100],
-    ["Deportivas", "Xtreme 200S 4V", "199cc • 19 HP", 2650],
-    ["Deportivas", "Karizma CE", "210cc • 25.5 HP", 3300],
-    ["Adventure", "XPulse 200T 4V", "199cc • 19 HP", 2750],
-    ["Adventure", "XPulse 400 Adv", "421cc • 40 HP", 4900],
-    ["Doble Propósito", "XPulse 200 4V Rally Edition", "199cc • 19 HP", 2950],
-    ["Doble Propósito", "XPulse 200 4V Pro", "199cc • 19 HP", 2750],
-    ["Doble Propósito", "XPulse 200 4V", "199cc • 19 HP", 2550],
-    ["Naked", "Mavrick 440", "440cc • 27 HP", 3800],
-    ["Naked", "Xtreme 160R 4V", "163cc • 16.9 HP", 2450],
-    ["Naked", "Xtreme 125R", "124cc • 11.4 HP", 1950],
-    ["Naked", "Hunk 160R", "163cc • 15 HP", 2250],
-    ["Naked", "Hunk 150 XTEC", "149cc • 14.2 HP", 1990],
-    ["Naked", "Ignitor 125 XTEC", "124cc • 10.7 HP", 1650],
-    ["Naked", "Eco 150 TR", "149cc • 13.4 HP", 1550],
-    ["Scooters", "Xoom 160 Maxi", "156cc • 14 HP", 2400],
-    ["Scooters", "Xoom 110", "110cc • 8.1 HP", 1650],
-    ["Scooters", "Destini 125 XTEC", "124cc • 9 HP", 1750],
-    ["Scooters", "Dash 125 FI", "124cc • 9 HP", 1850],
-    ["Scooters", "Pleasure+ XTEC", "110cc • 8 HP", 1550]
+    ["Deportivas", "Karizma XMR", 210, 25, 3100],
+    ["Deportivas", "Xtreme 200S", 199, 19, 2650],
+    ["Adventure", "XPulse 200T", 199, 19, 2750],
+    ["Doble Propósito", "XPulse 200 4V", 199, 19, 2550],
+    ["Doble Propósito", "XPulse 200 Rally", 199, 19, 2950],
+    ["Naked", "Mavrick 440", 440, 27, 3800],
+    ["Naked", "Xtreme 160R", 163, 17, 2450],
+    ["Naked", "Hunk 160R", 163, 15, 2250],
+    ["Scooters", "Xoom 110", 110, 8, 1650],
+    ["Scooters", "Destini 125", 124, 9, 1750]
   ],
   Italika: [
-    ["Deportivas", "Vort-X 300R", "292cc • 27 HP", 2950],
-    ["Deportivas", "RT250 Sport", "250cc • 17.8 HP", 2350],
-    ["Deportivas", "RT200 GP", "200cc • 15.4 HP", 1950],
-    ["Adventure", "VX250 Adventure", "250cc • 24.5 HP", 2850],
-    ["Adventure", "V200 Adventure", "200cc • 15 HP", 2150],
-    ["Doble Propósito", "DM250X", "250cc • 17 HP", 2350],
-    ["Doble Propósito", "DM250", "250cc • 16.2 HP", 2150],
-    ["Doble Propósito", "DM200 Sport", "200cc • 14.8 HP", 1850],
-    ["Doble Propósito", "DM150", "150cc • 12.5 HP", 1650],
-    ["Naked", "Vort-X 300", "292cc • 26.8 HP", 2750],
-    ["Naked", "Vort-X 250", "250cc • 20 HP", 2450],
-    ["Naked", "250Z Grafito", "250cc • 17.9 HP", 2100],
-    ["Naked", "200Z", "200cc • 15.5 HP", 1850],
-    ["Naked", "150Z", "150cc • 14 HP", 1650],
-    ["Naked", "Blackbird 250 Cafe Racer", "250cc • 19 HP", 2400],
-    ["Naked", "SPTFire 250", "250cc • 16.2 HP", 1950],
-    ["Scooters", "Vitalia 150", "149cc • 8.4 HP", 1750],
-    ["Scooters", "Modena 175", "175cc • 10.2 HP", 1950],
-    ["Scooters", "WS175 Sport", "175cc • 10.5 HP", 1850],
-    ["Scooters", "D150", "150cc • 8.3 HP", 1450],
-    ["Scooters", "Bit 150", "150cc • 8.5 HP", 1550],
-    ["Custom", "TC250", "250cc • 17.8 HP", 2250],
-    ["Custom", "TC200", "200cc • 14.5 HP", 1950],
-    ["Custom", "RC200", "200cc • 15 HP", 1890]
+    ["Deportivas", "Vort-X 300R", 292, 27, 2950],
+    ["Deportivas", "RT250", 250, 18, 2350],
+    ["Deportivas", "RT200", 200, 15, 1950],
+    ["Adventure", "VX250", 250, 24, 2850],
+    ["Doble Propósito", "DM250X", 250, 17, 2350],
+    ["Doble Propósito", "DM200", 200, 15, 1850],
+    ["Naked", "Vort-X 300", 292, 27, 2750],
+    ["Naked", "250Z", 250, 18, 2100],
+    ["Naked", "Blackbird 250", 250, 19, 2400],
+    ["Scooters", "Vitalia 150", 149, 8, 1750],
+    ["Scooters", "Modena 175", 175, 10, 1950],
+    ["Custom", "TC250", 250, 18, 2250]
   ],
   ZXMoto: [
-    ["Superdeportivas", "820RR Corsa", "819cc • 135 HP", 11200],
-    ["Superdeportivas", "820RR-S Carbon", "819cc • 140 HP", 12600],
-    ["Superdeportivas", "1000RR V4 Prototype", "999cc • 195 HP", 16900],
-    ["Deportivas", "500RR 4-Cilindros", "499cc • 82 HP", 7400],
-    ["Deportivas", "450RR Track", "449cc • 52 HP", 6200],
-    ["Deportivas", "300RR", "298cc • 34 HP", 4300],
-    ["Adventure", "820X Adventure", "819cc • 115 HP", 10400],
-    ["Adventure", "500X Touring", "499cc • 54 HP", 6800],
-    ["Doble Propósito", "450 Rally Raid", "449cc • 50 HP", 7900],
-    ["Doble Propósito", "250X Enduro", "249cc • 28 HP", 3900],
-    ["Naked", "820R Streetfighter", "819cc • 130 HP", 9900],
-    ["Naked", "500R HyperNaked", "499cc • 78 HP", 6600],
-    ["Naked", "300R", "298cc • 34 HP", 3950],
-    ["Naked", "150R Urban", "149cc • 17 HP", 2550],
-    ["Scooters", "350GT MaxiScooter", "349cc • 32 HP", 5200],
-    ["Scooters", "150 ADV Scooter", "149cc • 15 HP", 2950],
-    ["Custom", "650C Cruiser", "649cc • 62 HP", 7200],
-    ["Custom", "450C Bobber", "449cc • 44 HP", 5800]
+    ["Superdeportivas", "820RR", 819, 135, 11200],
+    ["Deportivas", "500RR", 499, 82, 7400],
+    ["Deportivas", "450RR", 449, 52, 6200],
+    ["Adventure", "820X", 819, 115, 10400],
+    ["Doble Propósito", "450 Rally", 449, 50, 7900],
+    ["Naked", "820R", 819, 130, 9900],
+    ["Naked", "500R", 499, 78, 6600],
+    ["Scooters", "350GT", 349, 32, 5200],
+    ["Custom", "650C", 649, 62, 7200]
   ]
 };
 
@@ -379,16 +307,31 @@ function construirCatalogoCompleto() {
   const lista = [];
   let id = 1;
   Object.entries(CATALOGO_BASE).forEach(([marca, modelos]) => {
-    modelos.forEach(([categoria, modelo, specs, precio]) => {
+    modelos.forEach(([categoria, modelo, cc, hp, precio]) => {
+      const esElectrica = cc === 0;
+      const esScooter = categoria === "Scooters";
+      const esOffroad = categoria === "Doble Propósito" || categoria === "Adventure";
+      const peso = esScooter ? 135 : cc > 800 ? 215 : cc > 350 ? 182 : 148;
+
       lista.push({
         id: id++,
         marca,
         categoria,
+        modeloCorto: modelo,
         nombre: `${marca} ${modelo}`,
-        specs,
+        cc,
+        hp,
         precio,
-        stock: (id % 7) + 2,
-        img: IMGS[categoria] || IMGS.Deportivas
+        stock: (id % 6) + 2,
+        transmision: esScooter || esElectrica ? "Automática CVT" : cc >= 250 ? "Mecánica 6 Vel." : "Mecánica 5 Vel.",
+        frenos: hp >= 120 ? "Brembo Radial" : cc >= 250 ? "ABS Doble Canal" : "CBS / Tambor",
+        aros: esOffroad ? "Rayos 21''/18''" : esScooter ? "Urbano 12''-14''" : "Aleación 17''",
+        suspension: hp >= 130 ? "Electrónica Öhlins/WP" : cc >= 250 ? "Invertida USD" : "Telescópica",
+        combustible: esElectrica ? "Eléctrica" : cc >= 200 ? "Inyección Electrónica" : "Carburador",
+        peso,
+        dimCat: peso < 160 ? "Ligera (<160 kg)" : peso <= 205 ? "Media (160-205 kg)" : "Gran Porte (>205 kg)",
+        tft: cc >= 300 || hp >= 40,
+        img: FALLBACK_IMGS[categoria]
       });
     });
   });
@@ -396,30 +339,59 @@ function construirCatalogoCompleto() {
 }
 
 const DATOS_INICIALES = construirCatalogoCompleto();
-let productos = JSON.parse(localStorage.getItem("punto_biker_db_364")) || DATOS_INICIALES;
+let productos = JSON.parse(localStorage.getItem("punto_biker_v6")) || DATOS_INICIALES;
 let carrito = [];
-let categoriaActiva = "Todas";
+let moneda = "USD";
+const TASA_PEN = 3.75;
 let paginaActual = 1;
-const POR_PAGINA = 24;
+const POR_PAGINA = 21;
+const cacheFotos = JSON.parse(localStorage.getItem("punto_biker_fotos_cache") || "{}");
 
 function guardarDB() {
-  localStorage.setItem("punto_biker_db_364", JSON.stringify(productos));
+  localStorage.setItem("punto_biker_v6", JSON.stringify(productos));
 }
 
-function inicializarFiltros() {
+function formatearPrecio(usd) {
+  if (moneda === "USD") return `$${usd.toLocaleString()} USD`;
+  return `S/ ${Math.round(usd * TASA_PEN).toLocaleString()}`;
+}
+
+function cambiarMoneda(m) {
+  moneda = m;
+  document.getElementById("btn-usd").classList.toggle("active", m === "USD");
+  document.getElementById("btn-pen").classList.toggle("active", m === "PEN");
+  actualizarPrecioFiltro();
+}
+
+function actualizarPrecioFiltro() {
+  const val = Number(document.getElementById("filtro-precio").value);
+  document.getElementById("precio-max-label").innerText = formatearPrecio(val);
+  resetPaginaYRender();
+}
+
+function inicializarSidebar() {
   document.getElementById("total-modelos-nav").innerText = productos.length;
   document.getElementById("total-modelos-inv").innerText = productos.length;
 
-  const cats = ["Todas", ...new Set(productos.map(p => p.categoria))];
-  const bar = document.getElementById("categorias-bar");
-  bar.innerHTML = cats.map(c =>
-    `<button class="${c === categoriaActiva ? 'active' : ''}" onclick="filtrarCategoria('${c}')">${c}</button>`
+  const marcas = [...new Set(productos.map(p => p.marca))].sort();
+  document.getElementById("filtro-marca-lista").innerHTML = marcas.map(m =>
+    `<label><input type="checkbox" class="chk-marca" value="${m}" onchange="resetPaginaYRender()"> ${m}</label>`
   ).join("");
 
-  const marcas = [...new Set(productos.map(p => p.marca))].sort();
-  const selectMarca = document.getElementById("filtro-marca");
-  selectMarca.innerHTML = `<option value="Todas">Todas las Marcas (${marcas.length})</option>` +
-    marcas.map(m => `<option value="${m}">${m}</option>`).join("");
+  const tipos = [...new Set(productos.map(p => p.categoria))];
+  document.getElementById("filtro-tipo-lista").innerHTML = tipos.map(t =>
+    `<label><input type="checkbox" class="chk-tipo" value="${t}" onchange="resetPaginaYRender()"> ${t}</label>`
+  ).join("");
+}
+
+function limpiarFiltros() {
+  document.getElementById("buscador").value = "";
+  document.querySelectorAll(".chk-marca, .chk-tipo").forEach(c => c.checked = false);
+  document.querySelectorAll("input[type='radio'][value='Todos']").forEach(r => r.checked = true);
+  document.getElementById("filtro-stock").checked = false;
+  document.getElementById("filtro-tft").checked = false;
+  document.getElementById("filtro-precio").value = 180000;
+  actualizarPrecioFiltro();
 }
 
 function resetPaginaYRender() {
@@ -427,42 +399,77 @@ function resetPaginaYRender() {
   renderCatalogo();
 }
 
-function filtrarCategoria(cat) {
-  categoriaActiva = cat;
-  paginaActual = 1;
-  document.querySelectorAll("#categorias-bar button").forEach(btn => {
-    btn.classList.toggle("active", btn.innerText === cat);
-  });
-  renderCatalogo();
-}
-
-function cambiarPagina(delta) {
-  paginaActual += delta;
-  renderCatalogo();
-  window.scrollTo({ top: 0, behavior: "smooth" });
+// Busca foto real de cada moto en Wikimedia Commons de forma asíncrona y la guarda en caché
+async function cargarFotoRealMoto(prod, imgElement) {
+  if (cacheFotos[prod.nombre]) {
+    imgElement.src = cacheFotos[prod.nombre];
+    return;
+  }
+  try {
+    const query = encodeURIComponent(`${prod.marca} ${prod.modeloCorto} motorcycle`);
+    const url = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=filetype:bitmap+${query}&gsrnamespace=6&gsrlimit=1&prop=imageinfo&iiprop=url&iiurlwidth=600&format=json&origin=*`;
+    const res = await fetch(url);
+    const data = await res.json();
+    const pages = data?.query?.pages;
+    if (pages) {
+      const firstPage = Object.values(pages)[0];
+      const thumb = firstPage?.imageinfo?.[0]?.thumburl;
+      if (thumb) {
+        cacheFotos[prod.nombre] = thumb;
+        localStorage.setItem("punto_biker_fotos_cache", JSON.stringify(cacheFotos));
+        imgElement.src = thumb;
+      }
+    }
+  } catch (e) { /* Mantiene imagen de respaldo si falla la red */ }
 }
 
 function renderCatalogo() {
   const grid = document.getElementById("catalogo-grid");
   const info = document.getElementById("resultados-info");
   const pagBar = document.getElementById("paginacion-bar");
-  const texto = (document.getElementById("buscador")?.value || "").toLowerCase();
-  const marcaSel = document.getElementById("filtro-marca")?.value || "Todas";
 
-  const filtrados = productos.filter(p => {
-    const matchCat = categoriaActiva === "Todas" || p.categoria === categoriaActiva;
-    const matchMarca = marcaSel === "Todas" || p.marca === marcaSel;
-    const matchTxt = p.nombre.toLowerCase().includes(texto) ||
-                     p.marca.toLowerCase().includes(texto) ||
-                     p.specs.toLowerCase().includes(texto) ||
-                     p.categoria.toLowerCase().includes(texto);
-    return matchCat && matchMarca && matchTxt;
+  const txt = document.getElementById("buscador").value.toLowerCase();
+  const marcasSel = [...document.querySelectorAll(".chk-marca:checked")].map(c => c.value);
+  const tiposSel = [...document.querySelectorAll(".chk-tipo:checked")].map(c => c.value);
+  const maxPrecio = Number(document.getElementById("filtro-precio").value);
+  const motorSel = document.querySelector("input[name='motor']:checked").value;
+  const transSel = document.querySelector("input[name='transmision']:checked").value;
+  const frenosSel = document.querySelector("input[name='frenos']:checked").value;
+  const arosSel = document.querySelector("input[name='aros']:checked").value;
+  const suspSel = document.querySelector("input[name='suspension']:checked").value;
+  const combSel = document.querySelector("input[name='combustible']:checked").value;
+  const dimSel = document.querySelector("input[name='dimensiones']:checked").value;
+  const soloStock = document.getElementById("filtro-stock").checked;
+  const soloTft = document.getElementById("filtro-tft").checked;
+  const orden = document.getElementById("ordenar-por").value;
+
+  let filtrados = productos.filter(p => {
+    if (txt && !`${p.nombre} ${p.categoria} ${p.cc}cc`.toLowerCase().includes(txt)) return false;
+    if (marcasSel.length && !marcasSel.includes(p.marca)) return false;
+    if (tiposSel.length && !tiposSel.includes(p.categoria)) return false;
+    if (p.precio > maxPrecio) return false;
+    if (motorSel === "baja" && p.cc > 250) return false;
+    if (motorSel === "media" && (p.cc <= 250 || p.cc > 750)) return false;
+    if (motorSel === "alta" && p.cc <= 750) return false;
+    if (transSel !== "Todos" && p.transmision !== transSel) return false;
+    if (frenosSel !== "Todos" && p.frenos !== frenosSel) return false;
+    if (arosSel !== "Todos" && p.aros !== arosSel) return false;
+    if (suspSel !== "Todos" && p.suspension !== suspSel) return false;
+    if (combSel !== "Todos" && p.combustible !== combSel) return false;
+    if (dimSel !== "Todos" && p.dimCat !== dimSel) return false;
+    if (soloStock && p.stock === 0) return false;
+    if (soloTft && !p.tft) return false;
+    return true;
   });
 
+  if (orden === "precio-asc") filtrados.sort((a, b) => a.precio - b.precio);
+  if (orden === "precio-desc") filtrados.sort((a, b) => b.precio - a.precio);
+  if (orden === "hp-desc") filtrados.sort((a, b) => b.hp - a.hp);
+
   if (filtrados.length === 0) {
-    info.innerText = "0 motocicletas encontradas";
+    info.innerText = "0 motocicletas encontradas con esos filtros";
     pagBar.innerHTML = "";
-    grid.innerHTML = "<p style='grid-column:1/-1;text-align:center;color:#94a3b8;padding:2rem;'>No se encontraron motocicletas con ese criterio.</p>";
+    grid.innerHTML = "<p style='grid-column:1/-1;text-align:center;color:#94a3b8;padding:3rem;'>No hay motocicletas que coincidan con tu búsqueda. Haz clic en 'Limpiar Todo'.</p>";
     return;
   }
 
@@ -471,34 +478,82 @@ function renderCatalogo() {
   const inicio = (paginaActual - 1) * POR_PAGINA;
   const visibles = filtrados.slice(inicio, inicio + POR_PAGINA);
 
-  info.innerText = `Mostrando ${inicio + 1} - ${Math.min(inicio + POR_PAGINA, filtrados.length)} de ${filtrados.length} motocicletas disponibles`;
+  info.innerHTML = `Mostrando <strong>${inicio + 1}-${Math.min(inicio + POR_PAGINA, filtrados.length)}</strong> de <strong>${filtrados.length}</strong> motocicletas`;
 
   grid.innerHTML = visibles.map(p => `
     <article class="card">
-      <img src="${p.img}" alt="${p.nombre}" loading="lazy" />
+      <div class="card-img-wrap" onclick="verFicha(${p.id})">
+        <img id="img-moto-${p.id}" src="${cacheFotos[p.nombre] || p.img}" alt="${p.nombre}" />
+      </div>
       <div class="card-body">
         <div class="card-tags">
           <span class="marca-tag">${p.marca}</span>
           <span class="badge">${p.categoria}</span>
         </div>
-        <h3>${p.nombre}</h3>
-        <div class="specs">${p.specs}</div>
-        <div class="precio">$${p.precio.toLocaleString()} USD</div>
-        <div class="stock ${p.stock === 0 ? 'agotado' : ''}">
-          ${p.stock > 0 ? `Stock disponible: ${p.stock} unid.` : 'AGOTADO'}
+        <h3 onclick="verFicha(${p.id})">${p.nombre}</h3>
+        <div class="specs">
+          ⚙️ ${p.cc > 0 ? p.cc + 'cc' : 'Eléctrica'} • ⚡ ${p.hp} HP<br/>
+          🛑 ${p.frenos} • 🔧 ${p.transmision}
         </div>
-        <button ${p.stock === 0 ? 'disabled' : ''} onclick="agregarCarrito(${p.id})">
-          ${p.stock > 0 ? 'Agregar al Carrito' : 'Sin Stock'}
-        </button>
+        <div class="precio">${formatearPrecio(p.precio)}</div>
+        <div class="stock ${p.stock === 0 ? 'agotado' : ''}">
+          ${p.stock > 0 ? `Stock: ${p.stock} unid.` : 'AGOTADO'}
+        </div>
+        <div class="card-actions">
+          <button class="btn-ficha" onclick="verFicha(${p.id})">Ficha Técnica</button>
+          <button class="btn-add" ${p.stock === 0 ? 'disabled' : ''} onclick="agregarCarrito(${p.id})">
+            ${p.stock > 0 ? '+ Carrito' : 'Sin Stock'}
+          </button>
+        </div>
       </div>
     </article>
   `).join("");
 
+  visibles.forEach(p => {
+    const el = document.getElementById(`img-moto-${p.id}`);
+    if (el && !cacheFotos[p.nombre]) cargarFotoRealMoto(p, el);
+  });
+
   pagBar.innerHTML = totalPaginas > 1 ? `
-    <button ${paginaActual === 1 ? 'disabled' : ''} onclick="cambiarPagina(-1)">← Anterior</button>
+    <button ${paginaActual === 1 ? 'disabled' : ''} onclick="paginaActual--;renderCatalogo();window.scrollTo(0,0)">← Anterior</button>
     <span>Página <strong>${paginaActual}</strong> de <strong>${totalPaginas}</strong></span>
-    <button ${paginaActual === totalPaginas ? 'disabled' : ''} onclick="cambiarPagina(1)">Siguiente →</button>
+    <button ${paginaActual === totalPaginas ? 'disabled' : ''} onclick="paginaActual++;renderCatalogo();window.scrollTo(0,0)">Siguiente →</button>
   ` : "";
+}
+
+function verFicha(id) {
+  const p = productos.find(m => m.id === id);
+  if (!p) return;
+  const box = document.getElementById("ficha-contenido");
+  box.innerHTML = `
+    <img src="${cacheFotos[p.nombre] || p.img}" alt="${p.nombre}" />
+    <div class="modal-info">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span class="marca-tag">${p.marca} • ${p.categoria}</span>
+        <button onclick="document.getElementById('modal-ficha').classList.add('hidden')" style="background:none;border:none;color:#fff;font-size:1.3rem;cursor:pointer;">✕</button>
+      </div>
+      <h2 style="margin-top:8px;">${p.nombre}</h2>
+      <div class="precio" style="margin-top:4px;">${formatearPrecio(p.precio)}</div>
+      <div class="ficha-grid">
+        <div><strong>Motor:</strong> ${p.cc > 0 ? p.cc + ' cc' : 'Motor Eléctrico'}</div>
+        <div><strong>Potencia:</strong> ${p.hp} HP</div>
+        <div><strong>Transmisión:</strong> ${p.transmision}</div>
+        <div><strong>Frenos:</strong> ${p.frenos}</div>
+        <div><strong>Aros y Llantas:</strong> ${p.aros}</div>
+        <div><strong>Suspensión:</strong> ${p.suspension}</div>
+        <div><strong>Combustible:</strong> ${p.combustible}</div>
+        <div><strong>Peso / Dimensión:</strong> ${p.peso} kg (${p.dimCat})</div>
+      </div>
+      <button class="btn-add" style="width:100%;padding:12px;" ${p.stock === 0 ? 'disabled' : ''} onclick="agregarCarrito(${p.id});document.getElementById('modal-ficha').classList.add('hidden')">
+        Agregar al Carrito (${p.stock} disponibles)
+      </button>
+    </div>
+  `;
+  document.getElementById("modal-ficha").classList.remove("hidden");
+}
+
+function cerrarFicha(e) {
+  if (e.target.id === "modal-ficha") document.getElementById("modal-ficha").classList.add("hidden");
 }
 
 function agregarCarrito(id) {
@@ -506,7 +561,7 @@ function agregarCarrito(id) {
   const enCarrito = carrito.find(item => item.id === id);
   if (enCarrito) {
     if (enCarrito.cantidad < prod.stock) enCarrito.cantidad++;
-    else alert("No hay más stock disponible de este modelo.");
+    else alert("No hay más stock disponible.");
   } else {
     carrito.push({ ...prod, cantidad: 1 });
   }
@@ -518,7 +573,7 @@ function actualizarCarritoUI() {
   const body = document.getElementById("carrito-items");
   if (carrito.length === 0) {
     body.innerHTML = "<p style='color:#94a3b8'>El carrito está vacío.</p>";
-    document.getElementById("carrito-total").innerText = "$0";
+    document.getElementById("carrito-total").innerText = formatearPrecio(0);
     return;
   }
   let total = 0;
@@ -528,13 +583,13 @@ function actualizarCarritoUI() {
       <div class="item-carrito">
         <div>
           <strong>${item.nombre}</strong><br/>
-          <small>$${item.precio.toLocaleString()} x ${item.cantidad}</small>
+          <small>${formatearPrecio(item.precio)} x ${item.cantidad}</small>
         </div>
         <button style="background:#dc2626;color:white;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;" onclick="quitarCarrito(${item.id})">Quitar</button>
       </div>
     `;
   }).join("");
-  document.getElementById("carrito-total").innerText = `$${total.toLocaleString()} USD`;
+  document.getElementById("carrito-total").innerText = formatearPrecio(total);
 }
 
 function quitarCarrito(id) {
@@ -560,19 +615,14 @@ function finalizarCompra() {
 function renderInventario() {
   const tbody = document.getElementById("tabla-inventario");
   const filtro = (document.getElementById("buscador-inv")?.value || "").toLowerCase();
-  const lista = productos.filter(p =>
-    p.nombre.toLowerCase().includes(filtro) ||
-    p.marca.toLowerCase().includes(filtro) ||
-    p.categoria.toLowerCase().includes(filtro)
-  );
-
+  const lista = productos.filter(p => `${p.nombre} ${p.categoria}`.toLowerCase().includes(filtro));
   tbody.innerHTML = lista.map(p => `
     <tr>
       <td>#${p.id}</td>
       <td><strong>${p.marca}</strong></td>
       <td>${p.categoria}</td>
       <td>${p.nombre}</td>
-      <td>${p.specs}</td>
+      <td>${p.cc}cc • ${p.hp} HP</td>
       <td>$${p.precio.toLocaleString()}</td>
       <td><strong>${p.stock}</strong> unid.</td>
       <td>
@@ -611,7 +661,7 @@ function toggleCarrito() {
   document.getElementById("modal-carrito").classList.toggle("hidden");
 }
 
-inicializarFiltros();
+inicializarSidebar();
 renderCatalogo();
 renderInventario();
 actualizarCarritoUI();

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Punto Biker | Concesionario Digital Multimarca (+360 Modelos)</title>
+  <title>Punto Biker | Portal Multimarca de Motocicletas</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -18,35 +18,146 @@
         <span class="brand-bottom">BIKER</span>
       </div>
     </div>
+
+    <div class="top-search">
+      <input type="text" id="buscador" placeholder="Buscar marca, modelo o cilindrada (ej. Panigale V4, R1, Z900, 800X)..." oninput="resetPaginaYRender()" />
+    </div>
+
     <nav class="nav-actions">
-      <button id="btn-tienda" class="active" onclick="cambiarVista('tienda')">Catálogo (<span id="total-modelos-nav">364</span>)</button>
-      <button id="btn-inventario" onclick="cambiarVista('inventario')">Gestión de Inventario</button>
-      <button class="cart-btn" onclick="toggleCarrito()">🛒 Carrito (<span id="cart-count">0</span>)</button>
+      <button id="btn-tienda" class="active" onclick="cambiarVista('tienda')">Catálogo (<span id="total-modelos-nav">318</span>)</button>
+      <button id="btn-inventario" onclick="cambiarVista('inventario')">Inventario</button>
+      <button class="cart-btn" onclick="toggleCarrito()">🛒 (<span id="cart-count">0</span>)</button>
     </nav>
   </header>
 
-  <main id="vista-tienda" class="container">
-    <section class="hero">
-      <h2>Mega Concesionario Multimarca 2026</h2>
-      <p>Ducati • BMW • KTM • Yamaha • Kawasaki • Honda • Suzuki • Aprilia • CFMoto • Kove • Morbidelli • Hero • Italika • ZXMoto</p>
-      <div class="search-controls">
-        <input type="text" id="buscador" placeholder="Buscar entre 364 modelos (ej. Panigale, H2, 800X, R1, Z900, XPulse, Vort-X)..." oninput="resetPaginaYRender()" />
-        <select id="filtro-marca" onchange="resetPaginaYRender()">
-          <option value="Todas">Todas las Marcas (14)</option>
+  <main id="vista-tienda" class="container-layout">
+    <!-- BARRA LATERAL DE FILTROS ESTILO SOMOS MOTO -->
+    <aside class="sidebar-filtros">
+      <button class="btn-limpiar-todo" onclick="limpiarFiltros()">Limpiar Todo</button>
+
+      <details class="filtro-acordeon" open>
+        <summary>MARCA</summary>
+        <div class="filtro-contenido" id="filtro-marca-lista"></div>
+      </details>
+
+      <details class="filtro-acordeon" open>
+        <summary>TIPO DE MOTO</summary>
+        <div class="filtro-contenido" id="filtro-tipo-lista"></div>
+      </details>
+
+      <details class="filtro-acordeon" open>
+        <summary>PRECIO Y MONEDA</summary>
+        <div class="filtro-contenido">
+          <div class="moneda-switch">
+            <button id="btn-usd" class="active" onclick="cambiarMoneda('USD')">USD ($)</button>
+            <button id="btn-pen" onclick="cambiarMoneda('PEN')">Soles (S/)</button>
+          </div>
+          <label class="range-label">Precio máximo: <strong id="precio-max-label">$180,000</strong></label>
+          <input type="range" id="filtro-precio" min="1500" max="180000" step="500" value="180000" oninput="actualizarPrecioFiltro()" />
+        </div>
+      </details>
+
+      <details class="filtro-acordeon">
+        <summary>MOTOR</summary>
+        <div class="filtro-contenido" id="filtro-motor-lista">
+          <label><input type="radio" name="motor" value="Todos" checked onchange="resetPaginaYRender()"> Todos los motores</label>
+          <label><input type="radio" name="motor" value="baja" onchange="resetPaginaYRender()"> Baja Cilindrada (110cc - 250cc)</label>
+          <label><input type="radio" name="motor" value="media" onchange="resetPaginaYRender()"> Media Cilindrada (251cc - 750cc)</label>
+          <label><input type="radio" name="motor" value="alta" onchange="resetPaginaYRender()"> Alta Cilindrada (+750cc)</label>
+        </div>
+      </details>
+
+      <details class="filtro-acordeon">
+        <summary>TRANSMISIÓN</summary>
+        <div class="filtro-contenido">
+          <label><input type="radio" name="transmision" value="Todos" checked onchange="resetPaginaYRender()"> Todas</label>
+          <label><input type="radio" name="transmision" value="Mecánica 6 Vel." onchange="resetPaginaYRender()"> Mecánica 6 Velocidades</label>
+          <label><input type="radio" name="transmision" value="Mecánica 5 Vel." onchange="resetPaginaYRender()"> Mecánica 5 Velocidades</label>
+          <label><input type="radio" name="transmision" value="Automática CVT" onchange="resetPaginaYRender()"> Automática CVT / DCT</label>
+        </div>
+      </details>
+
+      <details class="filtro-acordeon">
+        <summary>FRENOS</summary>
+        <div class="filtro-contenido">
+          <label><input type="radio" name="frenos" value="Todos" checked onchange="resetPaginaYRender()"> Todos</label>
+          <label><input type="radio" name="frenos" value="ABS Doble Canal" onchange="resetPaginaYRender()"> Disco ABS Doble Canal</label>
+          <label><input type="radio" name="frenos" value="Brembo Radial" onchange="resetPaginaYRender()"> Brembo Monobloque / Radial</label>
+          <label><input type="radio" name="frenos" value="CBS / Tambor" onchange="resetPaginaYRender()"> Disco / CBS Urbano</label>
+        </div>
+      </details>
+
+      <details class="filtro-acordeon">
+        <summary>AROS Y LLANTAS</summary>
+        <div class="filtro-contenido">
+          <label><input type="radio" name="aros" value="Todos" checked onchange="resetPaginaYRender()"> Todos</label>
+          <label><input type="radio" name="aros" value="Aleación 17''" onchange="resetPaginaYRender()"> Aleación Deportiva 17"</label>
+          <label><input type="radio" name="aros" value="Rayos 21''/18''" onchange="resetPaginaYRender()"> Rayos Off-Road 21" / 18"</label>
+          <label><input type="radio" name="aros" value="Urbano 12''-14''" onchange="resetPaginaYRender()"> Urbano Scooter 12" - 14"</label>
+        </div>
+      </details>
+
+      <details class="filtro-acordeon">
+        <summary>SUSPENSIÓN</summary>
+        <div class="filtro-contenido">
+          <label><input type="radio" name="suspension" value="Todos" checked onchange="resetPaginaYRender()"> Todas</label>
+          <label><input type="radio" name="suspension" value="Invertida USD" onchange="resetPaginaYRender()"> Horquilla Invertida (USD)</label>
+          <label><input type="radio" name="suspension" value="Electrónica Öhlins/WP" onchange="resetPaginaYRender()"> Electrónica / Öhlins / WP</label>
+          <label><input type="radio" name="suspension" value="Telescópica" onchange="resetPaginaYRender()"> Telescópica Convencional</label>
+        </div>
+      </details>
+
+      <details class="filtro-acordeon">
+        <summary>COMBUSTIBLE</summary>
+        <div class="filtro-contenido">
+          <label><input type="radio" name="combustible" value="Todos" checked onchange="resetPaginaYRender()"> Todos</label>
+          <label><input type="radio" name="combustible" value="Inyección Electrónica" onchange="resetPaginaYRender()"> Gasolina (Inyección FI)</label>
+          <label><input type="radio" name="combustible" value="Carburador" onchange="resetPaginaYRender()"> Gasolina (Carburador)</label>
+          <label><input type="radio" name="combustible" value="Eléctrica" onchange="resetPaginaYRender()"> 100% Eléctrica</label>
+        </div>
+      </details>
+
+      <details class="filtro-acordeon">
+        <summary>DIMENSIONES</summary>
+        <div class="filtro-contenido">
+          <label><input type="radio" name="dimensiones" value="Todos" checked onchange="resetPaginaYRender()"> Todas</label>
+          <label><input type="radio" name="dimensiones" value="Ligera (<160 kg)" onchange="resetPaginaYRender()"> Ligera (&lt; 160 kg)</label>
+          <label><input type="radio" name="dimensiones" value="Media (160-205 kg)" onchange="resetPaginaYRender()"> Media (160 - 205 kg)</label>
+          <label><input type="radio" name="dimensiones" value="Gran Porte (>205 kg)" onchange="resetPaginaYRender()"> Gran Porte (&gt; 205 kg)</label>
+        </div>
+      </details>
+
+      <details class="filtro-acordeon">
+        <summary>MÁS FILTROS</summary>
+        <div class="filtro-contenido">
+          <label><input type="checkbox" id="filtro-stock" onchange="resetPaginaYRender()"> Solo con Stock Disponible</label>
+          <label><input type="checkbox" id="filtro-tft" onchange="resetPaginaYRender()"> Tablero TFT / Conectividad</label>
+        </div>
+      </details>
+    </aside>
+
+    <!-- ZONA PRINCIPAL DE RESULTADOS -->
+    <section class="zona-catalogo">
+      <div class="catalogo-topbar">
+        <div id="resultados-info">Cargando catálogo...</div>
+        <select id="ordenar-por" onchange="renderCatalogo()">
+          <option value="relevancia">Ordenar por: Destacados</option>
+          <option value="precio-asc">Precio: Menor a Mayor</option>
+          <option value="precio-desc">Precio: Mayor a Menor</option>
+          <option value="hp-desc">Potencia: Mayor a Menor</option>
         </select>
       </div>
-    </section>
 
-    <div class="filtros" id="categorias-bar"></div>
-    <div class="resultados-info" id="resultados-info"></div>
-    <div class="grid-productos" id="catalogo-grid"></div>
-    <div class="paginacion" id="paginacion-bar"></div>
+      <div class="grid-productos" id="catalogo-grid"></div>
+      <div class="paginacion" id="paginacion-bar"></div>
+    </section>
   </main>
 
+  <!-- VISTA INVENTARIO -->
   <main id="vista-inventario" class="container hidden">
     <div class="inv-header">
       <div>
-        <h2>Panel de Gestión de Inventarios (<span id="total-modelos-inv">364</span> Modelos)</h2>
+        <h2>Panel de Gestión de Inventarios (<span id="total-modelos-inv">318</span> Modelos)</h2>
         <p class="sub">Control centralizado en almacén con actualización en tiempo real.</p>
       </div>
       <div class="inv-tools">
@@ -73,6 +184,12 @@
     </div>
   </main>
 
+  <!-- MODAL FICHA TÉCNICA COMPLETA -->
+  <div id="modal-ficha" class="modal-overlay hidden" onclick="cerrarFicha(event)">
+    <div class="modal-card" id="ficha-contenido"></div>
+  </div>
+
+  <!-- CARRITO -->
   <aside id="modal-carrito" class="carrito-drawer hidden">
     <div class="carrito-header">
       <h3>Tu Carrito de Compras</h3>
