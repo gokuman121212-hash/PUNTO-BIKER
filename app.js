@@ -388,92 +388,56 @@ let moneda = "USD";
 const TASA_PEN = 3.75;
 let paginaActual = 1;
 const POR_PAGINA = 21;
-const cacheFotos = JSON.parse(localStorage.getItem("punto_biker_fotos_v2") || "{}");
+const cacheFotos = JSON.parse(localStorage.getItem("punto_biker_fotos_v3") || "{}");
 
-function guardarDB() {
-  localStorage.setItem("punto_biker_v7", JSON.stringify(productos));
-}
-
-function formatearPrecio(usd) {
-  if (moneda === "USD") return `$${usd.toLocaleString()} USD`;
-  return `S/ ${Math.round(usd * TASA_PEN).toLocaleString()}`;
-}
-
-function cambiarMoneda(m) {
-  moneda = m;
-  document.getElementById("btn-usd").classList.toggle("active", m === "USD");
-  document.getElementById("btn-pen").classList.toggle("active", m === "PEN");
-  actualizarPrecioFiltro();
-}
-
-function actualizarPrecioFiltro() {
-  const val = Number(document.getElementById("filtro-precio").value);
-  document.getElementById("precio-max-label").innerText = formatearPrecio(val);
-  resetPaginaYRender();
-}
-
-function inicializarSidebar() {
-  document.getElementById("total-modelos-nav").innerText = productos.length;
-  document.getElementById("total-modelos-inv").innerText = productos.length;
-
-  const marcas = [...new Set(productos.map(p => p.marca))].sort();
-  document.getElementById("filtro-marca-lista").innerHTML = marcas.map(m =>
-    `<label><input type="checkbox" class="chk-marca" value="${m}" onchange="resetPaginaYRender()"> ${m}</label>`
-  ).join("");
-
-  const tipos = [...new Set(productos.map(p => p.categoria))];
-  document.getElementById("filtro-tipo-lista").innerHTML = tipos.map(t =>
-    `<label><input type="checkbox" class="chk-tipo" value="${t}" onchange="resetPaginaYRender()"> ${t}</label>`
-  ).join("");
-}
-
-function limpiarFiltros() {
-  document.getElementById("buscador").value = "";
-  document.querySelectorAll(".chk-marca, .chk-tipo").forEach(c => c.checked = false);
-  document.querySelectorAll("input[type='radio'][value='Todos']").forEach(r => r.checked = true);
-  document.getElementById("filtro-stock").checked = false;
-  document.getElementById("filtro-tft").checked = false;
-  document.getElementById("filtro-precio").value = 180000;
-  actualizarPrecioFiltro();
-}
-
-function resetPaginaYRender() {
-  paginaActual = 1;
-  renderCatalogo();
-}
-
-// Búsqueda en cascada: Wikipedia EN -> Wikipedia ES -> Wikimedia Commons
 async function buscarEnWikipedia(lang, termino) {
-  const url = `https://${lang}.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(termino)}&gsrlimit=1&prop=pageimages&pithumbsize=600&format=json&origin=*`;
+  const url = `https://${lang}.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(termino)}&gsrlimit=2&prop=pageimages&pithumbsize=600&format=json&origin=*`;
   const res = await fetch(url);
   const data = await res.json();
-  const pages = data?.query?.pages;
-  if (!pages) return null;
-  const page = Object.values(pages)[0];
-  return page?.thumbnail?.source || null;
+  const pages = data?.query?.pages ? Object.values(data.query.pages) : [];
+  for (const p of pages) {
+    const src = p?.thumbnail?.source;
+    if (src && !src.includes("No_image") && !src.includes("Flag_of") && !src.includes("Logo")) return src;
+  }
+  return null;
+}
+
+async function buscarEnCommons(termino) {
+  const url = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=filetype:bitmap+${encodeURIComponent(termino)}&gsrnamespace=6&gsrlimit=3&prop=imageinfo&iiprop=url&iiurlwidth=600&format=json&origin=*`;
+  const res = await fetch(url);
+  const data = await res.json();
+  const pages = data?.query?.pages ? Object.values(data.query.pages) : [];
+  for (const p of pages) {
+    const src = p?.imageinfo?.[0]?.thumburl;
+    if (src && !src.toLowerCase().includes("logo") && !src.toLowerCase().includes("flag")) return src;
+  }
+  return null;
 }
 
 async function cargarFotoRealMoto(prod, imgElement, badgeElement) {
   if (cacheFotos[prod.nombre]) {
     imgElement.src = cacheFotos[prod.nombre];
-    if (badgeElement) badgeElement.innerText = "✓ Foto Oficial";
+    if (badgeElement) badgeElement.innerText = "✓ Foto Real";
     return;
   }
-  const baseModelo = prod.modeloCorto.replace(/\b(R|S|RR|SP|Pro|Trophy|Rally|Edition|Factory|Track|GP)\b/g, "").trim();
+
+  const baseModelo = prod.modeloCorto.replace(/\b(R|S|RR|SP|Pro|Trophy|Rally|Edition|Factory|Track|GP|SE|GT|Explore|Touring)\b/g, "").trim();
   const intentos = [
-    () => buscarEnWikipedia("en", `${prod.marca} ${prod.modeloCorto}`),
-    () => buscarEnWikipedia("en", `${prod.marca} ${baseModelo}`),
-    () => buscarEnWikipedia("es", `${prod.marca} ${baseModelo}`)
+    () => buscarEnWikipedia("en", `${prod.marca} ${prod.modeloCorto} motorcycle`),
+    () => buscarEnCommons(`${prod.marca} ${prod.modeloCorto}`),
+    () => buscarEnCommons(`${prod.marca} ${baseModelo}`),
+    () => buscarEnWikipedia("es", `${prod.marca} ${baseModelo}`),
+    () => buscarEnCommons(`${prod.marca} motorcycle`)
   ];
 
   for (const fn of intentos) {
     try {
       const url = await fn();
-      if (url && !url.includes("No_image") && !url.includes("Flag_of")) {
+      if (url) {
         cacheFotos[prod.nombre] = url;
-        localStorage.setItem("punto_biker_fotos_v2", JSON.stringify(cacheFotos));
+        localStorage.setItem("punto_biker_fotos_v3", JSON.stringify(cacheFotos));
         imgElement.src = url;
-        if (badgeElement) badgeElement.innerText = "✓ Foto Oficial";
+        if (badgeElement) badgeElement.innerText = "✓ Foto Real";
         return;
       }
     } catch (e) {}
@@ -684,7 +648,7 @@ function cambiarFotoManual(id) {
   const nuevaUrl = prompt(`Pega la URL de la foto para ${prod.nombre}:`, cacheFotos[prod.nombre] || prod.img);
   if (nuevaUrl && nuevaUrl.startsWith("http")) {
     cacheFotos[prod.nombre] = nuevaUrl.trim();
-    localStorage.setItem("punto_biker_fotos_v2", JSON.stringify(cacheFotos));
+    localStorage.setItem("punto_biker_fotos_v3", JSON.stringify(cacheFotos));
     renderInventario();
     renderCatalogo();
   }
@@ -747,3 +711,4 @@ inicializarSidebar();
 renderCatalogo();
 renderInventario();
 actualizarCarritoUI();
+
