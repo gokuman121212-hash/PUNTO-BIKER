@@ -1,11 +1,53 @@
-﻿const FALLBACK_IMGS = {
-  Superdeportivas: "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=600&q=80",
-  Deportivas: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600&q=80",
-  Adventure: "https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=600&q=80",
-  "Doble Propósito": "https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?w=600&q=80",
-  Naked: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600&q=80",
-  Scooters: "https://images.unsplash.com/photo-1449426468159-d96dbf08f19f?w=600&q=80",
-  Custom: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600&q=80"
+﻿const BANCO_FOTOS = {
+  Superdeportivas: [
+    "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=600&q=80",
+    "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600&q=80",
+    "https://images.unsplash.com/photo-1615172282427-9a57ef2d142e?w=600&q=80",
+    "https://images.unsplash.com/photo-1599819811279-d5ad9cccf838?w=600&q=80"
+  ],
+  Deportivas: [
+    "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600&q=80",
+    "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=600&q=80",
+    "https://images.unsplash.com/photo-1622185135505-2d795003994a?w=600&q=80",
+    "https://images.unsplash.com/photo-1580310614729-ccd69652491d?w=600&q=80"
+  ],
+  Adventure: [
+    "https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=600&q=80",
+    "https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?w=600&q=80",
+    "https://images.unsplash.com/photo-1625043484550-df60256f6ea5?w=600&q=80",
+    "https://images.unsplash.com/photo-1558980664-2506fca6bfc2?w=600&q=80"
+  ],
+  "Doble Propósito": [
+    "https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?w=600&q=80",
+    "https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=600&q=80",
+    "https://images.unsplash.com/photo-1558980664-312e3bf540d7?w=600&q=80",
+    "https://images.unsplash.com/photo-1515777315835-281b94c9589f?w=600&q=80"
+  ],
+  Naked: [
+    "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600&q=80",
+    "https://images.unsplash.com/photo-1558981359-219d6364c9c8?w=600&q=80",
+    "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=600&q=80",
+    "https://images.unsplash.com/photo-1614165936126-2ed18e471b3b?w=600&q=80"
+  ],
+  Scooters: [
+    "https://images.unsplash.com/photo-1449426468159-d96dbf08f19f?w=600&q=80",
+    "https://images.unsplash.com/photo-1558981285-6f0c94958bb6?w=600&q=80",
+    "https://images.unsplash.com/photo-1519750783826-e2420f4d687f?w=600&q=80",
+    "https://images.unsplash.com/photo-1598546720078-8659863bc47d?w=600&q=80"
+  ],
+  Custom: [
+    "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600&q=80",
+    "https://images.unsplash.com/photo-1558981033-0f0309284409?w=600&q=80",
+    "https://images.unsplash.com/photo-1558980394-4c7c9299fe96?w=600&q=80",
+    "https://images.unsplash.com/photo-1558981408-db0ecd8a1ee4?w=600&q=80"
+  ]
+};
+
+const COLORES_MARCA = {
+  Ducati: "#dc2626", BMW: "#0284c7", KTM: "#ea580c", Yamaha: "#1d4ed8",
+  Kawasaki: "#16a34a", Honda: "#dc2626", Suzuki: "#0369a1", Aprilia: "#b91c1c",
+  CFMoto: "#0891b2", Kove: "#0d9488", Morbidelli: "#991b1b", Hero: "#e11d48",
+  Italika: "#1e40af", ZXMoto: "#15803d"
 };
 
 const CATALOGO_BASE = {
@@ -312,6 +354,7 @@ function construirCatalogoCompleto() {
       const esScooter = categoria === "Scooters";
       const esOffroad = categoria === "Doble Propósito" || categoria === "Adventure";
       const peso = esScooter ? 135 : cc > 800 ? 215 : cc > 350 ? 182 : 148;
+      const pool = BANCO_FOTOS[categoria] || BANCO_FOTOS.Deportivas;
 
       lista.push({
         id: id++,
@@ -331,7 +374,7 @@ function construirCatalogoCompleto() {
         peso,
         dimCat: peso < 160 ? "Ligera (<160 kg)" : peso <= 205 ? "Media (160-205 kg)" : "Gran Porte (>205 kg)",
         tft: cc >= 300 || hp >= 40,
-        img: FALLBACK_IMGS[categoria]
+        img: pool[id % pool.length]
       });
     });
   });
@@ -339,16 +382,16 @@ function construirCatalogoCompleto() {
 }
 
 const DATOS_INICIALES = construirCatalogoCompleto();
-let productos = JSON.parse(localStorage.getItem("punto_biker_v6")) || DATOS_INICIALES;
+let productos = JSON.parse(localStorage.getItem("punto_biker_v7")) || DATOS_INICIALES;
 let carrito = [];
 let moneda = "USD";
 const TASA_PEN = 3.75;
 let paginaActual = 1;
 const POR_PAGINA = 21;
-const cacheFotos = JSON.parse(localStorage.getItem("punto_biker_fotos_cache") || "{}");
+const cacheFotos = JSON.parse(localStorage.getItem("punto_biker_fotos_v2") || "{}");
 
 function guardarDB() {
-  localStorage.setItem("punto_biker_v6", JSON.stringify(productos));
+  localStorage.setItem("punto_biker_v7", JSON.stringify(productos));
 }
 
 function formatearPrecio(usd) {
@@ -399,28 +442,42 @@ function resetPaginaYRender() {
   renderCatalogo();
 }
 
-// Busca foto real de cada moto en Wikimedia Commons de forma asíncrona y la guarda en caché
-async function cargarFotoRealMoto(prod, imgElement) {
+// Búsqueda en cascada: Wikipedia EN -> Wikipedia ES -> Wikimedia Commons
+async function buscarEnWikipedia(lang, termino) {
+  const url = `https://${lang}.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(termino)}&gsrlimit=1&prop=pageimages&pithumbsize=600&format=json&origin=*`;
+  const res = await fetch(url);
+  const data = await res.json();
+  const pages = data?.query?.pages;
+  if (!pages) return null;
+  const page = Object.values(pages)[0];
+  return page?.thumbnail?.source || null;
+}
+
+async function cargarFotoRealMoto(prod, imgElement, badgeElement) {
   if (cacheFotos[prod.nombre]) {
     imgElement.src = cacheFotos[prod.nombre];
+    if (badgeElement) badgeElement.innerText = "✓ Foto Oficial";
     return;
   }
-  try {
-    const query = encodeURIComponent(`${prod.marca} ${prod.modeloCorto} motorcycle`);
-    const url = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=filetype:bitmap+${query}&gsrnamespace=6&gsrlimit=1&prop=imageinfo&iiprop=url&iiurlwidth=600&format=json&origin=*`;
-    const res = await fetch(url);
-    const data = await res.json();
-    const pages = data?.query?.pages;
-    if (pages) {
-      const firstPage = Object.values(pages)[0];
-      const thumb = firstPage?.imageinfo?.[0]?.thumburl;
-      if (thumb) {
-        cacheFotos[prod.nombre] = thumb;
-        localStorage.setItem("punto_biker_fotos_cache", JSON.stringify(cacheFotos));
-        imgElement.src = thumb;
+  const baseModelo = prod.modeloCorto.replace(/\b(R|S|RR|SP|Pro|Trophy|Rally|Edition|Factory|Track|GP)\b/g, "").trim();
+  const intentos = [
+    () => buscarEnWikipedia("en", `${prod.marca} ${prod.modeloCorto}`),
+    () => buscarEnWikipedia("en", `${prod.marca} ${baseModelo}`),
+    () => buscarEnWikipedia("es", `${prod.marca} ${baseModelo}`)
+  ];
+
+  for (const fn of intentos) {
+    try {
+      const url = await fn();
+      if (url && !url.includes("No_image") && !url.includes("Flag_of")) {
+        cacheFotos[prod.nombre] = url;
+        localStorage.setItem("punto_biker_fotos_v2", JSON.stringify(cacheFotos));
+        imgElement.src = url;
+        if (badgeElement) badgeElement.innerText = "✓ Foto Oficial";
+        return;
       }
-    }
-  } catch (e) { /* Mantiene imagen de respaldo si falla la red */ }
+    } catch (e) {}
+  }
 }
 
 function renderCatalogo() {
@@ -469,7 +526,7 @@ function renderCatalogo() {
   if (filtrados.length === 0) {
     info.innerText = "0 motocicletas encontradas con esos filtros";
     pagBar.innerHTML = "";
-    grid.innerHTML = "<p style='grid-column:1/-1;text-align:center;color:#94a3b8;padding:3rem;'>No hay motocicletas que coincidan con tu búsqueda. Haz clic en 'Limpiar Todo'.</p>";
+    grid.innerHTML = "<p style='grid-column:1/-1;text-align:center;color:#94a3b8;padding:3rem;'>No hay motocicletas que coincidan con tu búsqueda.</p>";
     return;
   }
 
@@ -480,38 +537,46 @@ function renderCatalogo() {
 
   info.innerHTML = `Mostrando <strong>${inicio + 1}-${Math.min(inicio + POR_PAGINA, filtrados.length)}</strong> de <strong>${filtrados.length}</strong> motocicletas`;
 
-  grid.innerHTML = visibles.map(p => `
-    <article class="card">
-      <div class="card-img-wrap" onclick="verFicha(${p.id})">
-        <img id="img-moto-${p.id}" src="${cacheFotos[p.nombre] || p.img}" alt="${p.nombre}" />
-      </div>
-      <div class="card-body">
-        <div class="card-tags">
-          <span class="marca-tag">${p.marca}</span>
-          <span class="badge">${p.categoria}</span>
+  grid.innerHTML = visibles.map(p => {
+    const colorMarca = COLORES_MARCA[p.marca] || "#dc2626";
+    const tieneFotoReal = Boolean(cacheFotos[p.nombre]);
+    return `
+      <article class="card">
+        <div class="card-img-wrap" onclick="verFicha(${p.id})" style="border-bottom: 3px solid ${colorMarca};">
+          <img id="img-moto-${p.id}" src="${cacheFotos[p.nombre] || p.img}" alt="${p.nombre}" />
+          <span id="badge-foto-${p.id}" style="position:absolute;bottom:6px;right:6px;background:rgba(7,11,20,0.82);color:#cbd5e1;font-size:0.68rem;padding:2px 7px;border-radius:4px;">
+            ${tieneFotoReal ? "✓ Foto Oficial" : p.categoria}
+          </span>
         </div>
-        <h3 onclick="verFicha(${p.id})">${p.nombre}</h3>
-        <div class="specs">
-          ⚙️ ${p.cc > 0 ? p.cc + 'cc' : 'Eléctrica'} • ⚡ ${p.hp} HP<br/>
-          🛑 ${p.frenos} • 🔧 ${p.transmision}
+        <div class="card-body">
+          <div class="card-tags">
+            <span class="marca-tag" style="background:${colorMarca};">${p.marca}</span>
+            <span class="badge">${p.categoria}</span>
+          </div>
+          <h3 onclick="verFicha(${p.id})">${p.nombre}</h3>
+          <div class="specs">
+            ⚙️ ${p.cc > 0 ? p.cc + 'cc' : 'Eléctrica'} • ⚡ ${p.hp} HP<br/>
+            🛑 ${p.frenos} • 🔧 ${p.transmision}
+          </div>
+          <div class="precio">${formatearPrecio(p.precio)}</div>
+          <div class="stock ${p.stock === 0 ? 'agotado' : ''}">
+            ${p.stock > 0 ? `Stock: ${p.stock} unid.` : 'AGOTADO'}
+          </div>
+          <div class="card-actions">
+            <button class="btn-ficha" onclick="verFicha(${p.id})">Ficha Técnica</button>
+            <button class="btn-add" ${p.stock === 0 ? 'disabled' : ''} onclick="agregarCarrito(${p.id})">
+              ${p.stock > 0 ? '+ Carrito' : 'Sin Stock'}
+            </button>
+          </div>
         </div>
-        <div class="precio">${formatearPrecio(p.precio)}</div>
-        <div class="stock ${p.stock === 0 ? 'agotado' : ''}">
-          ${p.stock > 0 ? `Stock: ${p.stock} unid.` : 'AGOTADO'}
-        </div>
-        <div class="card-actions">
-          <button class="btn-ficha" onclick="verFicha(${p.id})">Ficha Técnica</button>
-          <button class="btn-add" ${p.stock === 0 ? 'disabled' : ''} onclick="agregarCarrito(${p.id})">
-            ${p.stock > 0 ? '+ Carrito' : 'Sin Stock'}
-          </button>
-        </div>
-      </div>
-    </article>
-  `).join("");
+      </article>
+    `;
+  }).join("");
 
   visibles.forEach(p => {
     const el = document.getElementById(`img-moto-${p.id}`);
-    if (el && !cacheFotos[p.nombre]) cargarFotoRealMoto(p, el);
+    const bg = document.getElementById(`badge-foto-${p.id}`);
+    if (el && !cacheFotos[p.nombre]) cargarFotoRealMoto(p, el, bg);
   });
 
   pagBar.innerHTML = totalPaginas > 1 ? `
@@ -524,12 +589,13 @@ function renderCatalogo() {
 function verFicha(id) {
   const p = productos.find(m => m.id === id);
   if (!p) return;
+  const colorMarca = COLORES_MARCA[p.marca] || "#dc2626";
   const box = document.getElementById("ficha-contenido");
   box.innerHTML = `
     <img src="${cacheFotos[p.nombre] || p.img}" alt="${p.nombre}" />
     <div class="modal-info">
       <div style="display:flex;justify-content:space-between;align-items:center;">
-        <span class="marca-tag">${p.marca} • ${p.categoria}</span>
+        <span class="marca-tag" style="background:${colorMarca};">${p.marca} • ${p.categoria}</span>
         <button onclick="document.getElementById('modal-ficha').classList.add('hidden')" style="background:none;border:none;color:#fff;font-size:1.3rem;cursor:pointer;">✕</button>
       </div>
       <h2 style="margin-top:8px;">${p.nombre}</h2>
@@ -612,25 +678,41 @@ function finalizarCompra() {
   alert("¡Compra realizada con éxito! El inventario se ha actualizado.");
 }
 
+function cambiarFotoManual(id) {
+  const prod = productos.find(p => p.id === id);
+  if (!prod) return;
+  const nuevaUrl = prompt(`Pega la URL de la foto para ${prod.nombre}:`, cacheFotos[prod.nombre] || prod.img);
+  if (nuevaUrl && nuevaUrl.startsWith("http")) {
+    cacheFotos[prod.nombre] = nuevaUrl.trim();
+    localStorage.setItem("punto_biker_fotos_v2", JSON.stringify(cacheFotos));
+    renderInventario();
+    renderCatalogo();
+  }
+}
+
 function renderInventario() {
   const tbody = document.getElementById("tabla-inventario");
   const filtro = (document.getElementById("buscador-inv")?.value || "").toLowerCase();
   const lista = productos.filter(p => `${p.nombre} ${p.categoria}`.toLowerCase().includes(filtro));
-  tbody.innerHTML = lista.map(p => `
-    <tr>
-      <td>#${p.id}</td>
-      <td><strong>${p.marca}</strong></td>
-      <td>${p.categoria}</td>
-      <td>${p.nombre}</td>
-      <td>${p.cc}cc • ${p.hp} HP</td>
-      <td>$${p.precio.toLocaleString()}</td>
-      <td><strong>${p.stock}</strong> unid.</td>
-      <td>
-        <button class="btn-stock btn-mas" onclick="ajustarStock(${p.id}, 1)">+1</button>
-        <button class="btn-stock btn-menos" onclick="ajustarStock(${p.id}, -1)">-1</button>
-      </td>
-    </tr>
-  `).join("");
+  tbody.innerHTML = lista.map(p => {
+    const verificada = Boolean(cacheFotos[p.nombre]);
+    return `
+      <tr>
+        <td>#${p.id}</td>
+        <td><strong>${p.marca}</strong></td>
+        <td>${p.categoria}</td>
+        <td>${p.nombre}</td>
+        <td>${p.cc}cc • ${p.hp} HP</td>
+        <td>$${p.precio.toLocaleString()}</td>
+        <td><strong>${p.stock}</strong> unid.</td>
+        <td>
+          <button class="btn-stock btn-mas" onclick="ajustarStock(${p.id}, 1)">+1</button>
+          <button class="btn-stock btn-menos" onclick="ajustarStock(${p.id}, -1)">-1</button>
+          <button class="btn-stock" style="background:#0284c7;color:white;" onclick="cambiarFotoManual(${p.id})">${verificada ? "✓ Foto" : "📷 Foto"}</button>
+        </td>
+      </tr>
+    `;
+  }).join("");
 }
 
 function ajustarStock(id, delta) {
