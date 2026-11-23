@@ -478,3 +478,60 @@ th { background: #050507; color: var(--muted); font-size: 0.82rem; }
     background: #121215;
   }
 }
+
+/* AJUSTE DE 2 COLUMNAS COMPACTAS EN CELULAR (< 768px) */
+@media (max-width: 767px) {
+  .container-layout {
+    padding: 0.85rem 2.5%;
+  }
+  .grid-productos {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.65rem;
+  }
+  .card-img-wrap {
+    height: 120px;
+  }
+  .card-body {
+    padding: 0.65rem;
+  }
+  .card-tags {
+    margin-bottom: 4px;
+    gap: 4px;
+  }
+  .marca-tag {
+    font-size: 0.58rem;
+    padding: 2px 5px;
+  }
+  .badge {
+    font-size: 0.6rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .card h3 {
+    font-size: 0.92rem;
+    margin-bottom: 5px;
+    line-height: 1.2;
+  }
+  .specs {
+    font-size: 0.68rem;
+    padding: 5px 6px;
+    margin-bottom: 6px;
+  }
+  .precio {
+    font-size: 1.05rem;
+  }
+  .stock {
+    font-size: 0.68rem;
+    margin-bottom: 8px;
+  }
+  .card-actions {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+  .btn-ficha, .btn-add {
+    min-height: 36px;
+    padding: 6px 8px;
+    font-size: 0.74rem;
+  }
+}
