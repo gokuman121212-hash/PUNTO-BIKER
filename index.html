@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Punto Biker | Concesionario Digital Multimarca</title>
+  <title>Punto Biker | Concesionario Digital Multimarca (+360 Modelos)</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -19,7 +19,7 @@
       </div>
     </div>
     <nav class="nav-actions">
-      <button id="btn-tienda" class="active" onclick="cambiarVista('tienda')">Catálogo (56)</button>
+      <button id="btn-tienda" class="active" onclick="cambiarVista('tienda')">Catálogo (<span id="total-modelos-nav">364</span>)</button>
       <button id="btn-inventario" onclick="cambiarVista('inventario')">Gestión de Inventario</button>
       <button class="cart-btn" onclick="toggleCarrito()">🛒 Carrito (<span id="cart-count">0</span>)</button>
     </nav>
@@ -27,23 +27,33 @@
 
   <main id="vista-tienda" class="container">
     <section class="hero">
-      <h2>Concesionario Oficial Multimarca 2026</h2>
+      <h2>Mega Concesionario Multimarca 2026</h2>
       <p>Ducati • BMW • KTM • Yamaha • Kawasaki • Honda • Suzuki • Aprilia • CFMoto • Kove • Morbidelli • Hero • Italika • ZXMoto</p>
       <div class="search-controls">
-        <input type="text" id="buscador" placeholder="Buscar modelo, cilindrada o marca (ej. Panigale, H2, 800X, R1)..." oninput="renderCatalogo()" />
-        <select id="filtro-marca" onchange="renderCatalogo()">
+        <input type="text" id="buscador" placeholder="Buscar entre 364 modelos (ej. Panigale, H2, 800X, R1, Z900, XPulse, Vort-X)..." oninput="resetPaginaYRender()" />
+        <select id="filtro-marca" onchange="resetPaginaYRender()">
           <option value="Todas">Todas las Marcas (14)</option>
         </select>
       </div>
     </section>
 
     <div class="filtros" id="categorias-bar"></div>
+    <div class="resultados-info" id="resultados-info"></div>
     <div class="grid-productos" id="catalogo-grid"></div>
+    <div class="paginacion" id="paginacion-bar"></div>
   </main>
 
   <main id="vista-inventario" class="container hidden">
-    <h2>Panel de Gestión de Inventarios Multimarca</h2>
-    <p class="sub">Control centralizado de las 56 motocicletas en almacén (guardado automático en tiempo real).</p>
+    <div class="inv-header">
+      <div>
+        <h2>Panel de Gestión de Inventarios (<span id="total-modelos-inv">364</span> Modelos)</h2>
+        <p class="sub">Control centralizado en almacén con actualización en tiempo real.</p>
+      </div>
+      <div class="inv-tools">
+        <input type="text" id="buscador-inv" placeholder="Filtrar inventario por marca o modelo..." oninput="renderInventario()" />
+        <button class="btn-reset" onclick="resetearDatos()">Restaurar Stock Inicial</button>
+      </div>
+    </div>
     <div class="tabla-wrap">
       <table>
         <thead>
@@ -61,7 +71,6 @@
         <tbody id="tabla-inventario"></tbody>
       </table>
     </div>
-    <button class="btn-reset" onclick="resetearDatos()">Restaurar Inventario Completo (56 motos)</button>
   </main>
 
   <aside id="modal-carrito" class="carrito-drawer hidden">
