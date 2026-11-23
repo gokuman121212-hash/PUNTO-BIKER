@@ -9,20 +9,152 @@
 };
 
 const CATALOGO_BASE = {
-  Ducati: [["Superdeportivas","Panigale V4 R",998,218,44900,2026],["Superdeportivas","Panigale V4 S",1103,215,32500,2026],["Superdeportivas","Panigale V4",1103,215,26500,2025],["Superdeportivas","Superleggera V4",998,224,98000,2025],["Deportivas","Panigale V2",955,155,18900,2026],["Adventure","Multistrada V4 Rally",1158,170,29900,2026],["Doble Propósito","DesertX Rally",937,110,22900,2026],["Naked","Streetfighter V4 S",1103,208,27800,2026],["Custom","Diavel V4",1158,168,26900,2025]],
-  BMW: [["Superdeportivas","M 1000 RR",999,212,36900,2026],["Superdeportivas","S 1000 RR",999,210,22400,2026],["Deportivas","G 310 RR",313,34,5900,2025],["Adventure","R 1300 GS",1300,145,21900,2026],["Doble Propósito","F 900 GS",895,105,14800,2026],["Naked","M 1000 R",999,210,25900,2026],["Scooters","C 400 GT",350,34,8900,2025],["Custom","R 18 Transcontinental",1802,91,25400,2025]],
-  KTM: [["Superdeportivas","RC 8C",889,135,38900,2025],["Deportivas","RC 390",373,44,6300,2026],["Adventure","1290 Super Adventure R",1301,160,21800,2025],["Doble Propósito","690 Enduro R",693,74,12900,2026],["Naked","1390 Super Duke R Evo",1350,190,21500,2026],["Naked","390 Duke",398,45,6200,2026]],
-  Yamaha: [["Superdeportivas","YZF-R1M",998,200,27400,2026],["Superdeportivas","YZF-R1",998,200,19200,2026],["Deportivas","YZF-R7",689,73,9800,2026],["Deportivas","YZF-R3",321,42,6100,2025],["Adventure","Tracer 9 GT",890,119,16400,2026],["Doble Propósito","Ténéré 700",689,73,12400,2026],["Naked","MT-10 SP",998,166,17400,2026],["Naked","MT-09 SP",890,119,12200,2026],["Scooters","TMAX 560",562,47,14200,2026]],
-  Kawasaki: [["Superdeportivas","Ninja H2R",998,310,57500,2026],["Superdeportivas","Ninja ZX-10R",998,203,19800,2026],["Deportivas","Ninja ZX-6R",636,124,12400,2026],["Adventure","Versys 1000",1043,120,18900,2025],["Doble Propósito","KLR 650",652,40,7900,2025],["Naked","Z H2",998,200,21400,2026],["Naked","Z900",948,125,11400,2026],["Custom","Vulcan S",649,61,8400,2025]],
-  Honda: [["Superdeportivas","CBR1000RR-R Fireblade SP",1000,215,28500,2026],["Deportivas","CBR600RR",599,121,12900,2026],["Adventure","CRF1100L Africa Twin",1084,101,19400,2026],["Doble Propósito","CRF300L Rally",286,27,6400,2025],["Naked","CB1000 Hornet",999,155,12800,2026],["Scooters","X-ADV",745,58,13800,2026],["Custom","Rebel 1100",1084,87,11800,2025]],
-  Suzuki: [["Superdeportivas","Hayabusa",1340,190,19400,2026],["Superdeportivas","GSX-R1000R",999,202,18600,2025],["Adventure","V-Strom 1050DE",1037,107,16200,2026],["Doble Propósito","DR650S",644,43,7200,2025],["Naked","GSX-S1000",999,152,11900,2026],["Scooters","Burgman 400",400,29,8600,2025]],
-  Aprilia: [["Superdeportivas","RSV4 Factory",1099,217,25900,2026],["Deportivas","RS 660",659,100,11600,2026],["Adventure","Tuareg 660",659,80,12200,2026],["Naked","Tuono V4",1077,175,16400,2025]],
-  CFMoto: [["Superdeportivas","675SR-R",675,95,8900,2026],["Deportivas","450SR-S",449,50,6500,2026],["Adventure","800MT Explore",799,91,10600,2026],["Doble Propósito","450MT",449,44,6400,2026],["Naked","800NK",799,95,8700,2026]],
-  Kove: [["Superdeportivas","450RR",443,70,6900,2026],["Adventure","800X Pro",799,95,9800,2026],["Doble Propósito","450 Rally",449,51,9200,2026]],
-  Morbidelli: [["Superdeportivas","F352",349,41,5100,2026],["Adventure","T1002VX",997,88,9900,2026],["Naked","M502N",486,47,5600,2025]],
-  Hero: [["Deportivas","Karizma XMR",210,25,3100,2026],["Doble Propósito","XPulse 200 4V",199,19,2550,2026],["Naked","Mavrick 440",440,27,3800,2026]],
-  Italika: [["Deportivas","Vort-X 300R",292,27,2950,2026],["Doble Propósito","DM250X",250,17,2350,2025],["Naked","250Z",250,18,2100,2025]],
-  ZXMoto: [["Superdeportivas","820RR",819,135,11200,2026],["Deportivas","500RR",499,82,7400,2026],["Adventure","820X",819,115,10400,2026],["Naked","820R",819,130,9900,2026]]
+  CFMoto: [
+    ["Superdeportivas","675SR-R",675,95,8900,2026],
+    ["Superdeportivas","500SR Voom",499,78,7600,2026],
+    ["Deportivas","450SR-S",449,50,6500,2026],
+    ["Deportivas","450SR",449,50,5900,2025],
+    ["Deportivas","300SR",292,29,4300,2025],
+    ["Adventure","800MT Explore",799,91,10600,2026],
+    ["Adventure","800MT Touring",799,91,9800,2025],
+    ["Adventure","700MT",693,67,7800,2026],
+    ["Doble Propósito","450MT",449,44,6400,2026],
+    ["Naked","800NK",799,95,8700,2026],
+    ["Naked","675NK",675,95,7900,2026],
+    ["Naked","450NK",449,50,5600,2026],
+    ["Naked","300NK",292,27,3900,2025],
+    ["Custom","450CL-C",449,40,5800,2026]
+  ],
+  Ducati: [
+    ["Superdeportivas","Panigale V4 R",998,218,44900,2026],
+    ["Superdeportivas","Panigale V4 S",1103,215,32500,2026],
+    ["Superdeportivas","Panigale V4",1103,215,26500,2025],
+    ["Superdeportivas","Superleggera V4",998,224,98000,2025],
+    ["Deportivas","Panigale V2",955,155,18900,2026],
+    ["Deportivas","SuperSport 950 S",937,110,16800,2025],
+    ["Adventure","Multistrada V4 Rally",1158,170,29900,2026],
+    ["Adventure","Multistrada V4 S",1158,170,27200,2026],
+    ["Doble Propósito","DesertX Rally",937,110,22900,2026],
+    ["Naked","Streetfighter V4 S",1103,208,27800,2026],
+    ["Naked","Monster SP",937,111,15600,2026],
+    ["Custom","Diavel V4",1158,168,26900,2025]
+  ],
+  BMW: [
+    ["Superdeportivas","M 1000 RR",999,212,36900,2026],
+    ["Superdeportivas","S 1000 RR",999,210,22400,2026],
+    ["Deportivas","G 310 RR",313,34,5900,2025],
+    ["Adventure","R 1300 GS Adventure",1300,145,24900,2026],
+    ["Adventure","R 1300 GS",1300,145,21900,2026],
+    ["Doble Propósito","F 900 GS",895,105,14800,2026],
+    ["Doble Propósito","G 310 GS",313,34,6400,2025],
+    ["Naked","M 1000 R",999,210,25900,2026],
+    ["Naked","S 1000 R",999,165,17900,2026],
+    ["Naked","F 900 R",895,105,11200,2026],
+    ["Scooters","C 400 GT",350,34,8900,2025],
+    ["Custom","R 18 Transcontinental",1802,91,25400,2025]
+  ],
+  KTM: [
+    ["Superdeportivas","RC 8C",889,135,38900,2025],
+    ["Deportivas","RC 390",373,44,6300,2026],
+    ["Adventure","1290 Super Adventure R",1301,160,21800,2025],
+    ["Adventure","890 Adventure R",889,105,15900,2026],
+    ["Doble Propósito","690 Enduro R",693,74,12900,2026],
+    ["Doble Propósito","390 Adventure",373,44,7400,2026],
+    ["Naked","1390 Super Duke R Evo",1350,190,21500,2026],
+    ["Naked","990 Duke",947,123,14900,2026],
+    ["Naked","390 Duke",398,45,6200,2026],
+    ["Naked","250 Duke",249,31,4800,2026]
+  ],
+  Yamaha: [
+    ["Superdeportivas","YZF-R1M",998,200,27400,2026],
+    ["Superdeportivas","YZF-R1",998,200,19200,2026],
+    ["Deportivas","YZF-R9",890,119,13500,2026],
+    ["Deportivas","YZF-R7",689,73,9800,2026],
+    ["Deportivas","YZF-R3",321,42,6100,2025],
+    ["Adventure","Tracer 9 GT+",890,119,17900,2026],
+    ["Doble Propósito","Ténéré 700 Extreme",689,73,13400,2026],
+    ["Doble Propósito","XTZ 250",249,21,4600,2026],
+    ["Naked","MT-10 SP",998,166,17400,2026],
+    ["Naked","MT-09 SP",890,119,12200,2026],
+    ["Naked","MT-07",689,73,8800,2026],
+    ["Naked","MT-03",321,42,5600,2026],
+    ["Scooters","TMAX 560",562,47,14200,2026],
+    ["Scooters","XMAX 300",292,28,6800,2026]
+  ],
+  Kawasaki: [
+    ["Superdeportivas","Ninja H2R",998,310,57500,2026],
+    ["Superdeportivas","Ninja ZX-10R",998,203,19800,2026],
+    ["Deportivas","Ninja ZX-6R",636,124,12400,2026],
+    ["Deportivas","Ninja ZX-4RR",399,77,9900,2026],
+    ["Deportivas","Ninja 500 SE",451,45,6400,2026],
+    ["Adventure","Versys 1100 SE",1099,135,19400,2026],
+    ["Doble Propósito","KLR 650 Adventure",652,40,8300,2025],
+    ["Naked","Z H2",998,200,21400,2026],
+    ["Naked","Z900",948,125,11400,2026],
+    ["Naked","Z500",451,45,5900,2026],
+    ["Custom","Vulcan S",649,61,8400,2025]
+  ],
+  Honda: [
+    ["Superdeportivas","CBR1000RR-R Fireblade SP",1000,215,28500,2026],
+    ["Deportivas","CBR600RR",599,121,12900,2026],
+    ["Deportivas","CBR650R E-Clutch",649,95,10400,2026],
+    ["Adventure","CRF1100L Africa Twin",1084,101,19400,2026],
+    ["Adventure","XL750 Transalp",755,91,11200,2026],
+    ["Doble Propósito","CRF300L Rally",286,27,6400,2025],
+    ["Naked","CB1000 Hornet SP",999,155,13400,2026],
+    ["Naked","CB750 Hornet",755,91,8900,2026],
+    ["Scooters","X-ADV",745,58,13800,2026],
+    ["Custom","Rebel 1100",1084,87,11800,2025]
+  ],
+  Suzuki: [
+    ["Superdeportivas","Hayabusa",1340,190,19400,2026],
+    ["Superdeportivas","GSX-R1000R",999,202,18600,2025],
+    ["Deportivas","GSX-8R",776,83,9900,2026],
+    ["Adventure","V-Strom 1050DE",1037,107,16200,2026],
+    ["Adventure","V-Strom 800DE",776,84,11900,2026],
+    ["Doble Propósito","DR650S",644,43,7200,2025],
+    ["Naked","GSX-S1000",999,152,11900,2026],
+    ["Naked","GSX-8S",776,83,9200,2026],
+    ["Scooters","Burgman 400",400,29,8600,2025]
+  ],
+  Aprilia: [
+    ["Superdeportivas","RSV4 Factory",1099,217,25900,2026],
+    ["Deportivas","RS 660",659,100,11600,2026],
+    ["Deportivas","RS 457",457,48,6900,2026],
+    ["Adventure","Tuareg 660",659,80,12200,2026],
+    ["Naked","Tuono V4 Factory",1077,175,18900,2026],
+    ["Naked","Tuono 660",659,95,10800,2025]
+  ],
+  Kove: [
+    ["Superdeportivas","450RR",443,70,6900,2026],
+    ["Adventure","800X Pro",799,95,9800,2026],
+    ["Adventure","510X",498,48,7400,2026],
+    ["Doble Propósito","450 Rally",449,51,9200,2026]
+  ],
+  Morbidelli: [
+    ["Superdeportivas","F352",349,41,5100,2026],
+    ["Adventure","T1002VX",997,88,9900,2026],
+    ["Adventure","T502X",486,47,6300,2026],
+    ["Naked","M502N",486,47,5600,2025]
+  ],
+  Hero: [
+    ["Deportivas","Karizma XMR",210,25,3100,2026],
+    ["Doble Propósito","XPulse 200 4V",199,19,2550,2026],
+    ["Naked","Mavrick 440",440,27,3800,2026],
+    ["Naked","Hunk 160R 4V",163,17,2250,2026]
+  ],
+  Italika: [
+    ["Deportivas","Vort-X 300R",292,27,2950,2026],
+    ["Deportivas","RT 250",250,18,2450,2025],
+    ["Doble Propósito","DM250X",250,17,2350,2025],
+    ["Naked","250Z",250,18,2100,2025]
+  ],
+  ZXMoto: [
+    ["Superdeportivas","820RR",819,135,11200,2026],
+    ["Deportivas","500RR",499,82,7400,2026],
+    ["Adventure","820X",819,115,10400,2026],
+    ["Naked","820R",819,130,9900,2026]
+  ]
 };
 
 function crearObjetoMoto(id, marca, categoria, modelo, cc, hp, precio, stock, anio = 2026, customImg = "") {
@@ -65,7 +197,7 @@ function construirCatalogoCompleto() {
 }
 
 // BASE DE DATOS PERSISTENTE
-let productos = JSON.parse(localStorage.getItem("pb_db_productos_v4")) || construirCatalogoCompleto();
+let productos = JSON.parse(localStorage.getItem("pb_db_productos_v5_full")) || construirCatalogoCompleto();
 let usuarios = JSON.parse(localStorage.getItem("pb_db_usuarios_v4")) || [
   { nombre: "Cristhian Flores Q.", email: "cristhian.flores.q@tecsup.edu.pe", pass: "aL566TEC5244", rol: "admin" }
 ];
@@ -90,7 +222,7 @@ let codigoCipActual = "";
 let qrTemporalBase64 = "";
 
 function guardarTodoDB() {
-  localStorage.setItem("pb_db_productos_v4", JSON.stringify(productos));
+  localStorage.setItem("pb_db_productos_v5_full", JSON.stringify(productos));
   localStorage.setItem("pb_db_usuarios_v4", JSON.stringify(usuarios));
   localStorage.setItem("pb_db_sesion_v4", JSON.stringify(sesionActual));
   localStorage.setItem("pb_db_ventas_v4", JSON.stringify(ventas));
@@ -775,4 +907,5 @@ actualizarUIUsuario();
 inicializarSidebar();
 renderCatalogo();
 actualizarCarritoUI();
+
 
