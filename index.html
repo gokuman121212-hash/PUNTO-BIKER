@@ -3,26 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>PUNTO BIKER | Command Center & Concesionario</title>
+  <title>PUNTO BIKER | Concesionario Oficial Multimarca</title>
   <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#070b14" />
+  <meta name="theme-color" content="#0b0b0c" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=6" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=7" />
 </head>
 <body>
-  <!-- Resplandores ambientales Bento Glass -->
-  <div class="ambient-glow glow-blue"></div>
-  <div class="ambient-glow glow-amber"></div>
-
   <div class="app-shell">
-    <!-- BARRA LATERAL DE NAVEGACIÓN TIPO DOCK (COMO EL DASHBOARD BENTO) -->
+    <!-- BARRA LATERAL EJECUTIVA (ESTILO DASHBOARD NEGRO + NARANJA ÁMBAR) -->
     <aside class="nav-rail">
       <div class="rail-logo" onclick="cambiarVista('tienda')" title="Punto Biker">
-        <svg width="28" height="30" viewBox="0 0 100 110" fill="none">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 16 L49 10 L49 54 L28 58 L28 92 L12 84 Z M28 27 L28 43 L37 41 L37 25 Z" fill="#38bdf8"/>
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M53 10 L86 17 L86 46 L73 53 L88 61 L88 86 L50 104 L34 96 L34 64 L53 60 L53 84 L71 76 L71 63 L53 66 L53 51 L70 48 L70 31 L53 28 Z" fill="#f97316"/>
+        <svg width="26" height="28" viewBox="0 0 100 110" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 16 L49 10 L49 54 L28 58 L28 92 L12 84 Z M28 27 L28 43 L37 41 L37 25 Z" fill="#FFFFFF"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M53 10 L86 17 L86 46 L73 53 L88 61 L88 86 L50 104 L34 96 L34 64 L53 60 L53 84 L71 76 L71 63 L53 66 L53 51 L70 48 L70 31 L53 28 Z" fill="#F97316"/>
         </svg>
       </div>
 
@@ -37,22 +33,22 @@
           <span>Boletas</span>
         </button>
 
-        <button id="btn-inventario" class="rail-btn admin-only hidden" onclick="cambiarVista('inventario')" title="Inventario CRUD">
+        <button id="btn-inventario" class="rail-btn admin-only hidden" onclick="cambiarVista('inventario')" title="Inventario">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
           <span>Inventario</span>
         </button>
 
-        <button id="btn-ventas" class="rail-btn admin-only hidden" onclick="cambiarVista('ventas')" title="Reporte de Ventas">
+        <button id="btn-ventas" class="rail-btn admin-only hidden" onclick="cambiarVista('ventas')" title="Ventas">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
           <span>Ventas</span>
         </button>
 
-        <button id="btn-usuarios" class="rail-btn admin-only hidden" onclick="cambiarVista('usuarios')" title="Usuarios y Permisos">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <button id="btn-usuarios" class="rail-btn admin-only hidden" onclick="cambiarVista('usuarios')" title="Usuarios">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
           <span>Usuarios</span>
         </button>
 
-        <button id="btn-config-pagos" class="rail-btn admin-only hidden" onclick="cambiarVista('config-pagos')" title="Configurar QR y Pagos">
+        <button id="btn-config-pagos" class="rail-btn admin-only hidden" onclick="cambiarVista('config-pagos')" title="Configurar QR">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
           <span>QR/Pagos</span>
         </button>
@@ -66,54 +62,52 @@
       </div>
     </aside>
 
-    <!-- CONTENIDO PRINCIPAL -->
+    <!-- ÁREA PRINCIPAL -->
     <div class="main-workspace">
-      <!-- BENTO HEADER CARDS (ESTILO DASHBOARD DE REFERENCIA) -->
-      <header class="bento-header">
-        <div class="bento-card welcome-bento">
-          <div class="bento-top-row">
-            <span class="pill-time" id="live-clock">--:--</span>
-            <span class="status-pill"><i class="led-cyan"></i> Sistema Activo</span>
+      <!-- TOP BAR EJECUTIVO (NEGRO MATE + NARANJA ÁMBAR + CAMBIO DE MONEDA INMEDIATO) -->
+      <header class="top-dashboard-bar">
+        <div class="brand-overview" onclick="cambiarVista('tienda')" style="cursor:pointer;">
+          <div class="title-row">
+            <h1 id="welcome-user-title">PUNTO BIKER</h1>
+            <span class="status-badge"><i class="dot-amber"></i> EN LÍNEA</span>
           </div>
-          <h1 id="welcome-user-title">PUNTO BIKER</h1>
-          <p class="bento-sub">Concesionario Digital Multimarca • Catálogo en Tiempo Real</p>
-          <svg class="wave-svg" viewBox="0 0 300 40" preserveAspectRatio="none">
-            <path d="M0,30 Q45,10 90,25 T180,15 T270,22 L300,12" fill="none" stroke="url(#grad-wave)" stroke-width="2.5"/>
-            <defs>
-              <linearGradient id="grad-wave" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#38bdf8"/>
-                <stop offset="100%" stop-color="#f97316"/>
-              </linearGradient>
-            </defs>
-          </svg>
+          <p class="sub-muted">Concesionario Oficial Multimarca • Modelos 2025 – 2026</p>
         </div>
 
-        <div class="bento-card search-bento">
-          <div class="bento-top-row">
-            <span class="bento-label">BÚSQUEDA Y ACCESO</span>
-            <div id="auth-zone" class="auth-zone"></div>
+        <div class="search-and-currency">
+          <input type="text" id="buscador" placeholder="Buscar marca, modelo, año o cilindrada (ej. Panigale V4, 2026, Z900)..." oninput="resetPaginaYRender()" />
+          <div class="currency-pill-switch" title="Cambiar moneda en todo el catálogo">
+            <button id="top-btn-usd" class="active" onclick="cambiarMoneda('USD')">USD ($)</button>
+            <button id="top-btn-pen" onclick="cambiarMoneda('PEN')">PEN (S/)</button>
           </div>
-          <div class="search-input-wrap">
-            <input type="text" id="buscador" placeholder="Buscar marca, modelo o cilindrada (ej. Panigale V4, R1, Z900)..." oninput="resetPaginaYRender()" />
-          </div>
-          <div class="quick-actions-row">
-            <button class="btn-glass" onclick="toggleFiltrosMovil()">☰ Filtros (<span id="total-modelos-nav">0</span>)</button>
-            <button class="btn-glass btn-cart-glass" onclick="toggleCarrito()">Carrito (<span id="cart-count">0</span>)</button>
-            <button id="btn-install-pwa" class="btn-glass btn-install-only-web hidden" onclick="instalarAppPWA()">📲 Instalar App</button>
-          </div>
+        </div>
+
+        <div class="top-right-controls">
+          <button class="btn-dark-outline btn-movil-filtros" onclick="toggleFiltrosMovil()">☰ Filtros</button>
+          <button class="btn-dark-outline" onclick="toggleCarrito()">Carrito (<span id="cart-count">0</span>)</button>
+          <div id="auth-zone" class="auth-zone"></div>
         </div>
       </header>
 
-      <!-- VISTA 1: CATÁLOGO CON SIDEBAR GLASS -->
+      <!-- VISTA 1: CATÁLOGO GENERAL -->
       <main id="vista-tienda" class="container-layout">
-        <aside class="sidebar-filtros bento-card">
+        <aside class="sidebar-filtros panel-dark">
           <div class="sidebar-header">
-            <span><i class="led-cyan"></i> PARÁMETROS TÉCNICOS</span>
+            <span><i class="dot-amber"></i> FILTROS TÉCNICOS</span>
             <div style="display:flex;gap:6px;">
-              <button class="btn-limpiar-todo" onclick="limpiarFiltros()">Limpiar</button>
+              <button class="btn-mini" onclick="limpiarFiltros()">Limpiar</button>
               <button class="btn-cerrar-filtros-movil" onclick="toggleFiltrosMovil()">✕</button>
             </div>
           </div>
+
+          <details class="filtro-acordeon" open>
+            <summary>AÑO DEL MODELO</summary>
+            <div class="filtro-contenido">
+              <label><input type="radio" name="anio" value="Todos" checked onchange="resetPaginaYRender()"> Todos los años</label>
+              <label><input type="radio" name="anio" value="2026" onchange="resetPaginaYRender()"> Año 2026 (Nueva Generación)</label>
+              <label><input type="radio" name="anio" value="2025" onchange="resetPaginaYRender()"> Año 2025</label>
+            </div>
+          </details>
 
           <details class="filtro-acordeon" open>
             <summary>MARCA</summary>
@@ -126,21 +120,17 @@
           </details>
 
           <details class="filtro-acordeon" open>
-            <summary>PRECIO Y MONEDA</summary>
+            <summary>PRESUPUESTO (<span id="moneda-actual-tag">USD</span>)</summary>
             <div class="filtro-contenido">
-              <div class="moneda-switch">
-                <button id="btn-usd" class="active" onclick="cambiarMoneda('USD')">USD ($)</button>
-                <button id="btn-pen" onclick="cambiarMoneda('PEN')">SOLES (S/)</button>
-              </div>
-              <label class="range-label">Máximo: <strong id="precio-max-label">$180,000</strong></label>
+              <label class="range-label">Máximo: <strong id="precio-max-label">$180,000 USD</strong></label>
               <input type="range" id="filtro-precio" min="1500" max="180000" step="500" value="180000" oninput="actualizarPrecioFiltro()" />
             </div>
           </details>
 
           <details class="filtro-acordeon">
-            <summary>MOTOR</summary>
+            <summary>CILINDRADA</summary>
             <div class="filtro-contenido">
-              <label><input type="radio" name="motor" value="Todos" checked onchange="resetPaginaYRender()"> Todos</label>
+              <label><input type="radio" name="motor" value="Todos" checked onchange="resetPaginaYRender()"> Todas</label>
               <label><input type="radio" name="motor" value="baja" onchange="resetPaginaYRender()"> Baja (110cc - 250cc)</label>
               <label><input type="radio" name="motor" value="media" onchange="resetPaginaYRender()"> Media (251cc - 750cc)</label>
               <label><input type="radio" name="motor" value="alta" onchange="resetPaginaYRender()"> Alta (+750cc)</label>
@@ -158,39 +148,22 @@
           </details>
 
           <details class="filtro-acordeon">
-            <summary>FRENOS</summary>
+            <summary>FRENOS Y AROS</summary>
             <div class="filtro-contenido">
-              <label><input type="radio" name="frenos" value="Todos" checked onchange="resetPaginaYRender()"> Todos</label>
-              <label><input type="radio" name="frenos" value="ABS Doble Canal" onchange="resetPaginaYRender()"> ABS Doble Canal</label>
+              <label><input type="radio" name="frenos" value="Todos" checked onchange="resetPaginaYRender()"> Todos los frenos</label>
               <label><input type="radio" name="frenos" value="Brembo Radial" onchange="resetPaginaYRender()"> Brembo Radial</label>
-              <label><input type="radio" name="frenos" value="CBS / Tambor" onchange="resetPaginaYRender()"> CBS / Tambor</label>
-            </div>
-          </details>
-
-          <details class="filtro-acordeon">
-            <summary>AROS Y SUSPENSIÓN</summary>
-            <div class="filtro-contenido">
-              <label><input type="radio" name="aros" value="Todos" checked onchange="resetPaginaYRender()"> Todos los aros</label>
-              <label><input type="radio" name="aros" value="Aleación 17''" onchange="resetPaginaYRender()"> Aleación 17"</label>
-              <label><input type="radio" name="aros" value="Rayos 21''/18''" onchange="resetPaginaYRender()"> Rayos 21"/18"</label>
-              <label><input type="radio" name="aros" value="Urbano 12''-14''" onchange="resetPaginaYRender()"> Urbano 12"-14"</label>
-            </div>
-          </details>
-
-          <details class="filtro-acordeon">
-            <summary>EXTRAS</summary>
-            <div class="filtro-contenido">
-              <label><input type="checkbox" id="filtro-stock" onchange="resetPaginaYRender()"> Solo con Stock</label>
-              <label><input type="checkbox" id="filtro-tft" onchange="resetPaginaYRender()"> Tablero TFT</label>
+              <label><input type="radio" name="frenos" value="ABS Doble Canal" onchange="resetPaginaYRender()"> ABS Doble Canal</label>
+              <label><input type="checkbox" id="filtro-stock" onchange="resetPaginaYRender()"> Solo con Stock Disponible</label>
             </div>
           </details>
         </aside>
 
         <section class="zona-catalogo">
-          <div class="catalogo-topbar bento-card">
-            <div id="resultados-info">Cargando catálogo...</div>
+          <div class="catalogo-topbar panel-dark">
+            <div id="resultados-info">Cargando unidades...</div>
             <select id="ordenar-por" onchange="renderCatalogo()">
-              <option value="relevancia">Destacados</option>
+              <option value="relevancia">Ordenar: Destacados</option>
+              <option value="anio-desc">Año: Más reciente (2026)</option>
               <option value="precio-asc">Precio: Menor a Mayor</option>
               <option value="precio-desc">Precio: Mayor a Menor</option>
               <option value="hp-desc">Potencia: Mayor a Menor</option>
@@ -202,33 +175,38 @@
         </section>
       </main>
 
+      <!-- VISTA DEDICADA DE DETALLE DE MOTOCICLETA (PÁGINA COMPLETA TIPO COSMOS MOTO) -->
+      <main id="vista-detalle-moto" class="container hidden">
+        <div id="detalle-moto-contenido"></div>
+      </main>
+
       <!-- VISTA 2: MIS BOLETAS -->
       <main id="vista-compras" class="container hidden">
-        <div class="bento-card section-banner">
+        <div class="panel-dark section-banner">
           <h2>HISTORIAL DE COMPRAS Y BOLETAS ELECTRÓNICAS</h2>
-          <p class="bento-sub" id="compras-usuario-sub">Comprobantes asociados a tu cuenta.</p>
+          <p class="sub-muted" id="compras-usuario-sub">Comprobantes asociados a tu cuenta.</p>
         </div>
         <div id="lista-boletas-cliente" class="boletas-grid"></div>
       </main>
 
       <!-- VISTA 3: INVENTARIO CRUD (SOLO ADMIN) -->
       <main id="vista-inventario" class="container hidden">
-        <div class="bento-card section-banner flex-between">
+        <div class="panel-dark section-banner flex-between">
           <div>
-            <h2>INVENTARIO EN TIEMPO REAL (<span id="total-modelos-inv">0</span> UNIDADES)</h2>
-            <p class="bento-sub">Alta, edición de ficha/precio/foto y retiro de unidades.</p>
+            <h2>GESTIÓN DE INVENTARIO (<span id="total-modelos-inv">0</span> UNIDADES)</h2>
+            <p class="sub-muted">Agrega modelos, modifica año/precio/stock/foto o retira unidades.</p>
           </div>
           <div class="inv-tools">
             <input type="text" id="buscador-inv" placeholder="Filtrar modelo o marca..." oninput="renderInventario()" />
-            <button class="btn-accent" onclick="abrirModalProducto()">+ NUEVA MOTO</button>
-            <button class="btn-glass" onclick="resetearDatos()">Restaurar</button>
+            <button class="btn-amber" onclick="abrirModalProducto()">+ NUEVA MOTO</button>
+            <button class="btn-dark-outline" onclick="resetearDatos()">Restaurar</button>
           </div>
         </div>
-        <div class="tabla-wrap bento-card">
+        <div class="tabla-wrap panel-dark">
           <table>
             <thead>
               <tr>
-                <th>ID</th><th>FOTO</th><th>MARCA</th><th>CATEGORÍA</th><th>MODELO</th><th>MOTOR</th><th>PRECIO</th><th>STOCK</th><th>ACCIONES</th>
+                <th>ID</th><th>FOTO</th><th>MARCA</th><th>MODELO</th><th>AÑO</th><th>MOTOR</th><th>PRECIO (USD / PEN)</th><th>STOCK</th><th>ACCIONES</th>
               </tr>
             </thead>
             <tbody id="tabla-inventario"></tbody>
@@ -238,17 +216,17 @@
 
       <!-- VISTA 4: VENTAS GLOBALES (SOLO ADMIN) -->
       <main id="vista-ventas" class="container hidden">
-        <div class="bento-card section-banner flex-between">
+        <div class="panel-dark section-banner flex-between">
           <div>
             <h2>REPORTE FINANCIERO DE VENTAS</h2>
-            <p class="bento-sub">Registro global de operaciones y boletas emitidas.</p>
+            <p class="sub-muted">Registro global de operaciones y boletas emitidas.</p>
           </div>
           <div class="kpi-box">
             <div class="kpi-pill"><span>OPERACIONES</span><strong id="kpi-ventas-count">0</strong></div>
             <div class="kpi-pill"><span>INGRESOS</span><strong id="kpi-ventas-total">$0</strong></div>
           </div>
         </div>
-        <div class="tabla-wrap bento-card">
+        <div class="tabla-wrap panel-dark">
           <table>
             <thead>
               <tr>
@@ -262,11 +240,11 @@
 
       <!-- VISTA 5: USUARIOS Y PERMISOS (SOLO ADMIN) -->
       <main id="vista-usuarios" class="container hidden">
-        <div class="bento-card section-banner">
+        <div class="panel-dark section-banner">
           <h2>CONTROL DE USUARIOS Y PERMISOS</h2>
-          <p class="bento-sub">Asigna o revoca privilegios de administrador a cuentas registradas.</p>
+          <p class="sub-muted">Otorga o revoca privilegios de administrador a cuentas registradas.</p>
         </div>
-        <div class="tabla-wrap bento-card">
+        <div class="tabla-wrap panel-dark">
           <table>
             <thead>
               <tr>
@@ -280,12 +258,12 @@
 
       <!-- VISTA 6: CONFIGURACIÓN QR Y CUENTAS (SOLO ADMIN) -->
       <main id="vista-config-pagos" class="container hidden">
-        <div class="bento-card section-banner">
+        <div class="panel-dark section-banner">
           <h2>CONFIGURACIÓN DE PASARELA DE PAGOS Y CÓDIGO QR</h2>
-          <p class="bento-sub">Personaliza tu QR de Yape/Plin y cuentas bancarias receptoras.</p>
+          <p class="sub-muted">Personaliza tu QR de Yape/Plin y cuentas bancarias receptoras.</p>
         </div>
         <div class="config-grid">
-          <form id="form-config-pagos" onsubmit="guardarConfigPagos(event)" class="tech-form bento-card">
+          <form id="form-config-pagos" onsubmit="guardarConfigPagos(event)" class="tech-form panel-dark">
             <h3>1. BILLETERA DIGITAL (YAPE / PLIN)</h3>
             <div><label>Titular Receptor</label><input type="text" id="cfg-titular" placeholder="Ej. Cristhian Flores Q." /></div>
             <div><label>Celular Yape / Plin</label><input type="text" id="cfg-telefono" placeholder="Ej. 987 654 321" /></div>
@@ -298,14 +276,14 @@
             </div>
             <div><label>Código Interbancario (CCI)</label><input type="text" id="cfg-cci" placeholder="002-..." /></div>
             <div><label>Entidad PagoEfectivo</label><input type="text" id="cfg-cip-entidad" placeholder="PUNTO BIKER - RECAUDACIÓN CIP" /></div>
-            <button type="submit" class="btn-accent" style="margin-top:8px;">GUARDAR CONFIGURACIÓN</button>
+            <button type="submit" class="btn-amber" style="margin-top:8px;">GUARDAR CONFIGURACIÓN</button>
           </form>
 
-          <div class="bento-card">
+          <div class="panel-dark">
             <h3>VISTA PREVIA EN CHECKOUT</h3>
             <div class="qr-preview-panel" style="margin-top:12px;">
               <div id="preview-qr-container" class="qr-placeholder-box"><span>ESPACIO RESERVADO PARA TU QR</span></div>
-              <div style="margin-top:12px;font-size:0.84rem;line-height:1.6;color:#cbd5e1;">
+              <div style="margin-top:12px;font-size:0.84rem;line-height:1.6;color:#d4d4d8;">
                 <div><strong>Titular:</strong> <span id="prev-titular">Sin configurar</span></div>
                 <div><strong>Yape / Plin:</strong> <span id="prev-telefono">Sin configurar</span></div>
                 <div><strong>Banco:</strong> <span id="prev-banco">Sin configurar</span></div>
@@ -316,6 +294,18 @@
           </div>
         </div>
       </main>
+
+      <!-- PIE DE PÁGINA LEGAL (AVISO DE PRIVACIDAD Y TÉRMINOS) -->
+      <footer class="legal-footer">
+        <span>© 2026 PUNTO BIKER MOTORSPORT S.A.C. Todos los derechos reservados.</span>
+        <div class="legal-links">
+          <a href="#" onclick="abrirLegal('privacidad');return false;">Aviso de Privacidad</a>
+          <span>•</span>
+          <a href="#" onclick="abrirLegal('terminos');return false;">Términos y Condiciones</a>
+          <span>•</span>
+          <a href="#" onclick="abrirLegal('garantia');return false;">Política de Garantía</a>
+        </div>
+      </footer>
     </div>
   </div>
 
@@ -327,22 +317,21 @@
     <button onclick="accionCuentaMovil()" id="mob-btn-cuenta"><span id="mob-cuenta-label">Ingresar</span></button>
   </nav>
 
-  <!-- MODALES -->
-  <div id="modal-ficha" class="modal-overlay hidden" onclick="cerrarModal(event, 'modal-ficha')">
-    <div class="modal-card bento-card" id="ficha-contenido"></div>
-  </div>
-
+  <!-- MODAL AUTENTICACIÓN + RECUPERAR CONTRASEÑA + ACEPTACIÓN DE TÉRMINOS -->
   <div id="modal-auth" class="modal-overlay hidden" onclick="cerrarModal(event, 'modal-auth')">
-    <div class="modal-card bento-card modal-sm">
+    <div class="modal-card panel-dark modal-sm">
       <div class="modal-info">
         <div class="flex-between" style="margin-bottom:12px;">
           <h2 id="auth-titulo">ACCESO AL SISTEMA</h2>
           <button onclick="document.getElementById('modal-auth').classList.add('hidden')" class="btn-close-x">✕</button>
         </div>
-        <div class="auth-tabs">
+
+        <div class="auth-tabs" id="auth-tabs-bar">
           <button id="tab-login" class="active" onclick="switchAuthTab('login')">INICIAR SESIÓN</button>
           <button id="tab-register" onclick="switchAuthTab('register')">REGISTRARSE</button>
         </div>
+
+        <!-- FORMULARIO LOGIN / REGISTRO -->
         <form id="form-auth" onsubmit="procesarAuth(event)" class="tech-form">
           <div id="campo-nombre-wrap" class="hidden">
             <label>Nombre Completo</label>
@@ -356,14 +345,55 @@
             <label>Contraseña</label>
             <input type="password" id="auth-pass" required placeholder="••••••••" />
           </div>
-          <button type="submit" class="btn-accent" id="btn-auth-submit">INGRESAR</button>
+
+          <div id="login-extra-links" style="text-align:right;">
+            <a href="#" class="link-amber" onclick="mostrarRecuperarPass();return false;">¿Olvidaste tu contraseña?</a>
+          </div>
+
+          <div id="register-legal-check" class="hidden">
+            <label class="legal-checkbox-label">
+              <input type="checkbox" id="chk-acepto-terminos" />
+              <span>He leído y acepto los <a href="#" onclick="abrirLegal('terminos');return false;">Términos y Condiciones</a> y el <a href="#" onclick="abrirLegal('privacidad');return false;">Aviso de Privacidad</a>.</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-amber" id="btn-auth-submit">INGRESAR</button>
+        </form>
+
+        <!-- FORMULARIO OLVIDÉ MI CONTRASEÑA -->
+        <form id="form-recover" onsubmit="procesarRecuperarPass(event)" class="tech-form hidden">
+          <p class="sub-muted" style="font-size:0.8rem;">Ingresa tu correo registrado para restablecer tu contraseña de acceso de forma segura.</p>
+          <div>
+            <label>Correo Electrónico Registrado</label>
+            <input type="email" id="rec-email" required placeholder="tu-correo@ejemplo.com" />
+          </div>
+          <div>
+            <label>Nueva Contraseña</label>
+            <input type="password" id="rec-new-pass" required minlength="6" placeholder="Mínimo 6 caracteres" />
+          </div>
+          <button type="submit" class="btn-amber">RESTABLECER CONTRASEÑA</button>
+          <button type="button" class="btn-dark-outline" onclick="switchAuthTab('login')">← Volver a Iniciar Sesión</button>
         </form>
       </div>
     </div>
   </div>
 
+  <!-- MODAL DOCUMENTOS LEGALES (AVISO DE PRIVACIDAD Y TÉRMINOS) -->
+  <div id="modal-legal" class="modal-overlay hidden" onclick="cerrarModal(event, 'modal-legal')">
+    <div class="modal-card panel-dark">
+      <div class="modal-info">
+        <div class="flex-between" style="border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:12px;">
+          <h2 id="legal-modal-titulo">AVISO DE PRIVACIDAD</h2>
+          <button onclick="document.getElementById('modal-legal').classList.add('hidden')" class="btn-close-x">✕</button>
+        </div>
+        <div id="legal-modal-texto" style="font-size:0.84rem;line-height:1.65;color:#d4d4d8;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL AGREGAR / EDITAR MOTO (ADMIN) -->
   <div id="modal-producto" class="modal-overlay hidden" onclick="cerrarModal(event, 'modal-producto')">
-    <div class="modal-card bento-card modal-sm">
+    <div class="modal-card panel-dark modal-sm">
       <div class="modal-info">
         <div class="flex-between" style="margin-bottom:12px;">
           <h2 id="prod-modal-titulo">NUEVA MOTOCICLETA</h2>
@@ -386,26 +416,30 @@
               </select>
             </div>
           </div>
-          <div><label>Modelo</label><input type="text" id="prod-modelo" required placeholder="Panigale V4 R" /></div>
+          <div class="form-row-2">
+            <div><label>Modelo</label><input type="text" id="prod-modelo" required placeholder="Panigale V4 R" /></div>
+            <div><label>Año</label><input type="number" id="prod-anio" required min="2020" max="2027" value="2026" /></div>
+          </div>
           <div class="form-row-3">
             <div><label>CC</label><input type="number" id="prod-cc" required min="0" value="600" /></div>
             <div><label>HP</label><input type="number" id="prod-hp" required min="1" value="95" /></div>
             <div><label>Stock</label><input type="number" id="prod-stock" required min="0" value="5" /></div>
           </div>
-          <div><label>Precio (USD)</label><input type="number" id="prod-precio" required min="100" value="12500" /></div>
+          <div><label>Precio Base (USD)</label><input type="number" id="prod-precio" required min="100" value="12500" /></div>
           <div><label>URL Fotografía (Opcional)</label><input type="url" id="prod-img" placeholder="https://..." /></div>
-          <button type="submit" class="btn-accent">GUARDAR EN CATÁLOGO</button>
+          <button type="submit" class="btn-amber">GUARDAR EN CATÁLOGO</button>
         </form>
       </div>
     </div>
   </div>
 
+  <!-- MODAL PASARELA DE PAGOS -->
   <div id="modal-pasarela" class="modal-overlay hidden" onclick="cerrarModal(event, 'modal-pasarela')">
-    <div class="modal-card bento-card modal-pasarela-box">
+    <div class="modal-card panel-dark modal-pasarela-box">
       <div class="modal-info">
         <div class="flex-between" style="border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:14px;">
           <div>
-            <span class="marca-tag">CHECKOUT SSL</span>
+            <span class="marca-tag">CHECKOUT SEGURO</span>
             <h2 style="margin-top:4px;">PASARELA DE PAGOS</h2>
           </div>
           <button onclick="document.getElementById('modal-pasarela').classList.add('hidden')" class="btn-close-x">✕</button>
@@ -438,9 +472,9 @@
             <div id="checkout-qr-slot" class="qr-slot-checkout"><span>ESPACIO QR</span></div>
             <div>
               <p><strong>Escanea con Yape o Plin</strong></p>
-              <p class="bento-sub">Titular: <strong id="chk-titular">--</strong></p>
-              <p class="bento-sub">Celular: <strong id="chk-telefono">--</strong></p>
-              <p class="bento-sub">Operación: <strong id="ref-yape">PB-9921</strong></p>
+              <p class="sub-muted">Titular: <strong id="chk-titular">--</strong></p>
+              <p class="sub-muted">Celular: <strong id="chk-telefono">--</strong></p>
+              <p class="sub-muted">Operación: <strong id="ref-yape">PB-9921</strong></p>
             </div>
           </div>
         </div>
@@ -449,24 +483,25 @@
           <div class="cip-box">
             <span class="marca-tag" id="chk-cip-entidad">PAGOEFECTIVO CIP</span>
             <div class="cip-code" id="codigo-cip-generado">914820553</div>
-            <p class="bento-sub">Paga en BCP, BBVA, Interbank, Scotiabank o agentes autorizados.</p>
+            <p class="sub-muted">Válido en BCP, BBVA, Interbank, Scotiabank y agentes autorizados.</p>
           </div>
         </div>
 
         <div id="panel-pago-transferencia" class="panel-metodo hidden">
           <div class="cip-box">
             <p><strong>Transferencia Interbancaria (CCI)</strong></p>
-            <p class="bento-sub" style="margin-top:6px;">Banco: <strong id="chk-banco">--</strong> | Cuenta: <strong id="chk-cuenta">--</strong></p>
-            <p class="bento-sub">CCI: <strong id="chk-cci">--</strong></p>
-            <p class="bento-sub">Titular: <strong id="chk-titular-banco">--</strong></p>
+            <p class="sub-muted" style="margin-top:6px;">Banco: <strong id="chk-banco">--</strong> | Cuenta: <strong id="chk-cuenta">--</strong></p>
+            <p class="sub-muted">CCI: <strong id="chk-cci">--</strong></p>
+            <p class="sub-muted">Titular: <strong id="chk-titular-banco">--</strong></p>
           </div>
         </div>
 
-        <button class="btn-accent" style="margin-top:16px;width:100%;" onclick="confirmarPagoFinal()">CONFIRMAR PAGO Y EMITIR BOLETA</button>
+        <button class="btn-amber" style="margin-top:16px;width:100%;" onclick="confirmarPagoFinal()">CONFIRMAR PAGO Y EMITIR BOLETA</button>
       </div>
     </div>
   </div>
 
+  <!-- CARRITO -->
   <aside id="modal-carrito" class="carrito-drawer hidden">
     <div class="carrito-header">
       <h3>ORDEN DE COMPRA</h3>
@@ -475,10 +510,10 @@
     <div id="carrito-items" class="carrito-body"></div>
     <div class="carrito-footer">
       <div class="total-row"><span>TOTAL:</span><strong id="carrito-total">$0</strong></div>
-      <button class="btn-accent" style="width:100%;" onclick="iniciarCheckout()">IR A PASARELA DE PAGO</button>
+      <button class="btn-amber" style="width:100%;" onclick="iniciarCheckout()">IR A PASARELA DE PAGO</button>
     </div>
   </aside>
 
-  <script src="app.js?v=6"></script>
+  <script src="app.js?v=7"></script>
 </body>
 </html>
