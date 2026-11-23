@@ -9,11 +9,8 @@
 <body>
   <header class="navbar">
     <div class="logo-box">
-      <!-- Isotipo Escudo PB (Blanco y Rojo Deportivo) -->
-            <svg width="46" height="50" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Parte izquierda: P cerrada y definida en blanco -->
+      <svg width="46" height="50" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M12 16 L49 10 L49 54 L28 58 L28 92 L12 84 Z M28 27 L28 43 L37 41 L37 25 Z" fill="#FFFFFF"/>
-        <!-- Parte derecha: B en escudo rojo deportivo -->
         <path fill-rule="evenodd" clip-rule="evenodd" d="M53 10 L86 17 L86 46 L73 53 L88 61 L88 86 L50 104 L34 96 L34 64 L53 60 L53 84 L71 76 L71 63 L53 66 L53 51 L70 48 L70 31 L53 28 Z" fill="#DC2626"/>
       </svg>
       <div class="brand-text">
@@ -22,7 +19,7 @@
       </div>
     </div>
     <nav class="nav-actions">
-      <button id="btn-tienda" class="active" onclick="cambiarVista('tienda')">Catálogo</button>
+      <button id="btn-tienda" class="active" onclick="cambiarVista('tienda')">Catálogo (30)</button>
       <button id="btn-inventario" onclick="cambiarVista('inventario')">Gestión de Inventario</button>
       <button class="cart-btn" onclick="toggleCarrito()">🛒 Carrito (<span id="cart-count">0</span>)</button>
     </nav>
@@ -31,7 +28,10 @@
   <main id="vista-tienda" class="container">
     <section class="hero">
       <h2>Encuentra tu próxima motocicleta</h2>
-      <p>Modelos 2026 con entrega inmediata y control de stock en tiempo real.</p>
+      <p>Catálogo multimarca 2026 con fichas técnicas, entrega inmediata y control de stock en tiempo real.</p>
+      <div class="search-box">
+        <input type="text" id="buscador" placeholder="Buscar por modelo, cilindrada (ej. 450cc, 1000cc, Rally, GP)..." oninput="renderCatalogo()" />
+      </div>
     </section>
 
     <div class="filtros" id="categorias-bar"></div>
@@ -40,7 +40,7 @@
 
   <main id="vista-inventario" class="container hidden">
     <h2>Panel de Gestión de Inventarios</h2>
-    <p class="sub">Modifica el stock disponible en tiempo real (guardado automático).</p>
+    <p class="sub">Control centralizado de las 30 unidades en almacén (guardado automático en tiempo real).</p>
     <div class="tabla-wrap">
       <table>
         <thead>
@@ -48,15 +48,16 @@
             <th>ID</th>
             <th>Categoría</th>
             <th>Modelo</th>
+            <th>Motor / Potencia</th>
             <th>Precio (USD)</th>
-            <th>Stock Actual</th>
-            <th>Acciones de Stock</th>
+            <th>Stock</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody id="tabla-inventario"></tbody>
       </table>
     </div>
-    <button class="btn-reset" onclick="resetearDatos()">Restaurar Inventario Inicial</button>
+    <button class="btn-reset" onclick="resetearDatos()">Restaurar Inventario Inicial (30 modelos)</button>
   </main>
 
   <aside id="modal-carrito" class="carrito-drawer hidden">
@@ -77,4 +78,3 @@
   <script src="app.js"></script>
 </body>
 </html>
-

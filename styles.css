@@ -83,3 +83,11 @@ th { background: #070b14; }
 .carrito-footer { padding: 1rem; border-top: 1px solid var(--border); }
 .total-row { display: flex; justify-content: space-between; font-size: 1.2rem; margin-bottom: 1rem; }
 .btn-comprar { width: 100%; padding: 12px; background: #16a34a; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+
+.search-box { margin-top: 1.2rem; max-width: 520px; }
+.search-box input {
+  width: 100%; padding: 12px 18px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(11, 17, 32, 0.85); color: #ffffff; font-size: 0.95rem; outline: none;
+}
+.search-box input:focus { border-color: #ffffff; }
+.specs { font-size: 0.78rem; color: #94a3b8; background: #0b1120; padding: 5px 8px; border-radius: 6px; margin-bottom: 8px; }
