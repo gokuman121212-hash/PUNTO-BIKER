@@ -558,7 +558,7 @@ function renderCatalogo() {
     const tieneFotoReal = Boolean(cacheFotos[p.nombre]);
     return `
       <article class="card">
-        <div class="card-img-wrap" onclick="verFicha(${p.id})" style="border-bottom: 3px solid ${colorMarca};">
+        <div class="card-img-wrap" onclick="verFicha(${p.id})" >
           <img id="img-moto-${p.id}" src="${cacheFotos[p.nombre] || p.img}" alt="${p.nombre}" />
           <span id="badge-foto-${p.id}" style="position:absolute;bottom:6px;right:6px;background:rgba(7,11,20,0.82);color:#cbd5e1;font-size:0.68rem;padding:2px 7px;border-radius:4px;">
             ${tieneFotoReal ? "✓ Foto Real" : p.categoria}
@@ -566,13 +566,13 @@ function renderCatalogo() {
         </div>
         <div class="card-body">
           <div class="card-tags">
-            <span class="marca-tag" style="background:${colorMarca};">${p.marca}</span>
+            <span class="marca-tag" >${p.marca}</span>
             <span class="badge">${p.categoria}</span>
           </div>
           <h3 onclick="verFicha(${p.id})">${p.nombre}</h3>
           <div class="specs">
-            ⚙️ ${p.cc > 0 ? p.cc + 'cc' : 'Eléctrica'} • ⚡ ${p.hp} HP<br/>
-            🛑 ${p.frenos} • 🔧 ${p.transmision}
+            ${p.cc > 0 ? p.cc + 'cc' : 'Eléctrica'}  | ${p.hp} HP<br/>
+            ${p.frenos}  | ${p.transmision}
           </div>
           <div class="precio">${formatearPrecio(p.precio)}</div>
           <div class="stock ${p.stock === 0 ? 'agotado' : ''}">
@@ -581,7 +581,7 @@ function renderCatalogo() {
           <div class="card-actions">
             <button class="btn-ficha" onclick="verFicha(${p.id})">Ficha Técnica</button>
             <button class="btn-add" ${p.stock === 0 ? 'disabled' : ''} onclick="agregarCarrito(${p.id})">
-              ${p.stock > 0 ? '+ Carrito' : 'Sin Stock'}
+              ${p.stock > 0 ? 'Cotizar' : 'Sin Stock'}
             </button>
           </div>
         </div>
@@ -611,7 +611,7 @@ function verFicha(id) {
     <img src="${cacheFotos[p.nombre] || p.img}" alt="${p.nombre}" />
     <div class="modal-info">
       <div style="display:flex;justify-content:space-between;align-items:center;">
-        <span class="marca-tag" style="background:${colorMarca};">${p.marca} • ${p.categoria}</span>
+        <span class="marca-tag" >${p.marca} • ${p.categoria}</span>
         <button onclick="document.getElementById('modal-ficha').classList.add('hidden')" style="background:none;border:none;color:#fff;font-size:1.3rem;cursor:pointer;">✕</button>
       </div>
       <h2 style="margin-top:8px;">${p.nombre}</h2>
@@ -724,7 +724,7 @@ function renderInventario() {
         <td>
           <button class="btn-stock btn-mas" onclick="ajustarStock(${p.id}, 1)">+1</button>
           <button class="btn-stock btn-menos" onclick="ajustarStock(${p.id}, -1)">-1</button>
-          <button class="btn-stock" style="background:#0284c7;color:white;" onclick="cambiarFotoManual(${p.id})">${verificada ? "✓ Foto" : "📷 Foto"}</button>
+          <button class="btn-stock" style="background:#27272a;color:#e4e4e7;" onclick="cambiarFotoManual(${p.id})">${verificada ? "✓ Foto" : "Foto URL"}</button>
         </td>
       </tr>
     `;
@@ -763,3 +763,4 @@ inicializarSidebar();
 renderCatalogo();
 renderInventario();
 actualizarCarritoUI();
+

@@ -3,15 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Punto Biker | Portal Multimarca de Motocicletas</title>
+  <title>PUNTO BIKER | Concesionario Oficial Multimarca</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="navbar">
     <div class="logo-box">
-      <svg width="46" height="50" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="42" height="46" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M12 16 L49 10 L49 54 L28 58 L28 92 L12 84 Z M28 27 L28 43 L37 41 L37 25 Z" fill="#FFFFFF"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M53 10 L86 17 L86 46 L73 53 L88 61 L88 86 L50 104 L34 96 L34 64 L53 60 L53 84 L71 76 L71 63 L53 66 L53 51 L70 48 L70 31 L53 28 Z" fill="#DC2626"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M53 10 L86 17 L86 46 L73 53 L88 61 L88 86 L50 104 L34 96 L34 64 L53 60 L53 84 L71 76 L71 63 L53 66 L53 51 L70 48 L70 31 L53 28 Z" fill="#B91C1C"/>
       </svg>
       <div class="brand-text">
         <span class="brand-top">PUNTO</span>
@@ -24,16 +27,19 @@
     </div>
 
     <nav class="nav-actions">
-      <button id="btn-tienda" class="active" onclick="cambiarVista('tienda')">Catálogo (<span id="total-modelos-nav">318</span>)</button>
-      <button id="btn-inventario" onclick="cambiarVista('inventario')">Inventario</button>
-      <button class="cart-btn" onclick="toggleCarrito()">🛒 (<span id="cart-count">0</span>)</button>
+      <button id="btn-tienda" class="active" onclick="cambiarVista('tienda')">CATÁLOGO (<span id="total-modelos-nav">318</span>)</button>
+      <button id="btn-inventario" onclick="cambiarVista('inventario')">INVENTARIO</button>
+      <button class="cart-btn" onclick="toggleCarrito()">COTIZACIÓN (<span id="cart-count">0</span>)</button>
     </nav>
   </header>
 
   <main id="vista-tienda" class="container-layout">
-    <!-- BARRA LATERAL DE FILTROS ESTILO SOMOS MOTO -->
+    <!-- BARRA LATERAL DE FILTROS SOBRIA (GRIS RATA / NEGRO / BLANCO) -->
     <aside class="sidebar-filtros">
-      <button class="btn-limpiar-todo" onclick="limpiarFiltros()">Limpiar Todo</button>
+      <div class="sidebar-header">
+        <span>FILTROS DE BÚSQUEDA</span>
+        <button class="btn-limpiar-todo" onclick="limpiarFiltros()">Limpiar todo</button>
+      </div>
 
       <details class="filtro-acordeon" open>
         <summary>MARCA</summary>
@@ -50,9 +56,9 @@
         <div class="filtro-contenido">
           <div class="moneda-switch">
             <button id="btn-usd" class="active" onclick="cambiarMoneda('USD')">USD ($)</button>
-            <button id="btn-pen" onclick="cambiarMoneda('PEN')">Soles (S/)</button>
+            <button id="btn-pen" onclick="cambiarMoneda('PEN')">SOLES (S/)</button>
           </div>
-          <label class="range-label">Precio máximo: <strong id="precio-max-label">$180,000</strong></label>
+          <label class="range-label">Presupuesto máximo: <strong id="precio-max-label">$180,000</strong></label>
           <input type="range" id="filtro-precio" min="1500" max="180000" step="500" value="180000" oninput="actualizarPrecioFiltro()" />
         </div>
       </details>
@@ -157,12 +163,12 @@
   <main id="vista-inventario" class="container hidden">
     <div class="inv-header">
       <div>
-        <h2>Panel de Gestión de Inventarios (<span id="total-modelos-inv">318</span> Modelos)</h2>
-        <p class="sub">Control centralizado en almacén con actualización en tiempo real.</p>
+        <h2>CONTROL DE INVENTARIOS (<span id="total-modelos-inv">318</span> MODELOS)</h2>
+        <p class="sub">Gestión centralizada de stock y auditoría visual en almacén.</p>
       </div>
       <div class="inv-tools">
-        <input type="text" id="buscador-inv" placeholder="Filtrar inventario por marca o modelo..." oninput="renderInventario()" />
-        <button class="btn-reset" onclick="resetearDatos()">Restaurar Stock Inicial</button>
+        <input type="text" id="buscador-inv" placeholder="Filtrar por marca o modelo..." oninput="renderInventario()" />
+        <button class="btn-reset" onclick="resetearDatos()">Restaurar Stock</button>
       </div>
     </div>
     <div class="tabla-wrap">
@@ -170,13 +176,13 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Marca</th>
-            <th>Categoría</th>
-            <th>Modelo</th>
-            <th>Motor / Potencia</th>
-            <th>Precio (USD)</th>
-            <th>Stock</th>
-            <th>Acciones</th>
+            <th>MARCA</th>
+            <th>CATEGORÍA</th>
+            <th>MODELO</th>
+            <th>ESPECIFICACIONES</th>
+            <th>PRECIO (USD)</th>
+            <th>STOCK</th>
+            <th>ACCIONES</th>
           </tr>
         </thead>
         <tbody id="tabla-inventario"></tbody>
@@ -189,19 +195,19 @@
     <div class="modal-card" id="ficha-contenido"></div>
   </div>
 
-  <!-- CARRITO -->
+  <!-- CARRITO / COTIZACIÓN -->
   <aside id="modal-carrito" class="carrito-drawer hidden">
     <div class="carrito-header">
-      <h3>Tu Carrito de Compras</h3>
+      <h3>RESUMEN DE COTIZACIÓN</h3>
       <button onclick="toggleCarrito()">✕</button>
     </div>
     <div id="carrito-items" class="carrito-body"></div>
     <div class="carrito-footer">
       <div class="total-row">
-        <span>Total:</span>
+        <span>TOTAL ESTIMADO:</span>
         <strong id="carrito-total">$0</strong>
       </div>
-      <button class="btn-comprar" onclick="finalizarCompra()">Confirmar Compra y Descontar Stock</button>
+      <button class="btn-comprar" onclick="finalizarCompra()">CONFIRMAR COMPRA Y DESCONTAR STOCK</button>
     </div>
   </aside>
 
