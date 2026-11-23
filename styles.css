@@ -351,3 +351,32 @@ th { color: var(--muted); font-size: 0.74rem; text-transform: uppercase; backgro
   }
   .mobile-bottom-nav button.active { color: var(--amber); border-top: 2px solid var(--amber); }
 }
+
+/* ENCUADRE PROFESIONAL TIPO CONCESIONARIO (SIN RECORTES NI DISTORSIÓN) */
+.card-img-wrap {
+  background: radial-gradient(circle at center, #1c1c21 0%, #0b0b0c 100%) !important;
+  padding: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+.card-img-wrap img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  border-radius: 6px !important;
+  transition: transform 0.25s ease !important;
+}
+.card:hover .card-img-wrap img {
+  transform: scale(1.04) !important;
+}
+.detalle-galeria {
+  background: radial-gradient(circle at center, #1b1b20 0%, #09090b 100%) !important;
+  min-height: 360px !important;
+}
+.detalle-galeria img {
+  width: 100% !important;
+  max-height: 440px !important;
+  object-fit: contain !important;
+}

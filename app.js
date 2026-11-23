@@ -77,7 +77,7 @@ let ventas = JSON.parse(localStorage.getItem("pb_db_ventas_v4")) || [];
 let configPagos = JSON.parse(localStorage.getItem("pb_db_config_pagos")) || {
   titular: "", telefono: "", qrDataUrl: "", banco: "", cuenta: "", cci: "", cipEntidad: "PAGOEFECTIVO - PUNTO BIKER"
 };
-const cacheFotos = JSON.parse(localStorage.getItem("punto_biker_fotos_v3") || "{}");
+const cacheFotos = JSON.parse(localStorage.getItem("punto_biker_fotos_v5_clean") || "{}");
 
 let carrito = [];
 let moneda = "USD";
@@ -367,23 +367,35 @@ function limpiarFiltros() {
 function resetPaginaYRender() { paginaActual = 1; renderCatalogo(); }
 
 async function buscarFotoReal(prod, imgEl) {
-  if (prod.customPhoto || cacheFotos[prod.nombre]) {
-    if (cacheFotos[prod.nombre]) imgEl.src = cacheFotos[prod.nombre];
+  if (prod.customPhoto) {
+    imgEl.src = prod.img;
+    return;
+  }
+  if (cacheFotos[prod.nombre]) {
+    imgEl.src = cacheFotos[prod.nombre];
     return;
   }
   try {
-    const url = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(prod.marca + " " + prod.modeloCorto + " motorcycle")}&gsrlimit=2&prop=pageimages&pithumbsize=800&format=json&origin=*`;
+    const query = encodeURIComponent(`${prod.marca} ${prod.modeloCorto} motorcycle`);
+    const url = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=filetype:bitmap+${query}&gsrnamespace=6&gsrlimit=5&prop=imageinfo&iiprop=url|size&iiurlwidth=800&format=json&origin=*`;
     const res = await fetch(url);
     const data = await res.json();
     const pages = data?.query?.pages ? Object.values(data.query.pages) : [];
+
     for (const p of pages) {
-      const src = p?.thumbnail?.source;
-      if (src && !src.includes("No_image") && !src.includes("Flag_of") && !src.includes("Logo")) {
-        cacheFotos[prod.nombre] = src;
-        localStorage.setItem("punto_biker_fotos_v3", JSON.stringify(cacheFotos));
-        imgEl.src = src;
-        return;
-      }
+      const title = (p.title || "").toLowerCase();
+      const info = p.imageinfo?.[0];
+      const src = info?.thumburl || info?.url;
+      if (!src) continue;
+      // Descartar estrictamente logos, escudos, banderas, íconos o ilustraciones
+      if (/\.(svg|gif)$/i.test(src)) continue;
+      if (/(logo|emblem|badge|crest|shield|flag|icon|map|diagram|drawing|vector)/i.test(title)) continue;
+      if (info.width && info.height && info.width < info.height * 0.75) continue;
+
+      cacheFotos[prod.nombre] = src;
+      localStorage.setItem("punto_biker_fotos_v5_clean", JSON.stringify(cacheFotos));
+      imgEl.src = src;
+      return;
     }
   } catch (e) {}
 }
@@ -763,3 +775,4 @@ actualizarUIUsuario();
 inicializarSidebar();
 renderCatalogo();
 actualizarCarritoUI();
+
