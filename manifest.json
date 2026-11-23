@@ -1,0 +1,15 @@
+﻿{
+  "name": "PUNTO BIKER | Plataforma Automotriz",
+  "short_name": "Punto Biker",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070b14",
+  "theme_color": "#070b14",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3774/3774278.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

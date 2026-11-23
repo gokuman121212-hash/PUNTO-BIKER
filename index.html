@@ -2,343 +2,340 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PUNTO BIKER | Plataforma Automotriz Multimarca</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>PUNTO BIKER | Command Center & Concesionario</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#070b14" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=4" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=6" />
 </head>
 <body>
-  <header class="navbar">
-    <div class="logo-box" onclick="cambiarVista('tienda')" style="cursor:pointer;">
-      <svg width="40" height="44" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 16 L49 10 L49 54 L28 58 L28 92 L12 84 Z M28 27 L28 43 L37 41 L37 25 Z" fill="#FFFFFF"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M53 10 L86 17 L86 46 L73 53 L88 61 L88 86 L50 104 L34 96 L34 64 L53 60 L53 84 L71 76 L71 63 L53 66 L53 51 L70 48 L70 31 L53 28 Z" fill="#B91C1C"/>
-      </svg>
-      <div class="brand-text">
-        <span class="brand-top">PUNTO</span>
-        <span class="brand-bottom">BIKER <small class="sys-tag">OS v3.0</small></span>
-      </div>
-    </div>
+  <!-- Resplandores ambientales Bento Glass -->
+  <div class="ambient-glow glow-blue"></div>
+  <div class="ambient-glow glow-amber"></div>
 
-    <div class="top-search">
-      <input type="text" id="buscador" placeholder="Buscar marca, modelo o cilindrada (ej. Panigale V4, R1, Z900, 800X)..." oninput="resetPaginaYRender()" />
-    </div>
-
-    <nav class="nav-actions">
-      <button id="btn-tienda" class="active" onclick="cambiarVista('tienda')">CATÁLOGO (<span id="total-modelos-nav">0</span>)</button>
-      <button id="btn-mis-compras" class="hidden" onclick="cambiarVista('compras')">MIS BOLETAS</button>
-      <button id="btn-inventario" class="admin-only hidden" onclick="cambiarVista('inventario')">INVENTARIO</button>
-      <button id="btn-ventas" class="admin-only hidden" onclick="cambiarVista('ventas')">VENTAS</button>
-      <button id="btn-usuarios" class="admin-only hidden" onclick="cambiarVista('usuarios')">USUARIOS</button><button id="btn-config-pagos" class="admin-only hidden" onclick="cambiarVista('config-pagos')">CONFIG. PAGOS / QR</button>
-      <button class="cart-btn" onclick="toggleCarrito()">CARRITO (<span id="cart-count">0</span>)</button>
-      <div id="auth-zone" class="auth-zone"></div>
-    </nav>
-  </header>
-
-  <!-- VISTA 1: CATÁLOGO CON FILTROS -->
-  <main id="vista-tienda" class="container-layout">
-    <aside class="sidebar-filtros">
-      <div class="sidebar-header">
-        <span><i class="led-dot"></i> FILTROS TÉCNICOS</span>
-        <div style="display:flex;gap:6px;"><button class="btn-limpiar-todo" onclick="limpiarFiltros()">Limpiar</button><button class="btn-cerrar-filtros-movil" onclick="toggleFiltrosMovil()">✕ Cerrar</button></div>
+  <div class="app-shell">
+    <!-- BARRA LATERAL DE NAVEGACIÓN TIPO DOCK (COMO EL DASHBOARD BENTO) -->
+    <aside class="nav-rail">
+      <div class="rail-logo" onclick="cambiarVista('tienda')" title="Punto Biker">
+        <svg width="28" height="30" viewBox="0 0 100 110" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 16 L49 10 L49 54 L28 58 L28 92 L12 84 Z M28 27 L28 43 L37 41 L37 25 Z" fill="#38bdf8"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M53 10 L86 17 L86 46 L73 53 L88 61 L88 86 L50 104 L34 96 L34 64 L53 60 L53 84 L71 76 L71 63 L53 66 L53 51 L70 48 L70 31 L53 28 Z" fill="#f97316"/>
+        </svg>
       </div>
 
-      <details class="filtro-acordeon" open>
-        <summary>MARCA</summary>
-        <div class="filtro-contenido" id="filtro-marca-lista"></div>
-      </details>
+      <nav class="rail-menu">
+        <button id="btn-tienda" class="rail-btn active" onclick="cambiarVista('tienda')" title="Catálogo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+          <span>Catálogo</span>
+        </button>
 
-      <details class="filtro-acordeon" open>
-        <summary>TIPO DE MOTO</summary>
-        <div class="filtro-contenido" id="filtro-tipo-lista"></div>
-      </details>
+        <button id="btn-mis-compras" class="rail-btn hidden" onclick="cambiarVista('compras')" title="Mis Boletas">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span>Boletas</span>
+        </button>
 
-      <details class="filtro-acordeon" open>
-        <summary>PRECIO Y MONEDA</summary>
-        <div class="filtro-contenido">
-          <div class="moneda-switch">
-            <button id="btn-usd" class="active" onclick="cambiarMoneda('USD')">USD ($)</button>
-            <button id="btn-pen" onclick="cambiarMoneda('PEN')">SOLES (S/)</button>
-          </div>
-          <label class="range-label">Presupuesto máximo: <strong id="precio-max-label">$180,000</strong></label>
-          <input type="range" id="filtro-precio" min="1500" max="180000" step="500" value="180000" oninput="actualizarPrecioFiltro()" />
-        </div>
-      </details>
+        <button id="btn-inventario" class="rail-btn admin-only hidden" onclick="cambiarVista('inventario')" title="Inventario CRUD">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          <span>Inventario</span>
+        </button>
 
-      <details class="filtro-acordeon">
-        <summary>MOTOR</summary>
-        <div class="filtro-contenido">
-          <label><input type="radio" name="motor" value="Todos" checked onchange="resetPaginaYRender()"> Todos los motores</label>
-          <label><input type="radio" name="motor" value="baja" onchange="resetPaginaYRender()"> Baja Cilindrada (110cc - 250cc)</label>
-          <label><input type="radio" name="motor" value="media" onchange="resetPaginaYRender()"> Media Cilindrada (251cc - 750cc)</label>
-          <label><input type="radio" name="motor" value="alta" onchange="resetPaginaYRender()"> Alta Cilindrada (+750cc)</label>
-        </div>
-      </details>
+        <button id="btn-ventas" class="rail-btn admin-only hidden" onclick="cambiarVista('ventas')" title="Reporte de Ventas">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span>Ventas</span>
+        </button>
 
-      <details class="filtro-acordeon">
-        <summary>TRANSMISIÓN</summary>
-        <div class="filtro-contenido">
-          <label><input type="radio" name="transmision" value="Todos" checked onchange="resetPaginaYRender()"> Todas</label>
-          <label><input type="radio" name="transmision" value="Mecánica 6 Vel." onchange="resetPaginaYRender()"> Mecánica 6 Velocidades</label>
-          <label><input type="radio" name="transmision" value="Mecánica 5 Vel." onchange="resetPaginaYRender()"> Mecánica 5 Velocidades</label>
-          <label><input type="radio" name="transmision" value="Automática CVT" onchange="resetPaginaYRender()"> Automática CVT / DCT</label>
-        </div>
-      </details>
+        <button id="btn-usuarios" class="rail-btn admin-only hidden" onclick="cambiarVista('usuarios')" title="Usuarios y Permisos">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>Usuarios</span>
+        </button>
 
-      <details class="filtro-acordeon">
-        <summary>FRENOS</summary>
-        <div class="filtro-contenido">
-          <label><input type="radio" name="frenos" value="Todos" checked onchange="resetPaginaYRender()"> Todos</label>
-          <label><input type="radio" name="frenos" value="ABS Doble Canal" onchange="resetPaginaYRender()"> Disco ABS Doble Canal</label>
-          <label><input type="radio" name="frenos" value="Brembo Radial" onchange="resetPaginaYRender()"> Brembo Monobloque / Radial</label>
-          <label><input type="radio" name="frenos" value="CBS / Tambor" onchange="resetPaginaYRender()"> Disco / CBS Urbano</label>
-        </div>
-      </details>
+        <button id="btn-config-pagos" class="rail-btn admin-only hidden" onclick="cambiarVista('config-pagos')" title="Configurar QR y Pagos">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>QR/Pagos</span>
+        </button>
+      </nav>
 
-      <details class="filtro-acordeon">
-        <summary>AROS Y LLANTAS</summary>
-        <div class="filtro-contenido">
-          <label><input type="radio" name="aros" value="Todos" checked onchange="resetPaginaYRender()"> Todos</label>
-          <label><input type="radio" name="aros" value="Aleación 17''" onchange="resetPaginaYRender()"> Aleación Deportiva 17"</label>
-          <label><input type="radio" name="aros" value="Rayos 21''/18''" onchange="resetPaginaYRender()"> Rayos Off-Road 21" / 18"</label>
-          <label><input type="radio" name="aros" value="Urbano 12''-14''" onchange="resetPaginaYRender()"> Urbano Scooter 12" - 14"</label>
-        </div>
-      </details>
-
-      <details class="filtro-acordeon">
-        <summary>SUSPENSIÓN</summary>
-        <div class="filtro-contenido">
-          <label><input type="radio" name="suspension" value="Todos" checked onchange="resetPaginaYRender()"> Todas</label>
-          <label><input type="radio" name="suspension" value="Invertida USD" onchange="resetPaginaYRender()"> Horquilla Invertida (USD)</label>
-          <label><input type="radio" name="suspension" value="Electrónica Öhlins/WP" onchange="resetPaginaYRender()"> Electrónica / Öhlins / WP</label>
-          <label><input type="radio" name="suspension" value="Telescópica" onchange="resetPaginaYRender()"> Telescópica Convencional</label>
-        </div>
-      </details>
-
-      <details class="filtro-acordeon">
-        <summary>COMBUSTIBLE</summary>
-        <div class="filtro-contenido">
-          <label><input type="radio" name="combustible" value="Todos" checked onchange="resetPaginaYRender()"> Todos</label>
-          <label><input type="radio" name="combustible" value="Inyección Electrónica" onchange="resetPaginaYRender()"> Gasolina (Inyección FI)</label>
-          <label><input type="radio" name="combustible" value="Carburador" onchange="resetPaginaYRender()"> Gasolina (Carburador)</label>
-          <label><input type="radio" name="combustible" value="Eléctrica" onchange="resetPaginaYRender()"> 100% Eléctrica</label>
-        </div>
-      </details>
-
-      <details class="filtro-acordeon">
-        <summary>DIMENSIONES</summary>
-        <div class="filtro-contenido">
-          <label><input type="radio" name="dimensiones" value="Todos" checked onchange="resetPaginaYRender()"> Todas</label>
-          <label><input type="radio" name="dimensiones" value="Ligera (<160 kg)" onchange="resetPaginaYRender()"> Ligera (&lt; 160 kg)</label>
-          <label><input type="radio" name="dimensiones" value="Media (160-205 kg)" onchange="resetPaginaYRender()"> Media (160 - 205 kg)</label>
-          <label><input type="radio" name="dimensiones" value="Gran Porte (>205 kg)" onchange="resetPaginaYRender()"> Gran Porte (&gt; 205 kg)</label>
-        </div>
-      </details>
-
-      <details class="filtro-acordeon">
-        <summary>MÁS FILTROS</summary>
-        <div class="filtro-contenido">
-          <label><input type="checkbox" id="filtro-stock" onchange="resetPaginaYRender()"> Solo con Stock Disponible</label>
-          <label><input type="checkbox" id="filtro-tft" onchange="resetPaginaYRender()"> Tablero TFT / Conectividad</label>
-        </div>
-      </details>
+      <div class="rail-footer">
+        <button class="rail-btn" onclick="toggleCarrito()" title="Carrito">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span id="cart-count-rail">0</span>
+        </button>
+      </div>
     </aside>
 
-    <section class="zona-catalogo">
-      <div class="catalogo-topbar">
-        <div style="display:flex;align-items:center;gap:10px;"><button class="btn-abrir-filtros-movil" onclick="toggleFiltrosMovil()">☰ FILTROS</button><div id="resultados-info">Cargando catálogo...</div></div>
-        <select id="ordenar-por" onchange="renderCatalogo()">
-          <option value="relevancia">Ordenar por: Destacados</option>
-          <option value="precio-asc">Precio: Menor a Mayor</option>
-          <option value="precio-desc">Precio: Mayor a Menor</option>
-          <option value="hp-desc">Potencia: Mayor a Menor</option>
-        </select>
-      </div>
-
-      <div class="grid-productos" id="catalogo-grid"></div>
-      <div class="paginacion" id="paginacion-bar"></div>
-    </section>
-  </main>
-
-  <!-- VISTA 2: MIS BOLETAS / COMPRAS DEL CLIENTE -->
-  <main id="vista-compras" class="container hidden">
-    <div class="inv-header">
-      <div>
-        <h2>HISTORIAL DE COMPRAS Y BOLETAS ELECTRÓNICAS</h2>
-        <p class="sub" id="compras-usuario-sub">Comprobantes digitales asociados a tu cuenta.</p>
-      </div>
-    </div>
-    <div id="lista-boletas-cliente" class="boletas-grid"></div>
-  </main>
-
-  <!-- VISTA 3: INVENTARIO CRUD (SOLO ADMINISTRADOR) -->
-  <main id="vista-inventario" class="container hidden">
-    <div class="inv-header">
-      <div>
-        <h2>GESTIÓN DE INVENTARIO EN TIEMPO REAL (<span id="total-modelos-inv">0</span> UNIDADES)</h2>
-        <p class="sub">Control exclusivo de administrador: alta de nuevos modelos, edición de ficha, precios, stock e imágenes.</p>
-      </div>
-      <div class="inv-tools">
-        <input type="text" id="buscador-inv" placeholder="Filtrar modelo o marca..." oninput="renderInventario()" />
-        <button class="btn-add" onclick="abrirModalProducto()">+ NUEVA MOTOCICLETA</button>
-        <button class="btn-reset" onclick="resetearDatos()">Restaurar Base</button>
-      </div>
-    </div>
-    <div class="tabla-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>FOTO</th>
-            <th>MARCA</th>
-            <th>CATEGORÍA</th>
-            <th>MODELO</th>
-            <th>MOTOR / HP</th>
-            <th>PRECIO (USD)</th>
-            <th>STOCK</th>
-            <th>GESTIÓN CRUD</th>
-          </tr>
-        </thead>
-        <tbody id="tabla-inventario"></tbody>
-      </table>
-    </div>
-  </main>
-
-  <!-- VISTA 4: REPORTE GLOBAL DE VENTAS (SOLO ADMINISTRADOR) -->
-  <main id="vista-ventas" class="container hidden">
-    <div class="inv-header">
-      <div>
-        <h2>REGISTRO GLOBAL DE VENTAS Y OPERACIONES</h2>
-        <p class="sub">Auditoría financiera en tiempo real de todas las transacciones completadas en la plataforma.</p>
-      </div>
-      <div class="kpi-box">
-        <div><span>OPERACIONES</span><strong id="kpi-ventas-count">0</strong></div>
-        <div><span>INGRESOS TOTALES</span><strong id="kpi-ventas-total">$0 USD</strong></div>
-      </div>
-    </div>
-    <div class="tabla-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>BOLETA / CIP</th>
-            <th>FECHA Y HORA</th>
-            <th>CLIENTE</th>
-            <th>DETALLE DE UNIDADES</th>
-            <th>MÉTODO DE PAGO</th>
-            <th>TOTAL PAGADO</th>
-          </tr>
-        </thead>
-        <tbody id="tabla-ventas-admin"></tbody>
-      </table>
-    </div>
-  </main>
-
-  <!-- VISTA 5: CONFIGURACIÓN DE PASARELA DE PAGOS Y QR (SOLO ADMINISTRADOR) -->
-  <main id="vista-config-pagos" class="container hidden">
-    <div class="inv-header">
-      <div>
-        <h2>CONFIGURACIÓN DE PASARELA DE PAGOS Y CÓDIGOS QR</h2>
-        <p class="sub">Administra los datos bancarios, el código QR de Yape/Plin y las cuentas receptoras que verán tus clientes al pagar.</p>
-      </div>
-    </div>
-
-    <div class="config-grid">
-      <form id="form-config-pagos" onsubmit="guardarConfigPagos(event)" class="tech-form config-card">
-        <h3>1. BILLETERA DIGITAL (YAPE / PLIN)</h3>
-        <div>
-          <label>Titular de la Cuenta Receptor</label>
-          <input type="text" id="cfg-titular" placeholder="Ej. Cristhian Flores Q. / Punto Biker S.A.C." />
-        </div>
-        <div>
-          <label>Número de Celular Yape / Plin</label>
-          <input type="text" id="cfg-telefono" placeholder="Ej. 987 654 321" />
-        </div>
-        <div>
-          <label>Subir Imagen de tu QR desde tu PC</label>
-          <input type="file" id="cfg-qr-file" accept="image/*" onchange="procesarImagenQR(event)" />
-        </div>
-        <div>
-          <label>O pegar URL directa de tu imagen QR</label>
-          <input type="url" id="cfg-qr-url" placeholder="https://... (deja vacío si subiste archivo arriba)" oninput="actualizarPreviewQR()" />
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="main-workspace">
+      <!-- BENTO HEADER CARDS (ESTILO DASHBOARD DE REFERENCIA) -->
+      <header class="bento-header">
+        <div class="bento-card welcome-bento">
+          <div class="bento-top-row">
+            <span class="pill-time" id="live-clock">--:--</span>
+            <span class="status-pill"><i class="led-cyan"></i> Sistema Activo</span>
+          </div>
+          <h1 id="welcome-user-title">PUNTO BIKER</h1>
+          <p class="bento-sub">Concesionario Digital Multimarca • Catálogo en Tiempo Real</p>
+          <svg class="wave-svg" viewBox="0 0 300 40" preserveAspectRatio="none">
+            <path d="M0,30 Q45,10 90,25 T180,15 T270,22 L300,12" fill="none" stroke="url(#grad-wave)" stroke-width="2.5"/>
+            <defs>
+              <linearGradient id="grad-wave" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#38bdf8"/>
+                <stop offset="100%" stop-color="#f97316"/>
+              </linearGradient>
+            </defs>
+          </svg>
         </div>
 
-        <h3 style="margin-top:10px;">2. TRANSFERENCIA BANCARIA Y PAGOEFECTIVO</h3>
-        <div class="form-row-2">
+        <div class="bento-card search-bento">
+          <div class="bento-top-row">
+            <span class="bento-label">BÚSQUEDA Y ACCESO</span>
+            <div id="auth-zone" class="auth-zone"></div>
+          </div>
+          <div class="search-input-wrap">
+            <input type="text" id="buscador" placeholder="Buscar marca, modelo o cilindrada (ej. Panigale V4, R1, Z900)..." oninput="resetPaginaYRender()" />
+          </div>
+          <div class="quick-actions-row">
+            <button class="btn-glass" onclick="toggleFiltrosMovil()">☰ Filtros (<span id="total-modelos-nav">0</span>)</button>
+            <button class="btn-glass btn-cart-glass" onclick="toggleCarrito()">Carrito (<span id="cart-count">0</span>)</button>
+            <button id="btn-install-pwa" class="btn-glass btn-install-only-web hidden" onclick="instalarAppPWA()">📲 Instalar App</button>
+          </div>
+        </div>
+      </header>
+
+      <!-- VISTA 1: CATÁLOGO CON SIDEBAR GLASS -->
+      <main id="vista-tienda" class="container-layout">
+        <aside class="sidebar-filtros bento-card">
+          <div class="sidebar-header">
+            <span><i class="led-cyan"></i> PARÁMETROS TÉCNICOS</span>
+            <div style="display:flex;gap:6px;">
+              <button class="btn-limpiar-todo" onclick="limpiarFiltros()">Limpiar</button>
+              <button class="btn-cerrar-filtros-movil" onclick="toggleFiltrosMovil()">✕</button>
+            </div>
+          </div>
+
+          <details class="filtro-acordeon" open>
+            <summary>MARCA</summary>
+            <div class="filtro-contenido" id="filtro-marca-lista"></div>
+          </details>
+
+          <details class="filtro-acordeon" open>
+            <summary>CATEGORÍA</summary>
+            <div class="filtro-contenido" id="filtro-tipo-lista"></div>
+          </details>
+
+          <details class="filtro-acordeon" open>
+            <summary>PRECIO Y MONEDA</summary>
+            <div class="filtro-contenido">
+              <div class="moneda-switch">
+                <button id="btn-usd" class="active" onclick="cambiarMoneda('USD')">USD ($)</button>
+                <button id="btn-pen" onclick="cambiarMoneda('PEN')">SOLES (S/)</button>
+              </div>
+              <label class="range-label">Máximo: <strong id="precio-max-label">$180,000</strong></label>
+              <input type="range" id="filtro-precio" min="1500" max="180000" step="500" value="180000" oninput="actualizarPrecioFiltro()" />
+            </div>
+          </details>
+
+          <details class="filtro-acordeon">
+            <summary>MOTOR</summary>
+            <div class="filtro-contenido">
+              <label><input type="radio" name="motor" value="Todos" checked onchange="resetPaginaYRender()"> Todos</label>
+              <label><input type="radio" name="motor" value="baja" onchange="resetPaginaYRender()"> Baja (110cc - 250cc)</label>
+              <label><input type="radio" name="motor" value="media" onchange="resetPaginaYRender()"> Media (251cc - 750cc)</label>
+              <label><input type="radio" name="motor" value="alta" onchange="resetPaginaYRender()"> Alta (+750cc)</label>
+            </div>
+          </details>
+
+          <details class="filtro-acordeon">
+            <summary>TRANSMISIÓN</summary>
+            <div class="filtro-contenido">
+              <label><input type="radio" name="transmision" value="Todos" checked onchange="resetPaginaYRender()"> Todas</label>
+              <label><input type="radio" name="transmision" value="Mecánica 6 Vel." onchange="resetPaginaYRender()"> Mecánica 6 Vel.</label>
+              <label><input type="radio" name="transmision" value="Mecánica 5 Vel." onchange="resetPaginaYRender()"> Mecánica 5 Vel.</label>
+              <label><input type="radio" name="transmision" value="Automática CVT" onchange="resetPaginaYRender()"> Automática CVT</label>
+            </div>
+          </details>
+
+          <details class="filtro-acordeon">
+            <summary>FRENOS</summary>
+            <div class="filtro-contenido">
+              <label><input type="radio" name="frenos" value="Todos" checked onchange="resetPaginaYRender()"> Todos</label>
+              <label><input type="radio" name="frenos" value="ABS Doble Canal" onchange="resetPaginaYRender()"> ABS Doble Canal</label>
+              <label><input type="radio" name="frenos" value="Brembo Radial" onchange="resetPaginaYRender()"> Brembo Radial</label>
+              <label><input type="radio" name="frenos" value="CBS / Tambor" onchange="resetPaginaYRender()"> CBS / Tambor</label>
+            </div>
+          </details>
+
+          <details class="filtro-acordeon">
+            <summary>AROS Y SUSPENSIÓN</summary>
+            <div class="filtro-contenido">
+              <label><input type="radio" name="aros" value="Todos" checked onchange="resetPaginaYRender()"> Todos los aros</label>
+              <label><input type="radio" name="aros" value="Aleación 17''" onchange="resetPaginaYRender()"> Aleación 17"</label>
+              <label><input type="radio" name="aros" value="Rayos 21''/18''" onchange="resetPaginaYRender()"> Rayos 21"/18"</label>
+              <label><input type="radio" name="aros" value="Urbano 12''-14''" onchange="resetPaginaYRender()"> Urbano 12"-14"</label>
+            </div>
+          </details>
+
+          <details class="filtro-acordeon">
+            <summary>EXTRAS</summary>
+            <div class="filtro-contenido">
+              <label><input type="checkbox" id="filtro-stock" onchange="resetPaginaYRender()"> Solo con Stock</label>
+              <label><input type="checkbox" id="filtro-tft" onchange="resetPaginaYRender()"> Tablero TFT</label>
+            </div>
+          </details>
+        </aside>
+
+        <section class="zona-catalogo">
+          <div class="catalogo-topbar bento-card">
+            <div id="resultados-info">Cargando catálogo...</div>
+            <select id="ordenar-por" onchange="renderCatalogo()">
+              <option value="relevancia">Destacados</option>
+              <option value="precio-asc">Precio: Menor a Mayor</option>
+              <option value="precio-desc">Precio: Mayor a Menor</option>
+              <option value="hp-desc">Potencia: Mayor a Menor</option>
+            </select>
+          </div>
+
+          <div class="grid-productos" id="catalogo-grid"></div>
+          <div class="paginacion" id="paginacion-bar"></div>
+        </section>
+      </main>
+
+      <!-- VISTA 2: MIS BOLETAS -->
+      <main id="vista-compras" class="container hidden">
+        <div class="bento-card section-banner">
+          <h2>HISTORIAL DE COMPRAS Y BOLETAS ELECTRÓNICAS</h2>
+          <p class="bento-sub" id="compras-usuario-sub">Comprobantes asociados a tu cuenta.</p>
+        </div>
+        <div id="lista-boletas-cliente" class="boletas-grid"></div>
+      </main>
+
+      <!-- VISTA 3: INVENTARIO CRUD (SOLO ADMIN) -->
+      <main id="vista-inventario" class="container hidden">
+        <div class="bento-card section-banner flex-between">
           <div>
-            <label>Banco Principal</label>
-            <input type="text" id="cfg-banco" placeholder="Ej. BCP / Interbank / BBVA" />
+            <h2>INVENTARIO EN TIEMPO REAL (<span id="total-modelos-inv">0</span> UNIDADES)</h2>
+            <p class="bento-sub">Alta, edición de ficha/precio/foto y retiro de unidades.</p>
           </div>
+          <div class="inv-tools">
+            <input type="text" id="buscador-inv" placeholder="Filtrar modelo o marca..." oninput="renderInventario()" />
+            <button class="btn-accent" onclick="abrirModalProducto()">+ NUEVA MOTO</button>
+            <button class="btn-glass" onclick="resetearDatos()">Restaurar</button>
+          </div>
+        </div>
+        <div class="tabla-wrap bento-card">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th><th>FOTO</th><th>MARCA</th><th>CATEGORÍA</th><th>MODELO</th><th>MOTOR</th><th>PRECIO</th><th>STOCK</th><th>ACCIONES</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-inventario"></tbody>
+          </table>
+        </div>
+      </main>
+
+      <!-- VISTA 4: VENTAS GLOBALES (SOLO ADMIN) -->
+      <main id="vista-ventas" class="container hidden">
+        <div class="bento-card section-banner flex-between">
           <div>
-            <label>Número de Cuenta</label>
-            <input type="text" id="cfg-cuenta" placeholder="Ej. 193-98472610-1-44" />
+            <h2>REPORTE FINANCIERO DE VENTAS</h2>
+            <p class="bento-sub">Registro global de operaciones y boletas emitidas.</p>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-pill"><span>OPERACIONES</span><strong id="kpi-ventas-count">0</strong></div>
+            <div class="kpi-pill"><span>INGRESOS</span><strong id="kpi-ventas-total">$0</strong></div>
           </div>
         </div>
-        <div>
-          <label>Código de Cuenta Interbancario (CCI)</label>
-          <input type="text" id="cfg-cci" placeholder="Ej. 002-193-198472610144-18" />
+        <div class="tabla-wrap bento-card">
+          <table>
+            <thead>
+              <tr>
+                <th>BOLETA / CIP</th><th>FECHA Y HORA</th><th>CLIENTE</th><th>UNIDADES</th><th>MÉTODO</th><th>TOTAL</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-ventas-admin"></tbody>
+          </table>
         </div>
-        <div>
-          <label>Entidad / Servicio PagoEfectivo</label>
-          <input type="text" id="cfg-cip-entidad" placeholder="Ej. PUNTO BIKER MOTORSPORT - RECAUDACIÓN CIP" />
+      </main>
+
+      <!-- VISTA 5: USUARIOS Y PERMISOS (SOLO ADMIN) -->
+      <main id="vista-usuarios" class="container hidden">
+        <div class="bento-card section-banner">
+          <h2>CONTROL DE USUARIOS Y PERMISOS</h2>
+          <p class="bento-sub">Asigna o revoca privilegios de administrador a cuentas registradas.</p>
         </div>
+        <div class="tabla-wrap bento-card">
+          <table>
+            <thead>
+              <tr>
+                <th>USUARIO</th><th>CORREO ELECTRÓNICO</th><th>ROL ACTUAL</th><th>GESTIÓN DE PERMISOS</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-usuarios-admin"></tbody>
+          </table>
+        </div>
+      </main>
 
-        <button type="submit" class="btn-comprar" style="margin-top:8px;">GUARDAR CONFIGURACIÓN DE PAGOS</button>
-      </form>
+      <!-- VISTA 6: CONFIGURACIÓN QR Y CUENTAS (SOLO ADMIN) -->
+      <main id="vista-config-pagos" class="container hidden">
+        <div class="bento-card section-banner">
+          <h2>CONFIGURACIÓN DE PASARELA DE PAGOS Y CÓDIGO QR</h2>
+          <p class="bento-sub">Personaliza tu QR de Yape/Plin y cuentas bancarias receptoras.</p>
+        </div>
+        <div class="config-grid">
+          <form id="form-config-pagos" onsubmit="guardarConfigPagos(event)" class="tech-form bento-card">
+            <h3>1. BILLETERA DIGITAL (YAPE / PLIN)</h3>
+            <div><label>Titular Receptor</label><input type="text" id="cfg-titular" placeholder="Ej. Cristhian Flores Q." /></div>
+            <div><label>Celular Yape / Plin</label><input type="text" id="cfg-telefono" placeholder="Ej. 987 654 321" /></div>
+            <div><label>Subir Imagen de tu QR</label><input type="file" id="cfg-qr-file" accept="image/*" onchange="procesarImagenQR(event)" /></div>
+            <div><label>O URL directa de imagen QR</label><input type="url" id="cfg-qr-url" placeholder="https://..." oninput="actualizarPreviewQR()" /></div>
+            <h3 style="margin-top:8px;">2. BANCO Y PAGOEFECTIVO</h3>
+            <div class="form-row-2">
+              <div><label>Banco</label><input type="text" id="cfg-banco" placeholder="BCP / Interbank" /></div>
+              <div><label>Número de Cuenta</label><input type="text" id="cfg-cuenta" placeholder="193-..." /></div>
+            </div>
+            <div><label>Código Interbancario (CCI)</label><input type="text" id="cfg-cci" placeholder="002-..." /></div>
+            <div><label>Entidad PagoEfectivo</label><input type="text" id="cfg-cip-entidad" placeholder="PUNTO BIKER - RECAUDACIÓN CIP" /></div>
+            <button type="submit" class="btn-accent" style="margin-top:8px;">GUARDAR CONFIGURACIÓN</button>
+          </form>
 
-      <div class="config-card">
-        <h3>VISTA PREVIA EN TIEMPO REAL (LO QUE VE EL CLIENTE)</h3>
-        <p class="sub" style="margin-bottom:14px;">Así aparecerá tu espacio de QR y cuentas en el checkout cuando un cliente realice una compra:</p>
-        <div class="qr-preview-panel">
-          <div id="preview-qr-container" class="qr-placeholder-box">
-            <span>ESPACIO RESERVADO PARA TU QR</span>
+          <div class="bento-card">
+            <h3>VISTA PREVIA EN CHECKOUT</h3>
+            <div class="qr-preview-panel" style="margin-top:12px;">
+              <div id="preview-qr-container" class="qr-placeholder-box"><span>ESPACIO RESERVADO PARA TU QR</span></div>
+              <div style="margin-top:12px;font-size:0.84rem;line-height:1.6;color:#cbd5e1;">
+                <div><strong>Titular:</strong> <span id="prev-titular">Sin configurar</span></div>
+                <div><strong>Yape / Plin:</strong> <span id="prev-telefono">Sin configurar</span></div>
+                <div><strong>Banco:</strong> <span id="prev-banco">Sin configurar</span></div>
+                <div><strong>Cuenta:</strong> <span id="prev-cuenta">Sin configurar</span></div>
+                <div><strong>CCI:</strong> <span id="prev-cci">Sin configurar</span></div>
+              </div>
+            </div>
           </div>
-          <div style="margin-top:12px;font-size:0.86rem;line-height:1.6;">
-            <div><strong>Titular:</strong> <span id="prev-titular">Sin configurar</span></div>
-            <div><strong>Yape / Plin:</strong> <span id="prev-telefono">Sin configurar</span></div>
-            <div><strong>Banco:</strong> <span id="prev-banco">Sin configurar</span></div>
-            <div><strong>Cuenta:</strong> <span id="prev-cuenta">Sin configurar</span></div>
-            <div><strong>CCI:</strong> <span id="prev-cci">Sin configurar</span></div>
-          </div>
         </div>
-      </div>
+      </main>
     </div>
-  </main>
-
-    <!-- VISTA 6: GESTIÓN DE USUARIOS Y PERMISOS (SOLO ADMINISTRADOR) -->
-  <main id="vista-usuarios" class="container hidden">
-    <div class="inv-header">
-      <div>
-        <h2>CONTROL DE USUARIOS Y PERMISOS DE ADMINISTRADOR</h2>
-        <p class="sub">Otorga o revoca privilegios de administrador a cualquier cuenta registrada en la plataforma.</p>
-      </div>
-    </div>
-    <div class="tabla-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>USUARIO / NOMBRE</th>
-            <th>CORREO ELECTRÓNICO</th>
-            <th>ROL ACTUAL</th>
-            <th>ASIGNACIÓN DE PERMISOS</th>
-          </tr>
-        </thead>
-        <tbody id="tabla-usuarios-admin"></tbody>
-      </table>
-    </div>
-  </main>
-
-  <!-- MODAL FICHA TÉCNICA -->
-  <div id="modal-ficha" class="modal-overlay hidden" onclick="cerrarModal(event, 'modal-ficha')">
-    <div class="modal-card" id="ficha-contenido"></div>
   </div>
 
-  <!-- MODAL LOGIN / REGISTRO -->
+  <!-- BARRA INFERIOR MÓVIL TIPO APP (< 768px) -->
+  <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+    <button onclick="cambiarVista('tienda')" id="mob-btn-tienda" class="active"><span>Catálogo</span></button>
+    <button onclick="toggleFiltrosMovil()" id="mob-btn-filtros"><span>Filtros</span></button>
+    <button onclick="toggleCarrito()" id="mob-btn-carrito"><span>Carrito (<span id="mob-cart-count">0</span>)</span></button>
+    <button onclick="accionCuentaMovil()" id="mob-btn-cuenta"><span id="mob-cuenta-label">Ingresar</span></button>
+  </nav>
+
+  <!-- MODALES -->
+  <div id="modal-ficha" class="modal-overlay hidden" onclick="cerrarModal(event, 'modal-ficha')">
+    <div class="modal-card bento-card" id="ficha-contenido"></div>
+  </div>
+
   <div id="modal-auth" class="modal-overlay hidden" onclick="cerrarModal(event, 'modal-auth')">
-    <div class="modal-card modal-sm">
+    <div class="modal-card bento-card modal-sm">
       <div class="modal-info">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div class="flex-between" style="margin-bottom:12px;">
           <h2 id="auth-titulo">ACCESO AL SISTEMA</h2>
           <button onclick="document.getElementById('modal-auth').classList.add('hidden')" class="btn-close-x">✕</button>
         </div>
@@ -348,39 +345,34 @@
         </div>
         <form id="form-auth" onsubmit="procesarAuth(event)" class="tech-form">
           <div id="campo-nombre-wrap" class="hidden">
-            <label>Nombre Completo / Razón Social</label>
+            <label>Nombre Completo</label>
             <input type="text" id="auth-nombre" placeholder="Ej. Carlos Mendoza" />
           </div>
           <div>
             <label>Correo Electrónico</label>
-            <input type="email" id="auth-email" required placeholder="cliente@gmail.com o cristhian.flores.q@tecsup.edu.pe" />
+            <input type="email" id="auth-email" required placeholder="correo@ejemplo.com" />
           </div>
           <div>
             <label>Contraseña</label>
             <input type="password" id="auth-pass" required placeholder="••••••••" />
           </div>
-          <p class="auth-hint">Regístrate como <strong>Cliente</strong> con cualquier correo personal para guardar tus boletas. Las cuentas institucionales autorizadas acceden al panel de <strong>Administrador</strong>.</p>
-          <button type="submit" class="btn-comprar" id="btn-auth-submit">INGRESAR A LA PLATAFORMA</button>
+          <button type="submit" class="btn-accent" id="btn-auth-submit">INGRESAR</button>
         </form>
       </div>
     </div>
   </div>
 
-  <!-- MODAL AGREGAR / EDITAR MOTO (ADMIN) -->
   <div id="modal-producto" class="modal-overlay hidden" onclick="cerrarModal(event, 'modal-producto')">
-    <div class="modal-card modal-sm">
+    <div class="modal-card bento-card modal-sm">
       <div class="modal-info">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-          <h2 id="prod-modal-titulo">AGREGAR NUEVA MOTOCICLETA</h2>
+        <div class="flex-between" style="margin-bottom:12px;">
+          <h2 id="prod-modal-titulo">NUEVA MOTOCICLETA</h2>
           <button onclick="document.getElementById('modal-producto').classList.add('hidden')" class="btn-close-x">✕</button>
         </div>
         <form id="form-producto" onsubmit="guardarProductoAdmin(event)" class="tech-form">
           <input type="hidden" id="prod-id" />
           <div class="form-row-2">
-            <div>
-              <label>Marca</label>
-              <input type="text" id="prod-marca" required placeholder="Ej. Ducati, Yamaha, ZXMoto" />
-            </div>
+            <div><label>Marca</label><input type="text" id="prod-marca" required placeholder="Ducati, Yamaha..." /></div>
             <div>
               <label>Categoría</label>
               <select id="prod-categoria">
@@ -394,46 +386,27 @@
               </select>
             </div>
           </div>
-          <div>
-            <label>Modelo Exacto</label>
-            <input type="text" id="prod-modelo" required placeholder="Ej. Panigale V4 R" />
-          </div>
+          <div><label>Modelo</label><input type="text" id="prod-modelo" required placeholder="Panigale V4 R" /></div>
           <div class="form-row-3">
-            <div>
-              <label>Cilindrada (cc)</label>
-              <input type="number" id="prod-cc" required min="0" value="600" />
-            </div>
-            <div>
-              <label>Potencia (HP)</label>
-              <input type="number" id="prod-hp" required min="1" value="95" />
-            </div>
-            <div>
-              <label>Stock Inicial</label>
-              <input type="number" id="prod-stock" required min="0" value="5" />
-            </div>
+            <div><label>CC</label><input type="number" id="prod-cc" required min="0" value="600" /></div>
+            <div><label>HP</label><input type="number" id="prod-hp" required min="1" value="95" /></div>
+            <div><label>Stock</label><input type="number" id="prod-stock" required min="0" value="5" /></div>
           </div>
-          <div>
-            <label>Precio de Lista (USD)</label>
-            <input type="number" id="prod-precio" required min="100" value="12500" />
-          </div>
-          <div>
-            <label>URL de Fotografía (Opcional - Si lo dejas vacío busca foto automática)</label>
-            <input type="url" id="prod-img" placeholder="https://..." />
-          </div>
-          <button type="submit" class="btn-comprar">GUARDAR EN BASE DE DATOS</button>
+          <div><label>Precio (USD)</label><input type="number" id="prod-precio" required min="100" value="12500" /></div>
+          <div><label>URL Fotografía (Opcional)</label><input type="url" id="prod-img" placeholder="https://..." /></div>
+          <button type="submit" class="btn-accent">GUARDAR EN CATÁLOGO</button>
         </form>
       </div>
     </div>
   </div>
 
-  <!-- MODAL PASARELA DE PAGOS VIRTUALES Y PAGOEFECTIVO -->
   <div id="modal-pasarela" class="modal-overlay hidden" onclick="cerrarModal(event, 'modal-pasarela')">
-    <div class="modal-card modal-pasarela-box">
+    <div class="modal-card bento-card modal-pasarela-box">
       <div class="modal-info">
-        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:14px;">
+        <div class="flex-between" style="border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:14px;">
           <div>
-            <span class="marca-tag">CHECKOUT SEGURO SSL</span>
-            <h2 style="margin-top:4px;">PASARELA DE PAGOS PUNTO BIKER</h2>
+            <span class="marca-tag">CHECKOUT SSL</span>
+            <h2 style="margin-top:4px;">PASARELA DE PAGOS</h2>
           </div>
           <button onclick="document.getElementById('modal-pasarela').classList.add('hidden')" class="btn-close-x">✕</button>
         </div>
@@ -444,69 +417,56 @@
         </div>
 
         <div class="metodos-tabs">
-          <button type="button" class="active" onclick="seleccionarMetodoPago('tarjeta', this)">TARJETA CRÉDITO / DÉBITO</button>
+          <button type="button" class="active" onclick="seleccionarMetodoPago('tarjeta', this)">TARJETA</button>
           <button type="button" onclick="seleccionarMetodoPago('yape', this)">QR YAPE / PLIN</button>
-          <button type="button" onclick="seleccionarMetodoPago('pagoefectivo', this)">PAGOEFECTIVO (CIP)</button>
-          <button type="button" onclick="seleccionarMetodoPago('transferencia', this)">TRANSFERENCIA CCI</button>
+          <button type="button" onclick="seleccionarMetodoPago('pagoefectivo', this)">PAGOEFECTIVO</button>
+          <button type="button" onclick="seleccionarMetodoPago('transferencia', this)">TRANSFERENCIA</button>
         </div>
 
         <div id="panel-pago-tarjeta" class="panel-metodo">
           <div class="tech-form">
-            <div>
-              <label>Número de Tarjeta (Visa / Mastercard / Amex)</label>
-              <input type="text" id="card-num" maxlength="19" placeholder="4557 •••• •••• 8842" />
-            </div>
+            <div><label>Número de Tarjeta</label><input type="text" id="card-num" maxlength="19" placeholder="4557 •••• •••• 8842" /></div>
             <div class="form-row-2">
-              <div>
-                <label>Vencimiento (MM/AA)</label>
-                <input type="text" id="card-exp" maxlength="5" placeholder="09/29" />
-              </div>
-              <div>
-                <label>Código CVV</label>
-                <input type="password" id="card-cvv" maxlength="4" placeholder="•••" />
-              </div>
+              <div><label>Vencimiento</label><input type="text" id="card-exp" maxlength="5" placeholder="09/29" /></div>
+              <div><label>CVV</label><input type="password" id="card-cvv" maxlength="4" placeholder="•••" /></div>
             </div>
           </div>
         </div>
 
         <div id="panel-pago-yape" class="panel-metodo hidden">
           <div class="qr-box">
-            <div id="checkout-qr-slot" class="qr-slot-checkout">
-              <span>QR NO CONFIGURADO</span>
-            </div>
+            <div id="checkout-qr-slot" class="qr-slot-checkout"><span>ESPACIO QR</span></div>
             <div>
-              <p><strong>Escanea el código QR desde tu app Yape o Plin</strong></p>
-              <p class="sub">Titular: <strong id="chk-titular">Configurar en Panel Admin</strong></p>
-              <p class="sub">Celular: <strong id="chk-telefono">--</strong></p>
-              <p class="sub">Código de operación: <strong id="ref-yape">PB-9921</strong></p>
+              <p><strong>Escanea con Yape o Plin</strong></p>
+              <p class="bento-sub">Titular: <strong id="chk-titular">--</strong></p>
+              <p class="bento-sub">Celular: <strong id="chk-telefono">--</strong></p>
+              <p class="bento-sub">Operación: <strong id="ref-yape">PB-9921</strong></p>
             </div>
           </div>
         </div>
 
         <div id="panel-pago-pagoefectivo" class="panel-metodo hidden">
           <div class="cip-box">
-            <span class="marca-tag" style="background:#eab308;color:#000;border:none;" id="chk-cip-entidad">PAGOEFECTIVO - DEPÓSITO EN EFECTIVO O BANCA MÓVIL</span>
-            <p class="sub" style="margin-top:8px;">Código de Pago CIP generado automáticamente:</p>
+            <span class="marca-tag" id="chk-cip-entidad">PAGOEFECTIVO CIP</span>
             <div class="cip-code" id="codigo-cip-generado">914820553</div>
-            <p class="sub">Válido para pagar en BCP, BBVA, Interbank, Scotiabank, Agentes KasNet y Western Union.</p>
+            <p class="bento-sub">Paga en BCP, BBVA, Interbank, Scotiabank o agentes autorizados.</p>
           </div>
         </div>
 
         <div id="panel-pago-transferencia" class="panel-metodo hidden">
           <div class="cip-box">
-            <p><strong>Transferencia Interbancaria Inmediata (CCI)</strong></p>
-            <p class="sub" style="margin-top:6px;">Banco: <strong id="chk-banco">Por configurar</strong> | Cuenta: <strong id="chk-cuenta">--</strong></p>
-            <p class="sub">Código Interbancario (CCI): <strong id="chk-cci">--</strong></p>
-            <p class="sub">Titular: <strong id="chk-titular-banco">--</strong></p>
+            <p><strong>Transferencia Interbancaria (CCI)</strong></p>
+            <p class="bento-sub" style="margin-top:6px;">Banco: <strong id="chk-banco">--</strong> | Cuenta: <strong id="chk-cuenta">--</strong></p>
+            <p class="bento-sub">CCI: <strong id="chk-cci">--</strong></p>
+            <p class="bento-sub">Titular: <strong id="chk-titular-banco">--</strong></p>
           </div>
         </div>
 
-        <button class="btn-comprar" style="margin-top:16px;" onclick="confirmarPagoFinal()">CONFIRMAR PAGO Y GENERAR BOLETA ELECTRÓNICA</button>
+        <button class="btn-accent" style="margin-top:16px;width:100%;" onclick="confirmarPagoFinal()">CONFIRMAR PAGO Y EMITIR BOLETA</button>
       </div>
     </div>
   </div>
 
-  <!-- CARRITO DRAWER -->
   <aside id="modal-carrito" class="carrito-drawer hidden">
     <div class="carrito-header">
       <h3>ORDEN DE COMPRA</h3>
@@ -514,32 +474,11 @@
     </div>
     <div id="carrito-items" class="carrito-body"></div>
     <div class="carrito-footer">
-      <div class="total-row">
-        <span>TOTAL:</span>
-        <strong id="carrito-total">$0</strong>
-      </div>
-      <button class="btn-comprar" onclick="iniciarCheckout()">CONTINUAR A PASARELA DE PAGO</button>
+      <div class="total-row"><span>TOTAL:</span><strong id="carrito-total">$0</strong></div>
+      <button class="btn-accent" style="width:100%;" onclick="iniciarCheckout()">IR A PASARELA DE PAGO</button>
     </div>
   </aside>
 
-  <script src="app.js?v=5"></script>
-  <!-- BARRA DE NAVEGACIÓN INFERIOR EXCLUSIVA PARA CELULARES (< 768px) -->
-  <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
-    <button onclick="cambiarVista('tienda')" id="mob-btn-tienda" class="active">
-      <span>CATÁLOGO</span>
-    </button>
-    <button onclick="toggleFiltrosMovil()" id="mob-btn-filtros">
-      <span>FILTROS</span>
-    </button>
-    <button onclick="toggleCarrito()" id="mob-btn-carrito">
-      <span>CARRITO (<span id="mob-cart-count">0</span>)</span>
-    </button>
-    <button onclick="accionCuentaMovil()" id="mob-btn-cuenta">
-      <span id="mob-cuenta-label">CUENTA</span>
-    </button>
-  </nav>
+  <script src="app.js?v=6"></script>
 </body>
 </html>
-
-
-
