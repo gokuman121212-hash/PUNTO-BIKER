@@ -1,0 +1,55 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>PUNTO BIKER | Concesionario Oficial Multimarca</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 110'%3E%3Crect width='100' height='110' rx='22' fill='%230b0b0c'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M12 16 L49 10 L49 54 L28 58 L28 92 L12 84 Z M28 27 L28 43 L37 41 L37 25 Z' fill='%23FFFFFF'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M53 10 L86 17 L86 46 L73 53 L88 61 L88 86 L50 104 L34 96 L34 64 L53 60 L53 84 L71 76 L71 63 L53 66 L53 51 L70 48 L70 31 L53 28 Z' fill='%23F97316'/%3E%3C/svg%3E" />
+  <meta name="theme-color" content="#0b0b0c" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'tienda/css/styles.css' %}" />
+</head>
+<body class="pb-no-rail">
+
+  {% include 'tienda/partials/navbar.html' %}
+
+  <!-- HERO SHOWCASE FULL-WIDTH + SONIDO MOTOR + COLORES + FRANJA 4 PILARES -->
+  <section id="hero-moto-destacada" class="sm-hero-wrapper"></section>
+
+  <!-- CARRUSEL DE MARCAS -->
+  <section id="sec-carrusel-marcas" class="marcas-carousel-section">
+    <div class="marcas-header">
+      <span class="marcas-line"></span>
+      <div class="marcas-title-pill">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="12" cy="8" r="6"/>
+          <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
+        </svg>
+        <span>marcas</span>
+      </div>
+      <span class="marcas-line"></span>
+    </div>
+
+    <div class="marcas-slider-wrapper">
+      <div class="marcas-track" id="marcas-carousel-track"></div>
+    </div>
+  </section>
+
+  <!-- CONTENEDOR PRINCIPAL -->
+  <div class="main-workspace">
+    {% include 'tienda/partials/catalogo_y_detalle.html' %}
+    {% include 'tienda/partials/admin_vistas.html' %}
+  </div>
+
+  {% include 'tienda/partials/footer.html' %}
+  {% include 'tienda/partials/modales.html' %}
+
+  <script src="{% static 'tienda/js/seguridad.js' %}"></script>
+  <script src="{% static 'tienda/js/datos.js' %}"></script>
+  <script src="{% static 'tienda/js/tienda.js' %}"></script>
+  <script src="{% static 'tienda/js/cuenta_admin.js' %}"></script>
+</body>
+</html>

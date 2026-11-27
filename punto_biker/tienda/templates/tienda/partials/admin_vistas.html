@@ -1,0 +1,114 @@
+<!-- VISTA 2: MIS BOLETAS -->
+<main id="vista-compras" class="container hidden">
+  <div class="panel-dark section-banner">
+    <h2>HISTORIAL DE COMPRAS Y BOLETAS ELECTRÓNICAS</h2>
+    <p class="sub-muted" id="compras-usuario-sub">Comprobantes asociados a tu cuenta.</p>
+  </div>
+  <div id="lista-boletas-cliente" class="boletas-grid"></div>
+</main>
+
+<!-- VISTA 3: INVENTARIO CRUD (SOLO ADMIN) -->
+<main id="vista-inventario" class="container hidden">
+  <div class="panel-dark section-banner flex-between">
+    <div>
+      <h2>GESTIÓN DE INVENTARIO (<span id="total-modelos-inv">0</span> UNIDADES)</h2>
+      <p class="sub-muted">Agrega modelos, modifica año/precio/stock/foto o retira unidades.</p>
+    </div>
+    <div class="inv-tools">
+      <input type="text" id="buscador-inv" placeholder="Filtrar modelo o marca..." oninput="renderInventario()" />
+      <button class="btn-amber" onclick="abrirModalProducto()">+ NUEVA MOTO</button>
+      <button class="btn-dark-outline" onclick="resetearDatos()">Restaurar</button>
+    </div>
+  </div>
+  <div class="tabla-wrap panel-dark">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th><th>FOTO</th><th>MARCA</th><th>MODELO</th><th>AÑO</th><th>MOTOR</th><th>PRECIO (USD / PEN)</th><th>STOCK</th><th>ACCIONES</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-inventario"></tbody>
+    </table>
+  </div>
+</main>
+
+<!-- VISTA 4: VENTAS GLOBALES (SOLO ADMIN) -->
+<main id="vista-ventas" class="container hidden">
+  <div class="panel-dark section-banner flex-between">
+    <div>
+      <h2>REPORTE FINANCIERO DE VENTAS</h2>
+      <p class="sub-muted">Registro global de operaciones y boletas emitidas.</p>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-pill"><span>OPERACIONES</span><strong id="kpi-ventas-count">0</strong></div>
+      <div class="kpi-pill"><span>INGRESOS</span><strong id="kpi-ventas-total">$0</strong></div>
+    </div>
+  </div>
+  <div class="tabla-wrap panel-dark">
+    <table>
+      <thead>
+        <tr>
+          <th>BOLETA / CIP</th><th>FECHA Y HORA</th><th>CLIENTE</th><th>UNIDADES</th><th>MÉTODO</th><th>TOTAL</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-ventas-admin"></tbody>
+    </table>
+  </div>
+</main>
+
+<!-- VISTA 5: USUARIOS Y PERMISOS (SOLO ADMIN) -->
+<main id="vista-usuarios" class="container hidden">
+  <div class="panel-dark section-banner">
+    <h2>CONTROL DE USUARIOS Y PERMISOS</h2>
+    <p class="sub-muted">Otorga o revoca privilegios de administrador a cuentas registradas.</p>
+  </div>
+  <div class="tabla-wrap panel-dark">
+    <table>
+      <thead>
+        <tr>
+          <th>USUARIO</th><th>CORREO ELECTRÓNICO</th><th>ROL ACTUAL</th><th>GESTIÓN DE PERMISOS</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-usuarios-admin"></tbody>
+    </table>
+  </div>
+</main>
+
+<!-- VISTA 6: CONFIGURACIÓN QR Y CUENTAS (SOLO ADMIN) -->
+<main id="vista-config-pagos" class="container hidden">
+  <div class="panel-dark section-banner">
+    <h2>CONFIGURACIÓN DE PASARELA DE PAGOS Y CÓDIGO QR</h2>
+    <p class="sub-muted">Personaliza tu QR de Yape/Plin y cuentas bancarias receptoras.</p>
+  </div>
+  <div class="config-grid">
+    <form id="form-config-pagos" onsubmit="guardarConfigPagos(event)" class="tech-form panel-dark">
+      <h3>1. BILLETERA DIGITAL (YAPE / PLIN)</h3>
+      <div><label>Titular Receptor</label><input type="text" id="cfg-titular" placeholder="Ej. Cristhian Flores Q." /></div>
+      <div><label>Celular Yape / Plin</label><input type="text" id="cfg-telefono" placeholder="Ej. 987 654 321" /></div>
+      <div><label>Subir Imagen de tu QR</label><input type="file" id="cfg-qr-file" accept="image/*" onchange="procesarImagenQR(event)" /></div>
+      <div><label>O URL directa de imagen QR</label><input type="url" id="cfg-qr-url" placeholder="https://..." oninput="actualizarPreviewQR()" /></div>
+      <h3 style="margin-top:8px;">2. BANCO Y PAGOEFECTIVO</h3>
+      <div class="form-row-2">
+        <div><label>Banco</label><input type="text" id="cfg-banco" placeholder="BCP / Interbank" /></div>
+        <div><label>Número de Cuenta</label><input type="text" id="cfg-cuenta" placeholder="193-..." /></div>
+      </div>
+      <div><label>Código Interbancario (CCI)</label><input type="text" id="cfg-cci" placeholder="002-..." /></div>
+      <div><label>Entidad PagoEfectivo</label><input type="text" id="cfg-cip-entidad" placeholder="PUNTO BIKER - RECAUDACIÓN CIP" /></div>
+      <button type="submit" class="btn-amber" style="margin-top:8px;">GUARDAR CONFIGURACIÓN</button>
+    </form>
+
+    <div class="panel-dark">
+      <h3>VISTA PREVIA EN CHECKOUT</h3>
+      <div class="qr-preview-panel" style="margin-top:12px;">
+        <div id="preview-qr-container" class="qr-placeholder-box"><span>ESPACIO RESERVADO PARA TU QR</span></div>
+        <div style="margin-top:12px;font-size:0.84rem;line-height:1.6;color:#d4d4d8;">
+          <div><strong>Titular:</strong> <span id="prev-titular">Sin configurar</span></div>
+          <div><strong>Yape / Plin:</strong> <span id="prev-telefono">Sin configurar</span></div>
+          <div><strong>Banco:</strong> <span id="prev-banco">Sin configurar</span></div>
+          <div><strong>Cuenta:</strong> <span id="prev-cuenta">Sin configurar</span></div>
+          <div><strong>CCI:</strong> <span id="prev-cci">Sin configurar</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

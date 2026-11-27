@@ -1,0 +1,90 @@
+<!-- VISTA 1: CATÁLOGO GENERAL -->
+<main id="vista-tienda" class="container-layout">
+  <aside class="sidebar-filtros panel-dark">
+    <div class="sidebar-header">
+      <span><i class="dot-amber"></i> FILTROS TÉCNICOS</span>
+      <div style="display:flex;gap:6px;">
+        <button class="btn-mini" onclick="limpiarFiltros()">Limpiar</button>
+        <button class="btn-cerrar-filtros-movil" onclick="toggleFiltrosMovil()">✕</button>
+      </div>
+    </div>
+
+    <details class="filtro-acordeon" open>
+      <summary>AÑO DEL MODELO</summary>
+      <div class="filtro-contenido">
+        <label><input type="radio" name="anio" value="Todos" checked onchange="resetPaginaYRender()"> Todos los años</label>
+        <label><input type="radio" name="anio" value="2026" onchange="resetPaginaYRender()"> Año 2026 (Nueva Generación)</label>
+        <label><input type="radio" name="anio" value="2025" onchange="resetPaginaYRender()"> Año 2025</label>
+      </div>
+    </details>
+
+    <details class="filtro-acordeon" open>
+      <summary>MARCA</summary>
+      <div class="filtro-contenido" id="filtro-marca-lista"></div>
+    </details>
+
+    <details class="filtro-acordeon" open>
+      <summary>CATEGORÍA</summary>
+      <div class="filtro-contenido" id="filtro-tipo-lista"></div>
+    </details>
+
+    <details class="filtro-acordeon" open>
+      <summary>PRESUPUESTO (<span id="moneda-actual-tag">USD</span>)</summary>
+      <div class="filtro-contenido">
+        <label class="range-label">Máximo: <strong id="precio-max-label">$180,000 USD</strong></label>
+        <input type="range" id="filtro-precio" min="1500" max="180000" step="500" value="180000" oninput="actualizarPrecioFiltro()" />
+      </div>
+    </details>
+
+    <details class="filtro-acordeon">
+      <summary>CILINDRADA</summary>
+      <div class="filtro-contenido">
+        <label><input type="radio" name="motor" value="Todos" checked onchange="resetPaginaYRender()"> Todas</label>
+        <label><input type="radio" name="motor" value="baja" onchange="resetPaginaYRender()"> Baja (110cc - 250cc)</label>
+        <label><input type="radio" name="motor" value="media" onchange="resetPaginaYRender()"> Media (251cc - 750cc)</label>
+        <label><input type="radio" name="motor" value="alta" onchange="resetPaginaYRender()"> Alta (+750cc)</label>
+      </div>
+    </details>
+
+    <details class="filtro-acordeon">
+      <summary>TRANSMISIÓN</summary>
+      <div class="filtro-contenido">
+        <label><input type="radio" name="transmision" value="Todos" checked onchange="resetPaginaYRender()"> Todas</label>
+        <label><input type="radio" name="transmision" value="Mecánica 6 Vel." onchange="resetPaginaYRender()"> Mecánica 6 Vel.</label>
+        <label><input type="radio" name="transmision" value="Mecánica 5 Vel." onchange="resetPaginaYRender()"> Mecánica 5 Vel.</label>
+        <label><input type="radio" name="transmision" value="Automática CVT" onchange="resetPaginaYRender()"> Automática CVT</label>
+      </div>
+    </details>
+
+    <details class="filtro-acordeon">
+      <summary>FRENOS Y AROS</summary>
+      <div class="filtro-contenido">
+        <label><input type="radio" name="frenos" value="Todos" checked onchange="resetPaginaYRender()"> Todos los frenos</label>
+        <label><input type="radio" name="frenos" value="Brembo Radial" onchange="resetPaginaYRender()"> Brembo Radial</label>
+        <label><input type="radio" name="frenos" value="ABS Doble Canal" onchange="resetPaginaYRender()"> ABS Doble Canal</label>
+        <label><input type="checkbox" id="filtro-stock" onchange="resetPaginaYRender()"> Solo con Stock Disponible</label>
+      </div>
+    </details>
+  </aside>
+
+  <section class="zona-catalogo">
+    <div class="catalogo-topbar panel-dark">
+      <div id="resultados-info">Cargando unidades...</div>
+      <select id="ordenar-por" onchange="renderCatalogo()">
+        <option value="relevancia">Ordenar: Destacados</option>
+        <option value="anio-desc">Año: Más reciente (2026)</option>
+        <option value="precio-asc">Precio: Menor a Mayor</option>
+        <option value="precio-desc">Precio: Mayor a Menor</option>
+        <option value="hp-desc">Potencia: Mayor a Menor</option>
+      </select>
+    </div>
+
+    <div class="grid-productos" id="catalogo-grid"></div>
+    <div class="paginacion" id="paginacion-bar"></div>
+  </section>
+</main>
+
+<!-- VISTA DEDICADA DE DETALLE DE MOTOCICLETA -->
+<main id="vista-detalle-moto" class="container hidden">
+  <div id="detalle-moto-contenido"></div>
+</main>

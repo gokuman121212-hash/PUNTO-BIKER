@@ -1,0 +1,53 @@
+<!-- NAVBAR HORIZONTAL SUPERIOR CON TEXTURA FIBRA OSCURA -->
+<header class="sm-navbar">
+  <div class="sm-nav-inner">
+    <div class="sm-brand" onclick="cambiarVista('tienda')" title="Punto Biker">
+      <div class="sm-logo-box">
+        <svg width="24" height="26" viewBox="0 0 100 110" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 16 L49 10 L49 54 L28 58 L28 92 L12 84 Z M28 27 L28 43 L37 41 L37 25 Z" fill="#FFFFFF"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M53 10 L86 17 L86 46 L73 53 L88 61 L88 86 L50 104 L34 96 L34 64 L53 60 L53 84 L71 76 L71 63 L53 66 L53 51 L70 48 L70 31 L53 28 Z" fill="#F97316"/>
+        </svg>
+      </div>
+      <div class="sm-brand-text">
+        <strong id="welcome-user-title">PUNTO BIKER</strong>
+        <span>CONCESIONARIO OFICIAL</span>
+      </div>
+    </div>
+
+    <nav class="sm-nav-links">
+      <a href="#" id="nav-inicio" class="active" onclick="cambiarVista('tienda');return false;">INICIO</a>
+      <a href="#vista-tienda" id="nav-catalogo" onclick="irACatalogo();return false;">CATÁLOGO DE MOTOS</a>
+      <a href="#footer-sedes" onclick="irASedes();return false;">NUESTRA TIENDA</a>
+      <a href="#" onclick="filtrarPorCategoriaNav('Scooters');return false;">ACCESORIOS</a>
+      <a href="#" onclick="abrirLegal('terminos');return false;">FINANCIAMIENTO</a>
+      <a href="https://wa.me/51963213014?text=Hola%20PUNTO%20BIKER,%20consulto%20por%20Ventas%20Corporativas" target="_blank">VENTAS CORPORATIVAS</a>
+
+      <!-- ACCESOS DINÁMICOS PARA CLIENTE LOGUEADO Y ADMINISTRADOR -->
+      <a href="#" id="btn-mis-compras" class="hidden sm-nav-special" onclick="cambiarVista('compras');return false;">MIS BOLETAS</a>
+      <a href="#" id="btn-inventario" class="admin-only hidden sm-nav-admin" onclick="cambiarVista('inventario');return false;">INVENTARIO</a>
+      <a href="#" id="btn-ventas" class="admin-only hidden sm-nav-admin" onclick="cambiarVista('ventas');return false;">VENTAS</a>
+      <a href="#" id="btn-usuarios" class="admin-only hidden sm-nav-admin" onclick="cambiarVista('usuarios');return false;">USUARIOS</a>
+      <a href="#" id="btn-config-pagos" class="admin-only hidden sm-nav-admin" onclick="cambiarVista('config-pagos');return false;">QR/PAGOS</a>
+    </nav>
+
+    <div class="sm-nav-actions">
+      <div class="sm-search-mini">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="buscador" placeholder="Buscar modelo..." oninput="resetPaginaYRender()" />
+      </div>
+
+      <div class="currency-pill-switch" title="Cambiar moneda">
+        <button id="top-btn-usd" class="active" onclick="cambiarMoneda('USD')">USD</button>
+        <button id="top-btn-pen" onclick="cambiarMoneda('PEN')">PEN</button>
+      </div>
+
+      <button class="btn-dark-outline btn-movil-filtros" onclick="toggleFiltrosMovil()">☰</button>
+
+      <button class="btn-dark-outline sm-cart-btn" onclick="toggleCarrito()">
+        🛒 <span id="cart-count">0</span>
+      </button>
+
+      <div id="auth-zone" class="auth-zone"></div>
+    </div>
+  </div>
+</header>

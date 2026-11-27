@@ -1,0 +1,197 @@
+<!-- MODAL AUTENTICACIÓN + RECUPERAR CONTRASEÑA -->
+<div id="modal-auth" class="modal-overlay hidden" onclick="cerrarModal(event, 'modal-auth')">
+  <div class="modal-card panel-dark modal-sm">
+    <div class="modal-info">
+      <div class="flex-between" style="margin-bottom:12px;">
+        <h2 id="auth-titulo">ACCESO SEGURO SSL</h2>
+        <button onclick="document.getElementById('modal-auth').classList.add('hidden')" class="btn-close-x">✕</button>
+      </div>
+
+      <div class="auth-tabs" id="auth-tabs-bar">
+        <button id="tab-login" class="active" onclick="switchAuthTab('login')">INICIAR SESIÓN</button>
+        <button id="tab-register" onclick="switchAuthTab('register')">REGISTRARSE</button>
+      </div>
+
+      <form id="form-auth" onsubmit="procesarAuth(event)" class="tech-form">
+        <div id="campo-nombre-wrap" class="hidden">
+          <label>Nombre Completo</label>
+          <input type="text" id="auth-nombre" placeholder="Ej. Carlos Mendoza" />
+        </div>
+        <div>
+          <label>Correo Electrónico</label>
+          <input type="email" id="auth-email" required placeholder="correo@ejemplo.com" />
+        </div>
+        <div>
+          <label>Contraseña</label>
+          <input type="password" id="auth-pass" required placeholder="••••••••" />
+        </div>
+
+        <div id="login-extra-links" style="text-align:right;">
+          <a href="#" class="link-amber" onclick="mostrarRecuperarPass();return false;">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <div id="register-legal-check" class="hidden">
+          <label class="legal-checkbox-label">
+            <input type="checkbox" id="chk-acepto-terminos" />
+            <span>He leído y acepto los <a href="#" onclick="abrirLegal('terminos');return false;">Términos y Condiciones</a> y el <a href="#" onclick="abrirLegal('privacidad');return false;">Aviso de Privacidad</a>.</span>
+          </label>
+        </div>
+
+        <!-- ALERTA VISUAL INTEGRADA EN LA TARJETA (SIN ALERT NATIVO DEL NAVEGADOR) -->
+        <div id="auth-mensaje-error" class="hidden" style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.4);color:#fca5a5;padding:10px 12px;border-radius:8px;font-size:0.8rem;line-height:1.4;"></div>
+
+        <button type="submit" class="btn-amber" id="btn-auth-submit">INGRESAR</button>
+      </form>
+
+      <form id="form-recover" onsubmit="procesarRecuperarPass(event)" class="tech-form hidden">
+        <p class="sub-muted" style="font-size:0.8rem;">Ingresa tu correo registrado para restablecer tu contraseña de acceso de forma segura.</p>
+        <div>
+          <label>Correo Electrónico Registrado</label>
+          <input type="email" id="rec-email" required placeholder="tu-correo@ejemplo.com" />
+        </div>
+        <div>
+          <label>Nueva Contraseña</label>
+          <input type="password" id="rec-new-pass" required minlength="8" placeholder="Mínimo 8 caracteres, Mayús, Núm y Símbolo" />
+        </div>
+        <button type="submit" class="btn-amber">RESTABLECER CONTRASEÑA</button>
+        <button type="button" class="btn-dark-outline" onclick="switchAuthTab('login')">← Volver a Iniciar Sesión</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DOCUMENTOS LEGALES -->
+<div id="modal-legal" class="modal-overlay hidden" onclick="cerrarModal(event, 'modal-legal')">
+  <div class="modal-card panel-dark">
+    <div class="modal-info">
+      <div class="flex-between" style="border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:12px;">
+        <h2 id="legal-modal-titulo">AVISO DE PRIVACIDAD</h2>
+        <button onclick="document.getElementById('modal-legal').classList.add('hidden')" class="btn-close-x">✕</button>
+      </div>
+      <div id="legal-modal-texto" style="font-size:0.84rem;line-height:1.65;color:#d4d4d8;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL AGREGAR / EDITAR MOTO (ADMIN) -->
+<div id="modal-producto" class="modal-overlay hidden" onclick="cerrarModal(event, 'modal-producto')">
+  <div class="modal-card panel-dark modal-sm">
+    <div class="modal-info">
+      <div class="flex-between" style="margin-bottom:12px;">
+        <h2 id="prod-modal-titulo">NUEVA MOTOCICLETA</h2>
+        <button onclick="document.getElementById('modal-producto').classList.add('hidden')" class="btn-close-x">✕</button>
+      </div>
+      <form id="form-producto" onsubmit="guardarProductoAdmin(event)" class="tech-form">
+        <input type="hidden" id="prod-id" />
+        <div class="form-row-2">
+          <div><label>Marca</label><input type="text" id="prod-marca" required placeholder="Ducati, Yamaha..." /></div>
+          <div>
+            <label>Categoría</label>
+            <select id="prod-categoria">
+              <option value="Superdeportivas">Superdeportivas</option>
+              <option value="Deportivas">Deportivas</option>
+              <option value="Adventure">Adventure</option>
+              <option value="Doble Propósito">Doble Propósito</option>
+              <option value="Naked">Naked</option>
+              <option value="Scooters">Scooters</option>
+              <option value="Custom">Custom</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row-2">
+          <div><label>Modelo</label><input type="text" id="prod-modelo" required placeholder="Panigale V4 R" /></div>
+          <div><label>Año</label><input type="number" id="prod-anio" required min="2020" max="2027" value="2026" /></div>
+        </div>
+        <div class="form-row-3">
+          <div><label>CC</label><input type="number" id="prod-cc" required min="0" value="600" /></div>
+          <div><label>HP</label><input type="number" id="prod-hp" required min="1" value="95" /></div>
+          <div><label>Stock</label><input type="number" id="prod-stock" required min="0" value="5" /></div>
+        </div>
+        <div><label>Precio Base (USD)</label><input type="number" id="prod-precio" required min="100" value="12500" /></div>
+        <div><label>URL Fotografía (Opcional)</label><input type="url" id="prod-img" placeholder="https://..." /></div>
+        <button type="submit" class="btn-amber">GUARDAR EN CATÁLOGO</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PASARELA DE PAGOS -->
+<div id="modal-pasarela" class="modal-overlay hidden" onclick="cerrarModal(event, 'modal-pasarela')">
+  <div class="modal-card panel-dark modal-pasarela-box">
+    <div class="modal-info">
+      <div class="flex-between" style="border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:14px;">
+        <div>
+          <span class="marca-tag">CHECKOUT SEGURO</span>
+          <h2 style="margin-top:4px;">PASARELA DE PAGOS</h2>
+        </div>
+        <button onclick="document.getElementById('modal-pasarela').classList.add('hidden')" class="btn-close-x">✕</button>
+      </div>
+
+      <div class="pasarela-resumen">
+        <span>Total a pagar:</span>
+        <strong id="pasarela-monto-total">$0 USD</strong>
+      </div>
+
+      <div class="metodos-tabs">
+        <button type="button" class="active" onclick="seleccionarMetodoPago('tarjeta', this)">TARJETA</button>
+        <button type="button" onclick="seleccionarMetodoPago('yape', this)">QR YAPE / PLIN</button>
+        <button type="button" onclick="seleccionarMetodoPago('pagoefectivo', this)">PAGOEFECTIVO</button>
+        <button type="button" onclick="seleccionarMetodoPago('transferencia', this)">TRANSFERENCIA</button>
+      </div>
+
+      <div id="panel-pago-tarjeta" class="panel-metodo">
+        <div class="tech-form">
+          <div><label>Número de Tarjeta</label><input type="text" id="card-num" maxlength="19" placeholder="4557 •••• •••• 8842" /></div>
+          <div class="form-row-2">
+            <div><label>Vencimiento</label><input type="text" id="card-exp" maxlength="5" placeholder="09/29" /></div>
+            <div><label>CVV</label><input type="password" id="card-cvv" maxlength="4" placeholder="•••" /></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-pago-yape" class="panel-metodo hidden">
+        <div class="qr-box">
+          <div id="checkout-qr-slot" class="qr-slot-checkout"><span>ESPACIO QR</span></div>
+          <div>
+            <p><strong>Escanea con Yape o Plin</strong></p>
+            <p class="sub-muted">Titular: <strong id="chk-titular">--</strong></p>
+            <p class="sub-muted">Celular: <strong id="chk-telefono">--</strong></p>
+            <p class="sub-muted">Operación: <strong id="ref-yape">PB-9921</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-pago-pagoefectivo" class="panel-metodo hidden">
+        <div class="cip-box">
+          <span class="marca-tag" id="chk-cip-entidad">PAGOEFECTIVO CIP</span>
+          <div class="cip-code" id="codigo-cip-generado">914820553</div>
+          <p class="sub-muted">Válido en BCP, BBVA, Interbank, Scotiabank y agentes autorizados.</p>
+        </div>
+      </div>
+
+      <div id="panel-pago-transferencia" class="panel-metodo hidden">
+        <div class="cip-box">
+          <p><strong>Transferencia Interbancaria (CCI)</strong></p>
+          <p class="sub-muted" style="margin-top:6px;">Banco: <strong id="chk-banco">--</strong> | Cuenta: <strong id="chk-cuenta">--</strong></p>
+          <p class="sub-muted">CCI: <strong id="chk-cci">--</strong></p>
+          <p class="sub-muted">Titular: <strong id="chk-titular-banco">--</strong></p>
+        </div>
+      </div>
+
+      <button class="btn-amber" style="margin-top:16px;width:100%;" onclick="confirmarPagoFinal()">CONFIRMAR PAGO Y EMITIR BOLETA</button>
+    </div>
+  </div>
+</div>
+
+<!-- CARRITO -->
+<aside id="modal-carrito" class="carrito-drawer hidden">
+  <div class="carrito-header">
+    <h3>ORDEN DE COMPRA</h3>
+    <button onclick="toggleCarrito()">✕</button>
+  </div>
+  <div id="carrito-items" class="carrito-body"></div>
+  <div class="carrito-footer">
+    <div class="total-row"><span>TOTAL:</span><strong id="carrito-total">$0</strong></div>
+    <button class="btn-amber" style="width:100%;" onclick="iniciarCheckout()">IR A PASARELA DE PAGO</button>
+  </div>
+</aside>
